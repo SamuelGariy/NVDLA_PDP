@@ -1,0 +1,340 @@
+// =============================================================================
+// MIT License
+//
+// Copyright (c) 2022 Princeton University
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+// =============================================================================
+
+// File: csc_config.h
+
+#ifndef NVDLA_PDP_CONFIG_H__
+#define NVDLA_PDP_CONFIG_H__
+
+namespace ilang {
+
+inline std::string GetVarName(const std::string& var_name0, const std::string& var_name1) {
+ 
+  return var_name0 + var_name1;
+}
+
+/**********************************************************************/
+// ********************** CONFIG REGISTERS ***************************//
+/**********************************************************************/
+// 0xd000 - Idle status of two register groups
+#define NVDLA_PDP_S_STATUS_0 "s_status0" // read_only
+#define NVDLA_PDP_S_STATUS_1 "s_status1" // read_only
+#define NVDLA_PDP_S_STATUS_WIDTH 2
+
+// 0xd004 - Pointer for CSB master and data path to access groups
+#define NVDLA_PDP_S_PRODUCER "s_producer"
+#define NVDLA_PDP_S_PRODUCER_WIDTH 1
+#define NVDLA_PDP_S_CONSUMER "s_consumer"
+#define NVDLA_PDP_S_CONSUMER_WIDTH 1
+
+// 0xd008 - Set it to 1 to kick off operation for current register group
+#define NVDLA_PDP_D_OP_ENABLE "d_op_en_trigger"
+#define NVDLA_PDP_D_OP_ENABLE_WIDTH 1
+
+// 0xd00c Input data cube’s width
+#define NVDLA_PDP_D_DATA_CUBE_IN_WIDTH "d_data_cube_in_width"
+#define NVDLA_PDP_D_DATA_CUBE_IN_WIDTH_WIDTH 13
+
+// 0xd010 Input data cube’s height
+#define NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT "d_data_cube_in_height"
+#define NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT_WIDTH 13
+
+// 0xd014 Input data cube’s channel
+#define NVDLA_PDP_D_DATA_CUBE_IN_CHANNEL "d_data_cube_in_channel"
+#define NVDLA_PDP_D_DATA_CUBE_IN_CHANNEL_WIDTH 13
+
+// 0xd018 Output data cube’s width
+#define NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH "d_data_cube_out_width"
+#define NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH 13
+	
+// 0xd01c Output data cube’s height
+#define NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT "d_data_cube_out_height"
+#define NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT_WIDTH 13
+
+//0xd020 Output data cube’s channel
+#define NVDLA_PDP_D_DATA_CUBE_OUT_CHANNEL "d_data_cube_out_channel"
+#define NVDLA_PDP_D_DATA_CUBE_OUT_CHANNEL_WIDTH 13
+
+// 0xd024 Split number
+#define NVDLA_PDP_D_OPERATION_MODE_CFG "d_operation_mode_cfg"
+#define NVDLA_PDP_D_OPERATION_MODE_CFG_WIDTH 8
+
+// 0xd028 - Option to flush input NaN to zero
+#define NVDLA_PDP_D_NAN_FLUSH_TO_ZERO "d_nan_flush_to_zero"
+#define NVDLA_PDP_D_NAN_FLUSH_TO_ZERO_WIDTH 1
+
+// 0xd02c - Partial width for first, last and middle partitions of input cube
+#define NVDLA_PDP_D_PARTIAL_WIDTH_IN_FIRST "d_partial_width_in_first"
+#define NVDLA_PDP_D_PARTIAL_WIDTH_IN_FIRST_WIDTH 10
+#define NVDLA_PDP_D_PARTIAL_WIDTH_IN_MID "d_partial_width_in_mid"
+#define NVDLA_PDP_D_PARTIAL_WIDTH_IN_MID_WIDTH 10
+#define NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST "d_partial_width_in_last"
+#define NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST_WIDTH 10
+
+// 0xd030 - Partial width for first, last and middle partitions of output cube
+#define NVDLA_PDP_D_PARTIAL_WIDTH_IN_FIRST "d_partial_width_in_first"
+#define NVDLA_PDP_D_PARTIAL_WIDTH_IN_FIRST_WIDTH 10
+#define NVDLA_PDP_D_PARTIAL_WIDTH_IN_MID "d_partial_width_in_mid"
+#define NVDLA_PDP_D_PARTIAL_WIDTH_IN_MID_WIDTH 10
+#define NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST "d_partial_width_in_last"
+#define NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST_WIDTH 10
+
+// 0xd034 - Kernel width and kernel stride
+#define NVDLA_PDP_D_POOLING_KERNEL_CFG_HEIGHT "d_pooling_kernel_cfg_height"
+#define NVDLA_PDP_D_POOLING_KERNEL_CFG_HEIGHT_WIDTH 17
+#define NVDLA_PDP_D_POOLING_KERNEL_CFG_WIDTH "d_pooling_kernel_cfg_width"
+#define NVDLA_PDP_D_POOLING_KERNEL_CFG_WIDTH_WIDTH 17
+
+// 0xd038 - Reciprocal of pooling kernel width, set to actual value * (2^16) 
+// when INT8/INT16 format enabled. and set to actual value for fp16 precision
+// mode with fp17 data format.
+#define NVDLA_PDP_D_RECIP_KERNEL_WIDTH "d_recip_kernel_width"
+#define NVDLA_PDP_D_RECIP_KERNEL_WIDTH_WIDTH 17
+
+// 0xd03c - Reciprocal of pooling kernel height, set to actual value * (2^16)
+// when INT8/INT16 format enabled. and set to actual value for fp16 precision
+// mode with fp17 data format.
+#define NVDLA_PDP_D_RECIP_KERNEL_HEIGHT "d_recip_kernel_height"
+#define NVDLA_PDP_D_RECIP_KERNEL_HEIGHT_WIDTH 17
+
+// 0xd040 - Left/right/top/bottom padding size
+#define NVDLA_PDP_D_POOLING_PADDING_CFG_BOTTOM "d_pooling_padding_cfg_bottom"
+#define NVDLA_PDP_D_POOLING_PADDING_CFG_BOTTOM_WIDTH 3
+#define NVDLA_PDP_D_POOLING_PADDING_CFG_LEFT "d_pooling_padding_cfg_left"
+#define NVDLA_PDP_D_POOLING_PADDING_CFG_LEFT_WIDTH 3
+#define NVDLA_PDP_D_POOLING_PADDING_CFG_RIGHT "d_pooling_padding_cfg_right"
+#define NVDLA_PDP_D_POOLING_PADDING_CFG_RIGHT_WIDTH 3
+#define NVDLA_PDP_D_POOLING_PADDING_CFG_TOP "d_pooling_padding_cfg_top"
+#define NVDLA_PDP_D_POOLING_PADDING_CFG_TOP_WIDTH 3
+
+// 0xd044 - Padding_value*1
+#define NVDLA_PDP_D_POOLING_PADDING_VALUE_1_CFG "d_pooling_padding_value_1_cfg"
+#define NVDLA_PDP_D_POOLING_PADDING_VALUE_1_CFG_WIDTH 19
+
+// 0xd048 - Padding_value*2
+#define NVDLA_PDP_D_POOLING_PADDING_VALUE_2_CFG "d_pooling_padding_value_2_cfg"
+#define NVDLA_PDP_D_POOLING_PADDING_VALUE_2_CFG_WIDTH 19
+
+// 0xd04c - Padding_value*3
+#define NVDLA_PDP_D_POOLING_PADDING_VALUE_3_CFG "d_pooling_padding_value_3_cfg"
+#define NVDLA_PDP_D_POOLING_PADDING_VALUE_3_CFG_WIDTH 19
+
+// 0xd050 - Padding_value*4
+#define NVDLA_PDP_D_POOLING_PADDING_VALUE_4_CFG "d_pooling_padding_value_4_cfg"
+#define NVDLA_PDP_D_POOLING_PADDING_VALUE_4_CFG_WIDTH 19
+
+// 0xd054 - Padding_value*5
+#define NVDLA_PDP_D_POOLING_PADDING_VALUE_5_CFG "d_pooling_padding_value_5_cfg"
+#define NVDLA_PDP_D_POOLING_PADDING_VALUE_5_CFG_WIDTH 19
+
+// 0xd058 - Padding_value*6
+#define NVDLA_PDP_D_POOLING_PADDING_VALUE_6_CFG "d_pooling_padding_value_6_cfg"
+#define NVDLA_PDP_D_POOLING_PADDING_VALUE_6_CFG_WIDTH 19
+
+// 0xd05c - Padding_value*7
+#define NVDLA_PDP_D_POOLING_PADDING_VALUE_7_CFG "d_pooling_padding_value_7_cfg"
+#define NVDLA_PDP_D_POOLING_PADDING_VALUE_7_CFG_WIDTH 19
+
+// 0xd060 - Lower 32bits of input data address
+#define NVDLA_PDP_D_SRC_BASE_ADDR_LOW "d_src_base_addr_low"
+#define NVDLA_PDP_D_SRC_BASE_ADDR_LOW_WIDTH 27
+
+// 0xd064 - Higher 32bits of input data address when axi araddr is 64bits
+#define NVDLA_PDP_D_SRC_BASE_ADDR_HIGH "d_src_base_addr_high"
+#define NVDLA_PDP_D_SRC_BASE_ADDR_HIGH_WIDTH 32
+
+// 0xd068 - Line stride of input cube
+#define NVDLA_PDP_D_SRC_LINE_STRIDE "d_src_line_stride"
+#define NVDLA_PDP_D_SRC_LINE_STRIDE_WIDTH 27
+
+// 0xd06c - Surface stride of input cube
+#define NVDLA_PDP_D_SRC_SURFACE_STRIDE "d_src_surface_stride"
+#define NVDLA_PDP_D_SRC_SURFACE_STRIDE_WIDTH 27
+
+// 0xd070 - Lower 32bits of output data address
+#define NVDLA_PDP_D_DST_BASE_ADDR_LOW "d_dst_base_addr_low"
+#define NVDLA_PDP_D_DST_BASE_ADDR_LOW_WIDTH 27
+
+// 0xd074 - Higher 32bits of output data address when axi awaddr is 6
+#define NVDLA_PDP_D_DST_BASE_ADDR_HIGH "d_dst_base_addr_high"
+#define NVDLA_PDP_D_DST_BASE_ADDR_HIGH_WIDTH 27
+
+// 0xd078 - Line stride of output cube
+#define NVDLA_PDP_D_DST_LINE_STRIDE "d_dst_line_stride"
+#define NVDLA_PDP_D_DST_LINE_STRIDE_WIDTH 27
+
+// 0xd07c - Surface stride of output cube
+#define NVDLA_PDP_D_DST_SURFACE_STRIDE "d_dst_surface_stride"
+#define NVDLA_PDP_D_DST_SURFACE_STRIDE_WIDTH 27
+
+// 0xd080 - RAM type of destination cube
+#define NVDLA_PDP_D_DST_RAM_CFG "d_dst_ram_cfg"
+#define NVDLA_PDP_D_DST_RAM_CFG_WIDTH 1
+
+// 0xd084 - Precision of input data
+#define NVDLA_PDP_D_DATA_FORMAT "d_data_format"
+#define NVDLA_PDP_D_DATA_FORMAT_WIDTH 2
+
+// 0xd088 - Input infinity element number
+#define NVDLA_PDP_D_INF_INPUT_NUM "d_inf_input_num"
+#define NVDLA_PDP_D_INF_INPUT_NUM_WIDTH 32
+
+// 0xd08c - Input NaN element number
+#define NVDLA_PDP_D_NAN_INPUT_NUM "d_nan_input_num"
+#define NVDLA_PDP_D_NAN_INPUT_NUM_WIDTH 32
+
+// 0xd090 - Output NaN element number
+#define NVDLA_PDP_D_NAN_OUTPUT_NUM "d_nan_output_num"
+#define NVDLA_PDP_D_NAN_OUTPUT_NUM_WIDTH 32
+
+// 0xd094 - Enable/disable performance counting
+#define NVDLA_PDP_D_PERF_ENABLE 
+#define NVDLA_PDP_D_PERF_ENABLE_WIDTH 1
+
+// 0xd098 - Counting stalls of write requests
+#define NVDLA_PDP_D_PERF_WRITE_STALL
+#define NVDLA_PDP_D_PERF_WRITE_STALL_WIDTH 32
+
+
+
+
+
+
+
+
+
+// 6000
+#define NVDLA_CSC_S_STATUS_0 "s_status0" // read_only
+#define NVDLA_CSC_S_STATUS_1 "s_status1" // read_only
+#define NVDLA_CSC_S_STATUS_WIDTH 2
+
+// 6004
+#define NVDLA_CSC_S_PRODUCER "s_producer"
+#define NVDLA_CSC_S_PRODUCER_WIDTH 1
+#define NVDLA_CSC_S_CONSUMER "s_consumer"
+#define NVDLA_CSC_S_CONSUMER_WIDTH 1
+
+// 6008
+#define NVDLA_CSC_D_OP_ENABLE "d_op_en_trigger"
+#define NVDLA_CSC_D_OP_ENABLE_WIDTH 1
+
+// 600c
+#define NVDLA_CSC_D_MISC_CFG  "d_misc_cfg"
+#define NVDLA_CSC_D_MISC_CFG_WIDTH 32
+
+// 6010
+#define NVDLA_CSC_D_DATAIN_FORMAT "d_datain_format"
+#define NVDLA_CSC_D_DATAIN_FORMAT_WIDTH 1
+
+// 6014
+#define NVDLA_CSC_D_DATAIN_HEIGHT_EXT "d_datain_height_ext"
+#define NVDLA_CSC_D_DATAIN_WIDTH_EXT "d_datain_width_ext"
+// 6018
+#define NVDLA_CSC_D_DATAIN_CHANNEL_EXT "d_datain_channel_ext"
+#define NVDLA_CSC_D_DATAIN_SIZE_EXT_WIDTH 13
+
+// 601c
+#define NVDLA_CSC_D_BATCH_NUMBER "d_batches"
+#define NVDLA_CSC_D_BATCH_NUMBER_WIDTH 5
+
+// 6020
+#define NVDLA_CSC_D_POST_Y_EXTENSION "d_y_extension"
+#define NVDLA_CSC_D_POST_Y_EXTENSION_WIDTH 2
+
+// 6024
+#define NVDLA_CSC_D_ENTRY_PER_SLICE "d_entries"
+#define NVDLA_CSC_D_ENTRY_PER_SLICE_WIDTH 12
+
+// 6028
+#define NVDLA_CSC_D_WEIGHT_FORMAT "d_weight_format"
+#define NVDLA_CSC_D_WEIGHT_FORMAT_WIDTH 1
+
+// 602c
+#define NVDLA_CSC_D_WEIGHT_HEIGHT_EXT "weight_height_ext"
+#define NVDLA_CSC_D_WEIGHT_WIDTH_EXT "weight_width_ext"
+#define NVDLA_CSC_D_WEIGHT_SIZE_EXT_0_WIDTH 5
+// 6030
+#define NVDLA_CSC_D_WEIGHT_CHANNEL_EXT "weight_channel_ext"
+#define NVDLA_CSC_D_WEIGHT_SIZE_EXT_1_WIDTH 13
+
+// 6034
+#define NVDLA_CSC_D_WEIGHT_BYTES "d_weight_bytes"
+#define NVDLA_CSC_D_WEIGHT_BYTES_WIDTH 25
+
+// 6038
+#define NVDLA_CSC_D_WMB_BYTES "d_wmb_bytes"
+#define NVDLA_CSC_D_WMB_BYTES_WIDTH 21
+
+// 603c
+#define NVDLA_CSC_D_DATAOUT_WIDTH "d_dataout_width"
+#define NVDLA_CSC_D_DATAOUT_HEIGHT "d_dataout_height"
+// 6040
+#define NVDLA_CSC_D_DATAOUT_CHANNEL "d_dataout_channel"
+#define NVDLA_CSC_D_DATAOUT_SIZE_WIDTH 13
+
+// 6044
+#define NVDLA_CSC_D_ATOMICS "d_atomics"
+#define NVDLA_CSC_D_ATOMICS_WIDTH 21
+
+// 6048
+#define NVDLA_CSC_D_RELEASE "d_rls_sclies"
+#define NVDLA_CSC_D_RELEASE_WIDTH 12
+
+// 604c
+#define NVDLA_CSC_D_CONV_X_STRIDE_EXT "d_conv_x_stride_ext"
+#define NVDLA_CSC_D_CONV_Y_STRIDE_EXT "d_conv_y_stride_ext"
+#define NVDLA_CSC_D_CONV_STRIDE_EXT_WIDTH 3
+
+// 6050
+#define NVDLA_CSC_D_X_DILATION_EXT "d_x_dilation_ext"
+#define NVDLA_CSC_D_Y_DILATION_EXT "d_y_dilation_ext"
+#define NVDLA_CSC_D_DILATION_EXT_WIDTH 5
+
+// 6054
+#define NVDLA_CSC_D_ZERO_PADDING_LEFT "d_pad_left"
+#define NVDLA_CSC_D_ZERO_PADDING_TOP  "d_pad_top"
+#define NVDLA_CSC_D_ZERO_PADDING_WIDTH 5
+
+// 6058
+#define NVDLA_CSC_D_ZERO_PADDING_VALUE "d_pad_value"
+#define NVDLA_CSC_D_ZERO_PADDING_VALUE_WIDTH 16
+
+// 605c
+#define NVDLA_CSC_D_DATA_BANK   "d_data_bank"
+#define NVDLA_CSC_D_WEIGHT_BANK "d_weight_bank"
+#define NVDLA_CSC_D_BANK_WIDTH 4
+
+// 6060
+#define NVDLA_CSC_D_PRA_CFG "d_pra_truncate"
+#define NVDLA_CSC_D_PRA_CFG_WIDTH 2
+
+// states
+#define IDLE BvConst(0,2)
+#define PEND BvConst(1,2)
+#define BUSY BvConst(2,2)
+#define DONE BvConst(3,2)
+
+} // namespace ilang
+
+#endif // NVDLA_PDP_CONFIG_H__
