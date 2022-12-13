@@ -221,10 +221,10 @@ inline std::string GetVarName(const std::string& var_name0, const std::string& v
 #define NVDLA_PDP_D_PERF_WRITE_STALL_WIDTH 32
 
 // // states
-// #define IDLE BvConst(0,2)
-// #define PEND BvConst(1,2)
-// #define BUSY BvConst(2,2)
-// #define DONE BvConst(3,2)
+#define START BvConst(0,2)
+#define LOAD BvConst(1,2)
+#define MAXPOOL BvConst(2,2)
+#define STORE BvConst(3,2)
 
 } // namespace ilang
 
