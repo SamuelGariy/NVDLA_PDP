@@ -54,8 +54,8 @@ namespace ilang
 //      }
 
 
-        ExprPtr *inputarr[NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT][NVDLA_PDP_D_DATA_CUBE_IN_WIDTH];
-        ExprPtr  *outputarr[NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT][NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT];
+        ExprRef *inputarr[NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT][NVDLA_PDP_D_DATA_CUBE_IN_WIDTH];
+        ExprRef  *outputarr[NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT][NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT];
         auto counter = BvConst(0, 5);
         // auto input = m.input("pdp_input")
 
