@@ -53,8 +53,9 @@ namespace ilang
 //           }
 //      }
 
-        BvConst *inputarr[NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT][NVDLA_PDP_D_DATA_CUBE_IN_WIDTH];
-        BvConst *outputarr[NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT][NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT];
+
+        auto *inputarr[NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT][NVDLA_PDP_D_DATA_CUBE_IN_WIDTH];
+       auto  *outputarr[NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT][NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT];
         auto counter = BvConst(0, 5);
         // auto input = m.input("pdp_input")
 
@@ -106,7 +107,8 @@ namespace ilang
                 instr.SetUpdate(m.state(NVDLA_PDP_D_RECIP_KERNEL_HEIGHT), BvConst(2, NVDLA_PDP_D_RECIP_KERNEL_HEIGHT_WIDTH));
                     instr.SetUpdate(m.state(NVDLA_PDP_D_RECIP_KERNEL_WIDTH), BvConst(2, NVDLA_PDP_D_RECIP_KERNEL_WIDTH_WIDTH));
                 // set stride
-                instr.SetUpdate(pdp_stride, BvConst(2, 2));
+                //instr.SetUpdate(pdp_stride, BvConst(2, 2));
+                pdp_stride = BvConst(2,2);
 
                 // set output
                 instr.SetUpdate(m.state(NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT), BvConst(2, NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT_WIDTH));
