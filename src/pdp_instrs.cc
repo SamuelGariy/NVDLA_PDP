@@ -53,8 +53,8 @@ namespace ilang
 //           }
 //      }
 
-        BvConst* inputarr[NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT][NVDLA_PDP_D_DATA_CUBE_IN_WIDTH];
-        BvConst* outputarr[NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT][NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT];
+        BvConst *inputarr[NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT][NVDLA_PDP_D_DATA_CUBE_IN_WIDTH];
+        BvConst *outputarr[NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT][NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT];
         auto counter = BvConst(0, 5);
         // auto input = m.input("pdp_input")
 
@@ -80,7 +80,7 @@ namespace ilang
         { // PDP Set Start Group 0 (addr:008)
             auto instr = m.NewInstr("set_start_group0");
             instr.SetDecode(csb_addr == 0x008 & csb_valid & csb_write & producer == BvConst(0, 1) & group0_unset);
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_CMAC_A_D_OP_ENABLE)), Extract(m.input("csb_data"), 0, 0));
+            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_OP_ENABLE)), Extract(m.input("csb_data"), 0, 0));
             instr.SetUpdate(pdp_state, LOAD);
         }
 
@@ -99,24 +99,24 @@ namespace ilang
             instr.SetDecode(pdp_state == LOAD);
 
             // set input height and width
-            instr.SetUpdate(NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT, BvConst(4, NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT_WIDTH));
-                instr.SetUpdate(NVDLA_PDP_D_DATA_CUBE_IN_WIDTH, BvConst(4, NVDLA_PDP_D_DATA_CUBE_IN_WIDTH_WIDTH));
+            instr.SetUpdate(m.state(NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT), BvConst(4, NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT_WIDTH));
+                instr.SetUpdate(m.state(NVDLA_PDP_D_DATA_CUBE_IN_WIDTH), BvConst(4, NVDLA_PDP_D_DATA_CUBE_IN_WIDTH_WIDTH));
 
                 //  set kernel height and width
-                instr.SetUpdate(NVDLA_PDP_D_RECIP_KERNEL_HEIGHT, BvConst(2, NVDLA_PDP_D_RECIP_KERNEL_HEIGHT_WIDTH));
-                    instr.SetUpdate(NVDLA_PDP_D_RECIP_KERNEL_WIDTH, BvConst(2, NVDLA_PDP_D_RECIP_KERNEL_WIDTH_WIDTH));
+                instr.SetUpdate(m.state(NVDLA_PDP_D_RECIP_KERNEL_HEIGHT), BvConst(2, NVDLA_PDP_D_RECIP_KERNEL_HEIGHT_WIDTH));
+                    instr.SetUpdate(m.state(NVDLA_PDP_D_RECIP_KERNEL_WIDTH), BvConst(2, NVDLA_PDP_D_RECIP_KERNEL_WIDTH_WIDTH));
                 // set stride
                 instr.SetUpdate(pdp_stride, BvConst(2, 2));
 
                 // set output
-                instr.SetUpdate(NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT, BvConst(2, NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT_WIDTH));
-                    instr.SetUpdate(NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH, BvConst(2, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH));
+                instr.SetUpdate(m.state(NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT), BvConst(2, NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT_WIDTH));
+                    instr.SetUpdate(m.state(NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH), BvConst(2, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH));
 ;
                         for (auto i = 0; i < NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT; i++)
             {
                 for (auto j = 0; j < NVDLA_PDP_D_DATA_CUBE_IN_WIDTH; j++)
                 {
-                    auto input;
+                    auto input =  m.state("pdp_input_elem");
                     instr.SetUpdate(input, Extract(m.input("pdp_input" + (std::to_string(counter))), 31, 0));
                     inputarr[i][j] = &input;
                
@@ -143,7 +143,7 @@ namespace ilang
                     {
                         auto curr = *inputarr[output_j * 2 + kernel_i][output_i * 2 + kernel_j];
                         auto output = *outputarr[output_i][output_j];
-                         instr.SetUpdate(output, Ite(curr > output, curr, output));
+                         instr.SetUpdate(m.state(output), Ite(curr > output, curr, output));
                         outputarr[output_i][output_j] = &output;
                         // outputarr[output_i][output_j]
                     }
