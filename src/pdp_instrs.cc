@@ -45,7 +45,7 @@ namespace ilang
         auto producer = m.state(NVDLA_PDP_S_PRODUCER);
         auto consumer = m.state(NVDLA_PDP_S_CONSUMER);
         auto pdp_state = m.state("pdp_state");
-        auto stride = m.state("pdp_stride");
+        auto stride;
     
 //    for (int i = 0; i < 16; i++) {
 //           for (int i = 0; i < 16; i++) { // Primary inputs
@@ -116,8 +116,10 @@ namespace ilang
             {
                 for (auto j = 0; j < NVDLA_PDP_D_DATA_CUBE_IN_WIDTH; j++)
                 {
-                    auto input =  m.state("pdp_input_elem");
-                    instr.SetUpdate(input, Extract(m.input("pdp_input" + (std::to_string(counter))), 31, 0));
+                    //auto input =  m.state("pdp_input_elem");
+                    //instr.SetUpdate(input, Extract(m.input("pdp_input" + (std::to_string(counter))), 31, 0));
+                    
+                    auto input =  Extract(m.input("pdp_input" + (std::to_string(counter))), 31, 0);
                     inputarr[i][j] = &input;
                
                     //   instr.SetUpdate(m.state("pdp_input" + (std::to_string(counter))), );
@@ -143,7 +145,8 @@ namespace ilang
                     {
                         auto curr = *inputarr[output_j * 2 + kernel_i][output_i * 2 + kernel_j];
                         auto output = *outputarr[output_i][output_j];
-                         instr.SetUpdate(m.state(output), Ite(curr > output, curr, output));
+                        output = Ite(curr > output, curr, output);
+                        // instr.SetUpdate(m.state(output), Ite(curr > output, curr, output));
                         outputarr[output_i][output_j] = &output;
                         // outputarr[output_i][output_j]
                     }
