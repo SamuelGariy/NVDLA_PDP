@@ -125,7 +125,7 @@ namespace ilang
                     inputarr[i][j] = &input;
                
                     //   instr.SetUpdate(m.state("pdp_input" + (std::to_string(counter))), );
-                    counter = counter + BvConst(1, 5);
+                    counter++;
                 }
             }
         }
