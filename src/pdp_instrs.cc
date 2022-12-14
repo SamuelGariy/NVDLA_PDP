@@ -53,9 +53,10 @@ namespace ilang
 //           }
 //      }
 
-
-        ExprRef *inputarr[NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT][NVDLA_PDP_D_DATA_CUBE_IN_WIDTH];
-        ExprRef  *outputarr[NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT][NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT];
+        int inputHeight_Width = 4;
+        int outputHeight_Width = 2;
+        ExprRef *inputarr[inputHeight_Width][inputHeight_Width];
+        ExprRef  *outputarr[outputHeight_Width][outputHeight_Width];
         auto counter = BvConst(0, 5);
         // auto input = m.input("pdp_input")
 
@@ -114,8 +115,8 @@ namespace ilang
                 instr.SetUpdate(m.state(NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT), BvConst(2, NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT_WIDTH));
                     instr.SetUpdate(m.state(NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH), BvConst(2, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH));
 
-                        for (auto i = 0; i < NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT; i++) {
-                for (auto j = 0; j < NVDLA_PDP_D_DATA_CUBE_IN_WIDTH; j++)
+                        for (int i = 0; i < inputHeight_Width; i++) {
+                for (int j = 0; j < inputHeight_Width; j++)
                 {
                     //auto input =  m.state("pdp_input_elem");
                     //instr.SetUpdate(input, Extract(m.input("pdp_input" + (std::to_string(counter))), 31, 0));
@@ -136,13 +137,13 @@ namespace ilang
         auto instr = m.NewInstr("max_pool");
         instr.SetDecode(pdp_state == MAXPOOL);
 
-        for (auto output_i = 0; output_i < NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT; output_i++)
+        for (int output_i = 0; output_i < outputHeight_Width; output_i++)
         {
-            for (auto output_j = 0; output_j < NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH; output_j++)
+            for (int output_j = 0; output_j < outputHeight_Width; output_j++)
             {
-                for (auto kernel_i = 0; kernel_i < 2; kernel_i++)
+                for (int kernel_i = 0; kernel_i < 2; kernel_i++)
                 {
-                    for (auto kernel_j = 0; kernel_j < 2; kernel_j++)
+                    for (int kernel_j = 0; kernel_j < 2; kernel_j++)
                     {
                         auto curr = *inputarr[output_j * 2 + kernel_i][output_i * 2 + kernel_j];
                         auto output = *outputarr[output_i][output_j];
@@ -167,7 +168,7 @@ namespace ilang
 
         auto counter = 0 for (auto i = 0; i < NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT; i++)
         {
-            for (auto j = 0; j < NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH; j++)
+            for (auto j = 0; j < outputHeight_Width; j++)
             {
                 auto curr = *outputarr[i][j];
                 //BvConst(outputarr[i][j], 32)
