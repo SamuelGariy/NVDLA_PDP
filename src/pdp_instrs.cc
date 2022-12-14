@@ -45,7 +45,7 @@ namespace ilang
         auto producer = m.state(NVDLA_PDP_S_PRODUCER);
         auto consumer = m.state(NVDLA_PDP_S_CONSUMER);
         auto pdp_state = m.state("pdp_state");
-        auto stride;
+        auto pdp_stride = BvConst(2,2);
     
 //    for (int i = 0; i < 16; i++) {
 //           for (int i = 0; i < 16; i++) { // Primary inputs
@@ -54,8 +54,8 @@ namespace ilang
 //      }
 
 
-        auto *inputarr[NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT][NVDLA_PDP_D_DATA_CUBE_IN_WIDTH];
-       auto  *outputarr[NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT][NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT];
+        ExprPtr *inputarr[NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT][NVDLA_PDP_D_DATA_CUBE_IN_WIDTH];
+        ExprPtr  *outputarr[NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT][NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT];
         auto counter = BvConst(0, 5);
         // auto input = m.input("pdp_input")
 
@@ -108,14 +108,13 @@ namespace ilang
                     instr.SetUpdate(m.state(NVDLA_PDP_D_RECIP_KERNEL_WIDTH), BvConst(2, NVDLA_PDP_D_RECIP_KERNEL_WIDTH_WIDTH));
                 // set stride
                 //instr.SetUpdate(pdp_stride, BvConst(2, 2));
-                pdp_stride = BvConst(2,2);
+                //pdp_stride = BvConst(2,2);
 
                 // set output
                 instr.SetUpdate(m.state(NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT), BvConst(2, NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT_WIDTH));
                     instr.SetUpdate(m.state(NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH), BvConst(2, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH));
-;
-                        for (auto i = 0; i < NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT; i++)
-            {
+
+                        for (auto i = 0; i < NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT; i++) {
                 for (auto j = 0; j < NVDLA_PDP_D_DATA_CUBE_IN_WIDTH; j++)
                 {
                     //auto input =  m.state("pdp_input_elem");
