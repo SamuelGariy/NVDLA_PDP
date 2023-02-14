@@ -33,11 +33,12 @@ namespace ilang {
 // Define PDP outputs
 void DefinePDPOutput(Ila& m) {
 
-    // Datapath
-    for (int i = 0; i < 4; i++) {
-        m.NewBvState(GetVarName("pdp_output_", (std::to_string(i))), 32);
-    }
-}
+    // // Datapath
+    // for (int i = 0; i < 4; i++) {
+    //     m.NewBvState(GetVarName("pdp_output_", (std::to_string(i))), 32);
+    // }
+     m.NewMemState("pdp_output", 4, 32); // 2^4 - 16 output
+     }
 
 
 } // namespace ilang

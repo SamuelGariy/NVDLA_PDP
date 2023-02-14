@@ -28,30 +28,35 @@
 
 #include <pdp_config.h>
 
-namespace ilang {
+namespace ilang
+{
 
-void DefinePDPInput(Ila& m) {
-    // CSB MMIO
-    // Total should be 63 bits, omit 8 bits for now
-    m.NewBvInput("csb_addr", 22); // need to offset for 2 bit
-    m.NewBvInput("csb_data", 32);
-    m.NewBvInput("csb_write", 1);
-    // m.NewBvInput("csb_other", 8);
-    m.NewBvInput("csb_vld", 1);
+    void DefinePDPInput(Ila &m)
+    {
+        // CSB MMIO
+        // Total should be 63 bits, omit 8 bits for now
+        m.NewBvInput("csb_addr", 22); // need to offset for 2 bit
+        m.NewBvInput("csb_data", 32);
+        m.NewBvInput("csb_write", 1);
+        // m.NewBvInput("csb_other", 8);
+        m.NewBvInput("csb_vld", 1);
 
-    //input
-     for (int i = 0; i < 16; i++) {
-        // Primary inputs
-        m.NewBvInput(GetVarName("pdp_input", (std::to_string(i))), 32);
-     }
+        // input
+        for (auto i = 0; i < 4; i++)
+        {
+            // Primary inputs
+            for (auto j = 0; h < 4; i++)
+            {
+                m.NewBvInput(GetVarName("pdp_input", (std::to_string(i)) + "_" + (std::to_string(j))), 32);
+            }
+        }
 
-    // Control Signals
-    // m.NewBvInput("pending_clr", 1);
-    // m.NewBvInput("sg2dl_vld", 1);
-    // m.NewBvInput("sg2wt_vld", 1);
-    // m.NewBvInput("fifo_clr", 1);
-    // m.NewBvInput("done", 1);
-}
-
+        // Control Signals
+        // m.NewBvInput("pending_clr", 1);
+        // m.NewBvInput("sg2dl_vld", 1);
+        // m.NewBvInput("sg2wt_vld", 1);
+        // m.NewBvInput("fifo_clr", 1);
+        // m.NewBvInput("done", 1);
+    }
 
 } // namespace ilang

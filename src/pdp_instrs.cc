@@ -46,8 +46,8 @@ namespace ilang
         auto consumer = m.state(NVDLA_PDP_S_CONSUMER);
         auto pdp_state = m.state("pdp_state");
         auto stride = m.state("pdp_stride");
-        auto inputarr[NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT][NVDLA_PDP_D_DATA_CUBE_IN_WIDTH];
-        auto outputarr[NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT][NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT] auto counter = BvConst(0, 5);
+       // auto inputarr[NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT][NVDLA_PDP_D_DATA_CUBE_IN_WIDTH];
+        //auto outputarr[NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT][NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT] auto counter = BvConst(0, 5);
         // auto input = m.input("pdp_input")
 
         // Initialize both the PRODUCER and CONSUMER states to be 0
@@ -83,10 +83,9 @@ namespace ilang
             instr.SetUpdate(pdp_state, LOAD);
         }
 
-
-//PDP operations
-        // Load input data
-        { 
+        // PDP operations
+        //  Load input data
+        {
             auto instr = m.NewInstr("load_input");
             instr.SetDecode(pdp_state == LOAD);
 
@@ -105,15 +104,15 @@ namespace ilang
                 instr.SetUpdate(NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT, BvConst(2, NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT_WIDTH))
                     instr.SetUpdate(NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH, BvConst(2, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH))
 
-                        for (auto i = 0; i < NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT; i++)
-            {
-                for (auto j = 0; j < NVDLA_PDP_D_DATA_CUBE_IN_WIDTH; j++)
-                {
-                    instr.SetUpdate(inputarr[i][j], Extract(m.input("pdp_input" + (std::to_string(counter))), 31, 0));
-                    //   instr.SetUpdate(m.state("pdp_input" + (std::to_string(counter))), );
-                    counter = counter + BvConst(1, 5)
-                }
-            }
+            //             for (auto i = 0; i < NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT; i++)
+            // {
+            //     // for (auto j = 0; j < NVDLA_PDP_D_DATA_CUBE_IN_WIDTH; j++)
+            //     // {
+            //     //     instr.SetUpdate(inputarr[i][j], Extract(m.input("pdp_input" + (std::to_string(counter))), 31, 0));
+            //     //     //   instr.SetUpdate(m.state("pdp_input" + (std::to_string(counter))), );
+            //     //     counter = counter + BvConst(1, 5)
+            //     // }
+            // }
         }
 
         instr.SetUpdate(pdp_state, MAXPOOL);
@@ -123,6 +122,7 @@ namespace ilang
         auto instr = m.NewInstr("max_pool");
         instr.SetDecode(pdp_state == MAXPOOL);
 
+        auto mem_ptr = MemConst(0, {}, 4, 32).get();
         for (auto output_i = 0; output_i < NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT; output_i++)
         {
             for (auto output_j = 0; output_j < NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH; output_j++)
@@ -131,8 +131,18 @@ namespace ilang
                 {
                     for (auto kernel_j = 0; kernel_j < 2; kernel_j++)
                     {
-                        auto curr = inputarr[output_j * 2 + kernel_i][output_i * 2 + kernel_j] instr.SetUpdate(outputarr[output_i][output_j], Ite(curr > outputarr[output_i][output_j], curr, outputarr[output_i][output_j]));
+                        // load from memory and read
+                        auto i = output_j * 2 + kernel_i;
+                        auto j = output_i * 2 + kernel_j;
+                        auto curr = m.input("pdp_input", (std::to_string(i)) + "_" + (std::to_string(j)));
+                        auto mem_addr = i + j;
+                        auto max = Load(ExprRef(mem_ptr), BvConst(mem_addr, 4));
+
+                        instr.SetUpdate(max, Ite(curr > max, curr, max));
                         // outputarr[output_i][output_j]
+
+                        auto new_mem = ExprRef(mem_ptr).Store(BvConst(mem_addr, 4), max);
+                        mem_ptr = new_mem.get();
                     }
                 }
 
@@ -148,16 +158,16 @@ namespace ilang
         auto instr = m.NewInstr("store");
         instr.SetDecode(pdp_state == STORE);
 
-        auto counter = 0 for (auto i = 0; i < NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT; i++)
-        {
-            for (auto j = 0; j < NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH; j++)
-            {
-                auto curr = BvConst(outputarr[i][j], 32)
-                                instr.SetUpdate(m.state("pdp_output" + (std::to_string(counter))), curr);
-                counter = counter + BvConst(1, 5)
-            }
-        }
-    }
+    //     auto counter = 0 for (auto i = 0; i < NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT; i++)
+    //     {
+    //         for (auto j = 0; j < NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH; j++)
+    //         {
+    //             auto curr = BvConst(outputarr[i][j], 32)
+    //                             instr.SetUpdate(m.state("pdp_output" + (std::to_string(counter))), curr);
+    //             counter = counter + BvConst(1, 5)
+    //         }
+    //     }
+    // }
     instr.SetUpdate(pdp_state, START);
 
 } // namespace ilang
