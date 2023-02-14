@@ -167,6 +167,10 @@ namespace ilang
             // d098 done
             m.NewBvState("group" + (std::to_string(i)) + "_" + NVDLA_PDP_D_PERF_WRITE_STALL, NVDLA_PDP_D_PERF_WRITE_STALL_WIDTH);
         }
+
+
+        //states
+         m.NewBvState("pdp_state", 2);
     }
 
 } // namespace ilang
