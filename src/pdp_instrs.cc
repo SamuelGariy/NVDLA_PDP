@@ -120,7 +120,7 @@ namespace ilang
         { // PDP Set Start Group 0 (addr:008)
             auto instr = m.NewInstr("max_pool");
             instr.SetDecode(pdp_state == MAXPOOL);
-
+            auto outputHeight_Width = 2;
             auto mem_ptr = MemConst(0, {}, 4, 32).get();
             for (auto output_i = 0; output_i < outputHeight_Width; output_i++)
             {
