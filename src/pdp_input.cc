@@ -45,7 +45,7 @@ namespace ilang
         for (auto i = 0; i < 4; i++)
         {
             // Primary inputs
-            for (auto j = 0; h < 4; i++)
+            for (auto j = 0; j < 4; i++)
             {
                 m.NewBvInput(GetVarName("pdp_input", (std::to_string(i)) + "_" + (std::to_string(j))), 32);
             }
