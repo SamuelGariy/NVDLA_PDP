@@ -169,5 +169,6 @@ namespace ilang
     //     }
     // }
     instr.SetUpdate(pdp_state, START);
+    }
 
 } // namespace ilang
