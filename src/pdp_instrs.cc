@@ -122,7 +122,7 @@ namespace ilang
             instr.SetDecode(pdp_state == MAXPOOL);
 
             auto mem_ptr = MemConst(0, {}, 4, 32).get();
-            for (auto output_i = 0; output_i < NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT; output_i++)
+            for (auto output_i = 0; output_i < outputHeight_Width; output_i++)
             {
                 for (int output_j = 0; output_j < outputHeight_Width; output_j++)
                 {
