@@ -133,7 +133,7 @@ namespace ilang
                             // load from memory and read
                             auto i = output_j * 2 + kernel_i;
                             auto j = output_i * 2 + kernel_j;
-                            auto curr = m.input("pdp_input", (std::to_string(i)) + "_" + (std::to_string(j)));
+                            auto curr = m.input("pdp_input" + (std::to_string(i)) + "_" + (std::to_string(j)));
                             auto mem_addr = i + j;
                             auto max = Load(ExprRef(mem_ptr), BvConst(mem_addr, 4));
 
