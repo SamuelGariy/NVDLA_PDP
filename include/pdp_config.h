@@ -226,6 +226,10 @@ inline std::string GetVarName(const std::string& var_name0, const std::string& v
 #define MAXPOOL BvConst(2,2)
 #define STORE BvConst(3,2)
 
+//Inputsizes
+#define PDP_INPUT_HEIGHT 8
+#define PDP_INPUT_WIDTH 8
+
 } // namespace ilang
 
 #endif // NVDLA_PDP_CONFIG_H__

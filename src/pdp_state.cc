@@ -171,6 +171,13 @@ namespace ilang
 
         //states
          m.NewBvState("pdp_state", 2);
+         // for pooling calculations
+         m.NewBvState("stride",NVDLA_PDP_D_SRC_LINE_STRIDE_WIDTH );
+         m.NewBvState("kernel_height", NVDLA_PDP_D_RECIP_KERNEL_HEIGHT_WIDTH);
+         m.NewBvState("kernel_width", NVDLA_PDP_D_RECIP_KERNEL_WIDTH_WIDTH);
+         m.NewBvState("output_height", NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT_WIDTH);
+ 
+ 
     }
 
 } // namespace ilang
