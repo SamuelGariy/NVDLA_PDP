@@ -33,27 +33,42 @@ namespace ilang
 
     void DefinePDPInput(Ila &m)
     {
-        // CSB MMIO
-        // Total should be 63 bits, omit 8 bits for now
-        m.NewBvInput("csb2pdp_addr", 22); // need to offset for 2 bit
+        // From CSB
+        m.NewBvInput("csb2pdp_addr", 22);
         m.NewBvInput("csb2pdp_data", 32);
         m.NewBvInput("csb2pdp_write", 1);
-        // m.NewBvInput("csb_other", 8);
         m.NewBvInput("csb2pdp_vld", 1);
-        
+
         // input for pooling
-       // m.NewBvInput(NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT,NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT_WIDTH);
-       // m.NewBvInput(NVDLA_PDP_D_DATA_CUBE_IN_WIDTH,NVDLA_PDP_D_DATA_CUBE_IN_WIDTH_WIDTH );
-         m.NewBvInput("pdp_kernel_height", NVDLA_PDP_D_RECIP_KERNEL_HEIGHT_WIDTH); 
-         m.NewBvInput("pdp_kernel_width", NVDLA_PDP_D_RECIP_KERNEL_HEIGHT_WIDTH); 
-         m.NewBvInput("pdp_stride",NVDLA_PDP_D_SRC_LINE_STRIDE_WIDTH);
+        // m.NewBvInput(NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT,NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT_WIDTH);
+        // m.NewBvInput(NVDLA_PDP_D_DATA_CUBE_IN_WIDTH,NVDLA_PDP_D_DATA_CUBE_IN_WIDTH_WIDTH );
+
+        m.NewBvInput("pdp_input_done", 1); // is it last pdp input
+
+        // Kernel width and kernel stride
+
+        m.NewBvInput(NVDLA_PDP_D_POOLING_KERNEL_CFG_HEIGHT, NVDLA_PDP_D_POOLING_KERNEL_CFG_HEIGHT_WIDTH);
+        m.NewBvInput(NVDLA_PDP_D_POOLING_KERNEL_CFG_STRIDE_HEIGHT, NVDLA_PDP_D_POOLING_KERNEL_CFG_STRIDE_HEIGHT_WIDTH);
+        m.NewBvInput(NVDLA_PDP_D_POOLING_KERNEL_CFG_WIDTH, NVDLA_PDP_D_POOLING_KERNEL_CFG_WIDTH_WIDTH);
+        m.NewBvInput(NVDLA_PDP_D_POOLING_KERNEL_CFG_STRIDE_WIDTH, NVDLA_PDP_D_POOLING_KERNEL_CFG_STRIDE_WIDTH_WIDTH);
+
+        // Padding Sizes
+        m.NewBvInput(NVDLA_PDP_D_POOLING_PADDING_CFG_BOTTOM, NVDLA_PDP_D_POOLING_PADDING_CFG_BOTTOM_WIDTH;
+        m.NewBvInput(NVDLA_PDP_D_POOLING_PADDING_CFG_LEFT, NVDLA_PDP_D_POOLING_PADDING_CFG_LEFT_WIDTH);
+        m.NewBvInput(NVDLA_PDP_D_POOLING_PADDING_CFG_RIGHT, NVDLA_PDP_D_POOLING_PADDING_CFG_RIGHT_WIDTH);
+        m.NewBvInput(NVDLA_PDP_D_POOLING_PADDING_CFG_TOP, NVDLA_PDP_D_POOLING_PADDING_CFG_TOP_WIDTH );
+
+        //Padding value
+        m.NewBvInput("pdp_padding_value", PDP_INT_16_WIDTH );
+
+        m.NewBvInput("pdp_operation", 2); // max/min/avg pooling
 
         for (auto i = 0; i < PDP_INPUT_HEIGHT; i++)
         {
             // Primary inputs
             for (auto j = 0; h < PDP_INPUT_WIDTH; i++)
             {
-                m.NewBvInput(GetVarName("pdp_input", (std::to_string(i)) + "_" + (std::to_string(j))), 32);
+                m.NewBvInput(GetVarName("pdp_input", (std::to_string(i)) + "_" + (std::to_string(j))), PDP_INT_16_WIDTH);
             }
         }
 

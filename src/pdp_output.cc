@@ -22,7 +22,7 @@
 // SOFTWARE.
 // =============================================================================
 
-// File: sdp_output.cc
+// File: pdp_output.cc
 
 #include <ilang/ilang++.h>
 
@@ -37,7 +37,7 @@ void DefinePDPOutput(Ila& m) {
     // for (int i = 0; i < 4; i++) {
     //     m.NewBvState(GetVarName("pdp_output_", (std::to_string(i))), 32);
     // }
-     m.NewMemState("pdp_output", 4, 32); // 2^4 - 16 output
+     m.NewMemState("pdp_output", PDP_OUTPUT_ADDR_WIDTH, PDP_INT_16_WIDTH); // 2^4 - 16 output
      }
 
 
