@@ -118,6 +118,9 @@ namespace ilang
             // set padding value
             instr.SetUpdate(m.state("pdp_padding_value"), m.input("pdp_padding_value"));
 
+            // set input date precision
+            instr.SetUpdate(m.state(NVDLA_PDP_D_DATA_FORMAT), m.input(NVDLA_PDP_D_DATA_FORMAT));
+
             // set output
             auto output_height = (PDP_INPUT_HEIGHT - m.state(NVDLA_PDP_D_POOLING_KERNEL_CFG_HEIGHT) + m.state(NVDLA_PDP_D_POOLING_PADDING_CFG_BOTTOM) + m.state(NVDLA_PDP_D_POOLING_PADDING_CFG_TOP));
             output_height = (output_height / m.state(NVDLA_PDP_D_POOLING_KERNEL_CFG_STRIDE_HEIGHT)) + 1;
@@ -145,27 +148,51 @@ namespace ilang
             // Max pooling option
             auto instr = m.NewInstr("max_pool");
             instr.SetDecode(pdp_state == MAXPOOL);
-            auto outputHeight_Width = m.state(NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT);
-            auto kernel_height = m.state("kernel height");
-            auto kernel_width = m.state("kernel_width");
-            auto stride = m.state("stride");
+
+            auto output_height = m.state(NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT);
+            auto output_width = m.state(NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH);
+            auto kernel_height = m.state(NVDLA_PDP_D_POOLING_KERNEL_CFG_HEIGHT);
+            auto kernel_width = m.state(NVDLA_PDP_D_POOLING_KERNEL_CFG_WIDTH);
+            auto stride_height = m.state(NVDLA_PDP_D_POOLING_KERNEL_CFG_STRIDE_HEIGHT);
+            auto stride_width = m.state(NVDLA_PDP_D_POOLING_KERNEL_CFG_STRIDE_WIDTH);
+            auto pdp_padding_value = m.state("pdp_padding_value");
+
+            auto data_format = m.state(NVDLA_PDP_D_DATA_FORMAT);
 
             auto mem_ptr = MemConst(0, {}, OUTPUT_ADDR_WIDTH, OUTPUT_BIT_WIDTH).get();
-            for (auto output_i = 0; output_i < outputHeight_Width; output_i++)
+            for (auto output_i = 0; output_i < output_height; output_i++)
             {
-                for (auto output_j = 0; output_j < outputHeight_Width; output_j++)
+                for (auto output_j = 0; output_j < output_width; output_j++)
                 {
-                    auto mem_addr = output_i * outputHeight_Width + output_j;
-                    auto max = Load(ExprRef(mem_ptr), BvConst(mem_addr, 4));
+                    auto mem_addr = output_i * output_width + output_j;
+                    auto max = Load(ExprRef(mem_ptr), BvConst(mem_addr, PDP_OUTPUT_ADDR_WIDTH));
                     for (auto kernel_i = 0; kernel_i < kernel_height; kernel_i++)
                     {
                         for (auto kernel_j = 0; kernel_j < kernel_width; kernel_j++)
                         {
                             // load from memory and read
                             // assumes they don't stride out of input (kernel and stride fit perfectly)
-                            auto i = output_j * stride + kernel_i;
-                            auto j = output_i * stride + kernel_j;
-                            auto curr = m.input("pdp_input" + (std::to_string(i)) + "_" + (std::to_string(j)));
+
+                            auto i = output_i * stride_height + kernel_i;
+                            auto actual_i = i;
+                            auto curr = BvConst(SHRT_MIN, PDP_INT_16_WIDTH);
+                            auto skip_input = BoolConst(false);
+
+                            // update if there is vertical padding
+                            actual_i = Ite(padding_top > 0, Ite(i < padding_top, 0, Ite((i - padding_top) < input_height, i - padding_top, Ite(padding_bottom > 0, input_height - 1, i))), i);
+                            skip_input = Ite(padding_top > 0, Ite(i < padding_top, true, Ite(padding_bottom > 0, true, false)), false);
+                            curr = Ite(skip_input, pdp_padding_value, curr);
+
+                            auto j = output_j * stride_width + kernel_j;
+                            auto actual_j = j;
+
+                            // update if there is horizontal padding
+                            actual_j = Ite(padding_left > 0, Ite(i < padding_left, 0, Ite((i - padding_left) < input_height, i - padding_left, Ite(padding_bottom > 0, input_height - 1, i))), i);
+                            skip_input = Ite(padding_left > 0, Ite(i < padding_left, true, Ite(padding_right > 0, true, skip_input)), skip_input);
+
+                            auto input_curr = int8_to_int_16(m.input("pdp_input" + (std::to_string(i)) + "_" + (std::to_string(j))), data_format);
+                            curr = Ite(skip_input, pdp_padding_value, input_curr);
+
                             // auto mem_addr = output_j + output_i;
                             // auto max = Load(ExprRef(mem_ptr), BvConst(mem_addr, 4));
 
@@ -177,7 +204,7 @@ namespace ilang
                         }
                     }
 
-                    auto new_mem = ExprRef(mem_ptr).Store(BvConst(mem_addr, 4), max);
+                    auto new_mem = ExprRef(mem_ptr).Store(BvConst(mem_addr, PDP_OUTPUT_ADDR_WIDTH), max);
                     mem_ptr = new_mem.get();
                     // instr.SetUpdate(inputarr[i][j],Extract(m.input("pdp_input"+ (std::to_string(counter))), 31, 0 ));
                     // instr.SetUpdate(m.state("pdp_input"+ (std::to_string(counter))), );
@@ -191,41 +218,64 @@ namespace ilang
             // Min pooling option
             auto instr = m.NewInstr("min_pool");
             instr.SetDecode(pdp_state == MINPOOL);
-            auto outputHeight_Width = m.state("output_height");
-            auto kernel_height = m.state("kernel height");
-            auto kernel_width = m.state("kernel_width");
-            auto stride = m.state("stride");
+
+            auto output_height = m.state(NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT);
+            auto output_width = m.state(NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH);
+            auto kernel_height = m.state(NVDLA_PDP_D_POOLING_KERNEL_CFG_HEIGHT);
+            auto kernel_width = m.state(NVDLA_PDP_D_POOLING_KERNEL_CFG_WIDTH);
+            auto stride_height = m.state(NVDLA_PDP_D_POOLING_KERNEL_CFG_STRIDE_HEIGHT);
+            auto stride_width = m.state(NVDLA_PDP_D_POOLING_KERNEL_CFG_STRIDE_WIDTH);
+            auto pdp_padding_value = m.state("pdp_padding_value");
+
+            auto data_format = m.state(NVDLA_PDP_D_DATA_FORMAT);
 
             auto mem_ptr = MemConst(0, {}, OUTPUT_ADDR_WIDTH, OUTPUT_BIT_WIDTH).get();
-            for (auto output_i = 0; output_i < outputHeight_Width; output_i++)
+            for (auto output_i = 0; output_i < output_height; output_i++)
             {
-                for (int output_j = 0; output_j < outputHeight_Width; output_j++)
+                for (auto output_j = 0; output_j < output_width; output_j++)
                 {
-                    auto mem_addr = output_i * outputHeight_Width + output_j;
-                    auto min = Load(ExprRef(mem_ptr), BvConst(mem_addr, 4));
-                    for (int kernel_i = 0; kernel_i < kernel_height; kernel_i++)
+                    auto mem_addr = output_i * output_width + output_j;
+                    auto min = Load(ExprRef(mem_ptr), BvConst(mem_addr, PDP_OUTPUT_ADDR_WIDTH));
+                    for (auto kernel_i = 0; kernel_i < kernel_height; kernel_i++)
                     {
-                        for (int kernel_j = 0; kernel_j < kernel_width; kernel_j++)
+                        for (auto kernel_j = 0; kernel_j < kernel_width; kernel_j++)
                         {
                             // load from memory and read
                             // assumes they don't stride out of input (kernel and stride fit perfectly)
-                            auto i = output_i * stride + kernel_i;
-                            auto j = output_j * stride + kernel_j;
 
-                            auto curr = m.input("pdp_input" + (std::to_string(i)) + "_" + (std::to_string(j)));
-                            // auto mem_addr = output_i + output_j;
-                            // auto max = Load(ExprRef(mem_ptr), BvConst(mem_addr, 4));
+                            auto i = output_i * stride_height + kernel_i;
+                            auto actual_i = i;
+                            auto curr = BvConst(SHRT_MIN, PDP_INT_16_WIDTH);
+                            auto skip_input = BoolConst(false);
+
+                            // update if there is vertical padding
+                            actual_i = Ite(padding_top > 0, Ite(i < padding_top, 0, Ite((i - padding_top) < input_height, i - padding_top, Ite(padding_bottom > 0, input_height - 1, i))), i);
+                            skip_input = Ite(padding_top > 0, Ite(i < padding_top, true, Ite(padding_bottom > 0, true, false)), false);
+                            curr = Ite(skip_input, pdp_padding_value, curr);
+
+                            auto j = output_j * stride_width + kernel_j;
+                            auto actual_j = j;
+
+                            // update if there is horizontal padding
+                            actual_j = Ite(padding_left > 0, Ite(i < padding_left, 0, Ite((i - padding_left) < input_height, i - padding_left, Ite(padding_bottom > 0, input_height - 1, i))), i);
+                            skip_input = Ite(padding_left > 0, Ite(i < padding_left, true, Ite(padding_right > 0, true, skip_input)), skip_input);
+
+                            auto input_curr = int8_to_int_16(m.input("pdp_input" + (std::to_string(i)) + "_" + (std::to_string(j))), data_format);
+                            curr = Ite(skip_input, pdp_padding_value, input_curr);
+
+                            // auto mem_addr = output_j + output_i;
+                            // auto min = Load(ExprRef(mem_ptr), BvConst(mem_addr, 4));
 
                             instr.SetUpdate(min, Ite(curr < min, curr, min));
                             // outputarr[output_i][output_j]
 
-                            auto new_mem = ExprRef(mem_ptr).Store(BvConst(mem_addr, 4), max);
-                            mem_ptr = new_mem.get();
+                            // auto new_mem = ExprRef(mem_ptr).Store(BvConst(mem_addr, 4), min);
+                            // mem_ptr = new_mem.get();
                         }
                     }
-                    auto new_mem = ExprRef(mem_ptr).Store(BvConst(mem_addr, 4), min);
-                    mem_ptr = new_mem.get();
 
+                    auto new_mem = ExprRef(mem_ptr).Store(BvConst(mem_addr, PDP_OUTPUT_ADDR_WIDTH), min);
+                    mem_ptr = new_mem.get();
                     // instr.SetUpdate(inputarr[i][j],Extract(m.input("pdp_input"+ (std::to_string(counter))), 31, 0 ));
                     // instr.SetUpdate(m.state("pdp_input"+ (std::to_string(counter))), );
                     // counter = counter + BvConst(1,5)
@@ -238,40 +288,62 @@ namespace ilang
             // average pooling option
             auto instr = m.NewInstr("avg_pool");
             instr.SetDecode(pdp_state == AVGPOOL);
-            auto outputHeight_Width = m.state("output_height");
-            auto kernel_height = m.state("kernel height");
-            auto kernel_width = m.state("kernel_width");
-            auto stride = m.state("stride");
-            auto kernel_elements = kernel_width * kernel_height;
+
+            auto output_height = m.state(NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT);
+            auto output_width = m.state(NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH);
+            auto kernel_height = m.state(NVDLA_PDP_D_POOLING_KERNEL_CFG_HEIGHT);
+            auto kernel_width = m.state(NVDLA_PDP_D_POOLING_KERNEL_CFG_WIDTH);
+            auto stride_height = m.state(NVDLA_PDP_D_POOLING_KERNEL_CFG_STRIDE_HEIGHT);
+            auto stride_width = m.state(NVDLA_PDP_D_POOLING_KERNEL_CFG_STRIDE_WIDTH);
+            auto pdp_padding_value = m.state("pdp_padding_value");
+
+            auto data_format = m.state(NVDLA_PDP_D_DATA_FORMAT);
 
             auto mem_ptr = MemConst(0, {}, OUTPUT_ADDR_WIDTH, OUTPUT_BIT_WIDTH).get();
-            for (auto output_i = 0; output_i < outputHeight_Width; output_i++)
+            for (auto output_i = 0; output_i < output_height; output_i++)
             {
-                for (int output_j = 0; output_j < outputHeight_Width; output_j++)
+                for (auto output_j = 0; output_j < output_width; output_j++)
                 {
-                    auto sum = 0;
-                    auto mem_addr = output_i * outputHeight_Width + output_j;
-                    auto avg = Load(ExprRef(mem_ptr), BvConst(mem_addr, 4));
-                    for (int kernel_i = 0; kernel_i < kernel_height; kernel_i++)
+                    auto sum = BvConst(0, PDP_INT_16_WIDTH);
+                    auto mem_addr = output_i * output_width + output_j;
+                    auto avg = Load(ExprRef(mem_ptr), BvConst(mem_addr, PDP_OUTPUT_ADDR_WIDTH));
+                    for (auto kernel_i = 0; kernel_i < kernel_height; kernel_i++)
                     {
-
-                        for (int kernel_j = 0; kernel_j < kernel_width; kernel_j++)
+                        for (auto kernel_j = 0; kernel_j < kernel_width; kernel_j++)
                         {
                             // load from memory and read
                             // assumes they don't stride out of input (kernel and stride fit perfectly)
-                            auto i = output_j * stride + kernel_i;
-                            auto j = output_i * stride + kernel_j;
-                            auto curr = m.input("pdp_input" + (std::to_string(i)) + "_" + (std::to_string(j)));
-                            //  auto mem_addr = i + j;
-                            //  auto avg = Load(ExprRef(mem_ptr), BvConst(mem_addr, 4));
-                            //   auto sum =
+
+                            auto i = output_i * stride_height + kernel_i;
+                            auto actual_i = i;
+                            auto curr = BvConst(SHRT_MIN, PDP_INT_16_WIDTH);
+                            auto skip_input = BoolConst(false);
+
+                            // update if there is vertical padding
+                            actual_i = Ite(padding_top > 0, Ite(i < padding_top, 0, Ite((i - padding_top) < input_height, i - padding_top, Ite(padding_bottom > 0, input_height - 1, i))), i);
+                            skip_input = Ite(padding_top > 0, Ite(i < padding_top, true, Ite(padding_bottom > 0, true, false)), false);
+                            curr = Ite(skip_input, pdp_padding_value, curr);
+
+                            auto j = output_j * stride_width + kernel_j;
+                            auto actual_j = j;
+
+                            // update if there is horizontal padding
+                            actual_j = Ite(padding_left > 0, Ite(i < padding_left, 0, Ite((i - padding_left) < input_height, i - padding_left, Ite(padding_bottom > 0, input_height - 1, i))), i);
+                            skip_input = Ite(padding_left > 0, Ite(i < padding_left, true, Ite(padding_right > 0, true, skip_input)), skip_input);
+
+                            auto input_curr = int8_to_int_16(m.input("pdp_input" + (std::to_string(i)) + "_" + (std::to_string(j))), data_format);
+                            curr = Ite(skip_input, pdp_padding_value, input_curr);
+
+                            // auto mem_addr = output_j + output_i;
+                            // auto min = Load(ExprRef(mem_ptr), BvConst(mem_addr, 4));
+
                             sum = sum + curr;
                         }
                     }
                     avg = sum / kernel_elements;
                     // outputarr[output_i][output_j]
 
-                    auto new_mem = ExprRef(mem_ptr).Store(BvConst(mem_addr, 4), avg);
+                    auto new_mem = ExprRef(mem_ptr).Store(BvConst(mem_addr, PDP_OUTPUT_ADDR_WIDTH), avg);
                     mem_ptr = new_mem.get();
 
                     // instr.SetUpdate(inputarr[i][j],Extract(m.input("pdp_input"+ (std::to_string(counter))), 31, 0 ));

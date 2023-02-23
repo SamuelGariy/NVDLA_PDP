@@ -63,6 +63,9 @@ namespace ilang
         //Padding value
         m.NewBvState("pdp_padding_value", PDP_INT_16_WIDTH );
 
+        // Input precision
+        m.NewBvState(NVDLA_PDP_D_DATA_FORMAT,NVDLA_PDP_D_DATA_FORMAT_WIDTH);
+
         //Output dimensions
         m.NewBvState(NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT, NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT_WIDTH);
         m.NewBvState(NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH);

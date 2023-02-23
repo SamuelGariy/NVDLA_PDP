@@ -28,6 +28,7 @@
 #define NVDLA_PDP_H__
 
 #include <string>
+#include <limits.h>
 #include <ilang/ilang++.h>
 #include <pdp_config.h>
 

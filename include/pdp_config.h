@@ -27,6 +27,8 @@
 #ifndef NVDLA_PDP_CONFIG_H__
 #define NVDLA_PDP_CONFIG_H__
 
+#include <limits.h>
+
 namespace ilang {
 
 inline std::string GetVarName(const std::string& var_name0, const std::string& var_name1) {
