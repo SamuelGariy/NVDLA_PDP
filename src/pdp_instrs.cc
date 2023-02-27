@@ -70,7 +70,7 @@ namespace ilang
         auto pdp_group0_unset = m.state(GetVarName("group0_", NVDLA_PDP_D_OP_ENABLE)) == BvConst(0, 1);
         auto pdp_producer = m.state(NVDLA_PDP_S_PRODUCER);
         auto pdp_consumer = m.state(NVDLA_PDP_S_CONSUMER);
-        auto pdp_state = m.state("pdp_state")
+        auto pdp_state = m.state("pdp_state");
 
         // sdp - pdp involved variables
         // TODO : Fill with other valid states inputs
