@@ -435,7 +435,7 @@ namespace ilang
            // auto output_k = output_channel - output_channel;
       
         //  while(output_k < output_channel)
-             for (auto output_k = output_channel - output_channel; output_channel - output_k != BvConst(0,output_channel.bit_width());)
+             for (auto output_k = output_channel - output_channel; (output_channel - output_k) != BvConst(0,output_channel.bit_width());)
             {
                 for (auto output_i = 0; output_i < output_height; output_i++)
                 {
