@@ -31,17 +31,17 @@
 namespace ilang
 {
     // sign extends 8 bits to 16 bits
-    ExprRef int8_to_int16(ExprRef bv16, ExprRef data_type)
-    {
-        auto bv7_unsigned = bv16 & BvConst(0x7F, PDP_INT_16_WIDTH);
+    // ExprRef int8_to_int16(ExprRef bv16, ExprRef data_type)
+    // {
+    //     auto bv7_unsigned = bv16 & BvConst(0x7F, PDP_INT_16_WIDTH);
 
-        // update weight based on datatype
-        auto bv = Ite(data_type == INT16, bv16,
-                      Ite(data_type == INT8, Ite(SelectBit(bv16, 7) == 0, bv7_unsigned, bv7_unsigned | BvConst(0xFF80, PDP_INT_16_WIDTH)),
-                          BvConst(0, PDP_INT_16_WIDTH)));
+    //     // update weight based on datatype
+    //     auto bv = Ite(data_type == INT16, bv16,
+    //                   Ite(data_type == INT8, Ite(SelectBit(bv16, 7) == 0, bv7_unsigned, bv7_unsigned | BvConst(0xFF80, PDP_INT_16_WIDTH)),
+    //                       BvConst(0, PDP_INT_16_WIDTH)));
 
-        return bv;
-    }
+    //     return bv;
+    // }
 
     // Define PDP instructions relevant to configuration registers
     void DefinePDPInstrs(Ila &m)
@@ -464,7 +464,9 @@ namespace ilang
                                 actual_j = Ite(padding_left > 0, Ite(i < padding_left, 0, Ite((i - padding_left) < input_height, i - padding_left, Ite(padding_bottom > 0, input_height - 1, i))), i);
                                 skip_input = Ite(padding_left > 0, Ite(i < padding_left, true, Ite(padding_right > 0, true, skip_input)), skip_input);
 
-                                auto input_curr = int8_to_int_16(GetVarName("pdp_input_chan_", (std::to_string(k)) + "_" + (std::to_string(i)) + "_" + (std::to_string(j))), data_format);
+                                //auto input_curr = int8_to_int_16(m.inputGetVarName("pdp_input_chan_", (std::to_string(k)) + "_" + (std::to_string(i)) + "_" + (std::to_string(j))), data_format);
+                                auto input_curr = SExt(m.input(GetVarName("pdp_input_chan_", (std::to_string(k)) + "_" + (std::to_string(i)) + "_" + (std::to_string(j)))),16);
+
                                 curr = Ite(skip_input, pdp_padding_value, input_curr);
 
                                 // auto mem_addr = output_j + output_i;
