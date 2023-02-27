@@ -47,7 +47,7 @@ namespace ilang
         // // ********************* INPUT DATA FROM SDP or PDMA*************************//
         // /***************************************************************************/
 
-        for (auto i = 0; i < PDP_INPUT_CHANNEL_MAX, i++)
+        for (auto i = 0; i < PDP_INPUT_CHANNEL_MAX; i++)
         {
             for (auto j = 0; j < PDP_INPUT_HEIGHT_MAX; j++)
             {
