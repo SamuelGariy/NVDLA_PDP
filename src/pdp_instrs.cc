@@ -562,100 +562,100 @@ namespace ilang
             }
         }
 
+        {
+            // average pooling option
+            auto instr = m.NewInstr("avg_pool");
+            instr.SetDecode(pdp_state == AVGPOOL);
+
+            auto output_channel = m.state(NVDLA_PDP_D_DATA_CUBE_OUT_CHANNEL);
+            auto output_height = m.state(NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT);
+            auto output_width = m.state(NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH);
+            auto kernel_height = m.state(NVDLA_PDP_D_KERNEL_HEIGHT);
+            auto kernel_width = m.state(NVDLA_PDP_D_KERNEL_WIDTH);
+            auto stride_height = m.state(NVDLA_PDP_D_KERNEL_STRIDE_HEIGHT);
+            auto stride_width = m.state(NVDLA_PDP_D_KERNEL_STRIDE_WIDTH);
+            auto pdp_padding_value = m.state("pdp_padding_value");
+
+            auto output_width_first = m.state(NVDLA_PDP_D_PARTIAL_WIDTH_OUT_FIRST);
+            auto output_width_mid = m.state(NVDLA_PDP_D_PARTIAL_WIDTH_OUT_MID);
+            auto output_width_last = m.state(NVDLA_PDP_D_PARTIAL_WIDTH_OUT_LAST);
+
+            auto data_format = m.state(NVDLA_PDP_D_DATA_FORMAT);
+
+            auto mem_ptr = MemConst(0, {}, PDP_OUTPUT_ADDR_WIDTH, PDP_INT_16_WIDTH).get();
+            for (auto output_k = 0; output_k < output_channel; output_k++)
             {
-                // average pooling option
-                auto instr = m.NewInstr("avg_pool");
-                instr.SetDecode(pdp_state == AVGPOOL);
-
-                auto output_channel = m.state(NVDLA_PDP_D_DATA_CUBE_OUT_CHANNEL);
-                auto output_height = m.state(NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT);
-                auto output_width = m.state(NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH);
-                auto kernel_height = m.state(NVDLA_PDP_D_KERNEL_HEIGHT);
-                auto kernel_width = m.state(NVDLA_PDP_D_KERNEL_WIDTH);
-                auto stride_height = m.state(NVDLA_PDP_D_KERNEL_STRIDE_HEIGHT);
-                auto stride_width = m.state(NVDLA_PDP_D_KERNEL_STRIDE_WIDTH);
-                auto pdp_padding_value = m.state("pdp_padding_value");
-
-                auto output_width_first = m.state(NVDLA_PDP_D_PARTIAL_WIDTH_OUT_FIRST);
-                auto output_width_mid = m.state(NVDLA_PDP_D_PARTIAL_WIDTH_OUT_MID);
-                auto output_width_last = m.state(NVDLA_PDP_D_PARTIAL_WIDTH_OUT_LAST);
-
-                auto data_format = m.state(NVDLA_PDP_D_DATA_FORMAT);
-
-                auto mem_ptr = MemConst(0, {}, PDP_OUTPUT_ADDR_WIDTH, PDP_INT_16_WIDTH).get();
-                for (auto output_k = 0; output_k < output_channel; output_k++)
+                for (auto output_i = 0; output_i < output_height; output_i++)
                 {
-                    for (auto output_i = 0; output_i < output_height; output_i++)
+                    for (auto output_j = 0; output_j < output_width; output_j++)
                     {
-                        for (auto output_j = 0; output_j < output_width; output_j++)
+                        auto sum = BvConst(0, PDP_INT_16_WIDTH);
+                        auto mem_addr = output_i * output_width + output_j;
+                        auto avg = Load(ExprRef(mem_ptr), BvConst(mem_addr, PDP_OUTPUT_ADDR_WIDTH));
+                        for (auto kernel_i = 0; kernel_i < kernel_height; kernel_i++)
                         {
-                            auto sum = BvConst(0, PDP_INT_16_WIDTH);
-                            auto mem_addr = output_i * output_width + output_j;
-                            auto avg = Load(ExprRef(mem_ptr), BvConst(mem_addr, PDP_OUTPUT_ADDR_WIDTH));
-                            for (auto kernel_i = 0; kernel_i < kernel_height; kernel_i++)
+                            for (auto kernel_j = 0; kernel_j < kernel_width; kernel_j++)
                             {
-                                for (auto kernel_j = 0; kernel_j < kernel_width; kernel_j++)
-                                {
-                                    // load from memory and read
-                                    // assumes they don't stride out of input (kernel and stride fit perfectly)
+                                // load from memory and read
+                                // assumes they don't stride out of input (kernel and stride fit perfectly)
 
-                                    auto i = output_i * stride_height + kernel_i;
-                                    auto actual_i = i;
-                                    auto curr = BvConst(SHRT_MIN, PDP_INT_16_WIDTH);
-                                    auto skip_input = BoolConst(false);
+                                auto i = output_i * stride_height + kernel_i;
+                                auto actual_i = i;
+                                auto curr = BvConst(SHRT_MIN, PDP_INT_16_WIDTH);
+                                auto skip_input = BoolConst(false);
 
-                                    // update if there is vertical padding
-                                    actual_i = Ite(padding_top > 0, Ite(i < padding_top, 0, Ite((i - padding_top) < input_height, i - padding_top, Ite(padding_bottom > 0, input_height - 1, i))), i);
-                                    skip_input = Ite(padding_top > 0, Ite(i < padding_top, true, Ite(padding_bottom > 0, true, false)), false);
-                                    curr = Ite(skip_input, pdp_padding_value, curr);
+                                // update if there is vertical padding
+                                actual_i = Ite(padding_top > 0, Ite(i < padding_top, 0, Ite((i - padding_top) < input_height, i - padding_top, Ite(padding_bottom > 0, input_height - 1, i))), i);
+                                skip_input = Ite(padding_top > 0, Ite(i < padding_top, true, Ite(padding_bottom > 0, true, false)), false);
+                                curr = Ite(skip_input, pdp_padding_value, curr);
 
-                                    auto j = output_j * stride_width + kernel_j;
-                                    auto actual_j = j;
+                                auto j = output_j * stride_width + kernel_j;
+                                auto actual_j = j;
 
-                                    // update if there is horizontal padding
-                                    actual_j = Ite(padding_left > 0, Ite(i < padding_left, 0, Ite((i - padding_left) < input_height, i - padding_left, Ite(padding_bottom > 0, input_height - 1, i))), i);
-                                    skip_input = Ite(padding_left > 0, Ite(i < padding_left, true, Ite(padding_right > 0, true, skip_input)), skip_input);
+                                // update if there is horizontal padding
+                                actual_j = Ite(padding_left > 0, Ite(i < padding_left, 0, Ite((i - padding_left) < input_height, i - padding_left, Ite(padding_bottom > 0, input_height - 1, i))), i);
+                                skip_input = Ite(padding_left > 0, Ite(i < padding_left, true, Ite(padding_right > 0, true, skip_input)), skip_input);
 
-                                    auto input_curr = int8_to_int_16(GetVarName("pdp_input_chan_", (std::to_string(k)) + "_" + (std::to_string(i)) + "_" + (std::to_string(j))), data_format);
-                                    curr = Ite(skip_input, pdp_padding_value, input_curr);
+                                auto input_curr = int8_to_int_16(GetVarName("pdp_input_chan_", (std::to_string(k)) + "_" + (std::to_string(i)) + "_" + (std::to_string(j))), data_format);
+                                curr = Ite(skip_input, pdp_padding_value, input_curr);
 
-                                    // auto mem_addr = output_j + output_i;
-                                    // auto min = Load(ExprRef(mem_ptr), BvConst(mem_addr, 4));
+                                // auto mem_addr = output_j + output_i;
+                                // auto min = Load(ExprRef(mem_ptr), BvConst(mem_addr, 4));
 
-                                    sum = sum + curr;
-                                }
+                                sum = sum + curr;
                             }
-                            avg = sum / kernel_elements;
-                            // outputarr[output_i][output_j]
-
-                            auto new_mem = ExprRef(mem_ptr).Store(BvConst(mem_addr, PDP_OUTPUT_ADDR_WIDTH), avg);
-                            mem_ptr = new_mem.get();
-
-                            // instr.SetUpdate(inputarr[i][j],Extract(m.input("pdp_input"+ (std::to_string(counter))), 31, 0 ));
-                            // instr.SetUpdate(m.state("pdp_input"+ (std::to_string(counter))), );
-                            // counter = counter + BvConst(1,5)
                         }
+                        avg = sum / kernel_elements;
+                        // outputarr[output_i][output_j]
+
+                        auto new_mem = ExprRef(mem_ptr).Store(BvConst(mem_addr, PDP_OUTPUT_ADDR_WIDTH), avg);
+                        mem_ptr = new_mem.get();
+
+                        // instr.SetUpdate(inputarr[i][j],Extract(m.input("pdp_input"+ (std::to_string(counter))), 31, 0 ));
+                        // instr.SetUpdate(m.state("pdp_input"+ (std::to_string(counter))), );
+                        // counter = counter + BvConst(1,5)
                     }
-                    instr.SetUpdate(pdp_state, Ite(m.input("pdp_input_done"), START, LOAD));
                 }
+                instr.SetUpdate(pdp_state, Ite(m.input("pdp_input_done"), START, LOAD));
             }
+        }
 
-                // { // PDP Set Start Group 0 (addr:008)
-                //     auto instr = m.NewInstr("store");
-                //     instr.SetDecode(pdp_state == STORE);
+        // { // PDP Set Start Group 0 (addr:008)
+        //     auto instr = m.NewInstr("store");
+        //     instr.SetDecode(pdp_state == STORE);
 
-                //     //     auto counter = 0 for (auto i = 0; i < NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT; i++)
-                //     //     {
-                //     //         for (auto j = 0; j < NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH; j++)
-                //     //         {
-                //     //             auto curr = BvConst(outputarr[i][j], 32)
-                //     //                             instr.SetUpdate(m.state("pdp_output" + (std::to_string(counter))), curr);
-                //     //             counter = counter + BvConst(1, 5)
-                //     //         }
-                //     //     }
-                //     // }
-                //     instr.SetUpdate(pdp_state, START);
-                // }
-    }    
+        //     //     auto counter = 0 for (auto i = 0; i < NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT; i++)
+        //     //     {
+        //     //         for (auto j = 0; j < NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH; j++)
+        //     //         {
+        //     //             auto curr = BvConst(outputarr[i][j], 32)
+        //     //                             instr.SetUpdate(m.state("pdp_output" + (std::to_string(counter))), curr);
+        //     //             counter = counter + BvConst(1, 5)
+        //     //         }
+        //     //     }
+        //     // }
+        //     instr.SetUpdate(pdp_state, START);
+        // }
+    }
 
-        } // namespace ilang
+} // namespace ilang
