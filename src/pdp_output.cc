@@ -28,17 +28,24 @@
 
 #include <pdp_config.h>
 
-namespace ilang {
+namespace ilang
+{
 
-// Define PDP outputs
-void DefinePDPOutput(Ila& m) {
+    // Define PDP outputs
+    void DefinePDPOutput(Ila &m)
+    {
 
-    // // Datapath
-    // for (int i = 0; i < 4; i++) {
-    //     m.NewBvState(GetVarName("pdp_output_", (std::to_string(i))), 32);
-    // }
-     m.NewMemState("pdp_output", PDP_OUTPUT_ADDR_WIDTH, PDP_INT_16_WIDTH); // 2^4 - 16 output
-     }
+        // /****************************************************************************/
+        // // ********************** TO CSB ******************************************//
+        // /***************************************************************************/
 
+        m.NewBvState("pdp2csb_rdy", 1);
+        m.NewBvState("pdp2csb_data_vld", 1);
+
+        for (auto i = 0; i < PDP_OUTPUT_CHANNEL_MAX; i++)
+        {
+            m.NewMemState(GetVarName("pdp_output_chan_", (std::to_string(i))),PDP_OUTPUT_ADDR_WIDTH, PDP_INT_16_WIDTH); // 2^4 - 16 output
+        }
+    }
 
 } // namespace ilang
