@@ -414,7 +414,7 @@ namespace ilang
             instr.SetUpdate(m.state("pdp_state"), MAXPOOL);
             pdp_state = MAXPOOL;
 
-            auto output_channel = m.state(NVDLA_PDP_D_DATA_CUBE_OUT_CHANNEL);
+            auto output_channel = m.state(NVDLA_PDP_D_DATA_CUBE_OUT_CHANNEL).get();
             auto output_height = m.state(NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT);
             auto output_width = m.state(NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH);
             auto kernel_height = m.state(NVDLA_PDP_D_KERNEL_HEIGHT);
@@ -430,11 +430,11 @@ namespace ilang
             auto data_format = m.state(NVDLA_PDP_D_DATA_FORMAT);
 
             auto mem_ptr = MemConst(0, {}, PDP_OUTPUT_ADDR_WIDTH, PDP_INT_16_WIDTH).get();
-            for (auto output_k = BvConst(0, output_channel.bit_width()); output_k < output_channel; output_k++)
+            for (auto output_k = 0; output_k < output_channel; output_k++)
             {
-                for (auto output_i =  BvConst(0, output_channel.bit_width()); output_i < output_height; output_i++)
+                for (auto output_i = 0; output_i < output_height; output_i++)
                 {
-                    for (auto output_j =  BvConst(0, output_channel.bit_width()); output_j < output_width; output_j++)
+                    for (auto output_j = 0 ; output_j < output_width; output_j++)
                     {
                         auto mem_addr = output_i * output_width + output_j;
                         auto max = Load(ExprRef(mem_ptr), BvConst(mem_addr, PDP_OUTPUT_ADDR_WIDTH));
