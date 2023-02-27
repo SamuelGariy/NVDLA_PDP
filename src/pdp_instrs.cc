@@ -80,14 +80,14 @@ namespace ilang
         // /***************************************************************************/
 
         { // PDP set producer - addr = 0x004
-            auto instr = m.NewInstr("Set_Producer");
+            auto instr = m.NewInstr("set_producer");
             instr.SetDecode(pdp_csb_addr == 0x004 & pdp_csb_valid & pdp_csb_write);
 
             instr.SetUpdate(pdp_producer, Extract(m.input("csb2pdp_data"), NVDLA_PDP_S_PRODUCER_WIDTH - 1, 0));
         }
 
         { // PDP set start group 0 - addr = 0x008
-            auto instr = m.NewInstr("pdp_set_start_group0");
+            auto instr = m.NewInstr("set_start_group0");
             instr.SetDecode(pdp_csb_addr == 0x008 & pdp_csb_valid & pdp_csb_write & pdp_producer == BvConst(0, 1) & pdp_group0_unset);
 
             instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_OP_ENABLE)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_OP_ENABLE_WIDTH - 1, 0));
@@ -136,7 +136,7 @@ namespace ilang
             instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_CUBE_OUT_CHANNEL)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_DATA_CUBE_OUT_CHANNEL_WIDTH - 1, 0));
         }
 
-        { // PDP set split number and pooling method - addr = 0x024
+        { // PDP set split number and pooling method and operation mode - addr = 0x024
             auto instr = m.NewInstr("set_split_number");
             instr.SetDecode(pdp_csb_addr == 0x024 & pdp_csb_valid & pdp_csb_write);
 
@@ -274,7 +274,7 @@ namespace ilang
             instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_SRC_LINE_STRIDE)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_SRC_LINE_STRIDE_END_BIT, NVDLA_PDP_D_SRC_LINE_STRIDE_START_BIT));
         }
 
-        { // PDP set surface stride of input cubes - addr = 0x06c
+        { // PDP set surface stride of input cube - addr = 0x06c
             auto instr = m.NewInstr("set_source_surface_stride");
             instr.SetDecode(pdp_csb_addr == 0x06c & pdp_csb_valid & pdp_csb_write);
 
@@ -302,7 +302,7 @@ namespace ilang
             instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_DST_LINE_STRIDE)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_DST_LINE_STRIDE_END_BIT, NVDLA_PDP_D_DST_LINE_STRIDE_START_BIT));
         }
 
-        { // PDP set surface stride of output cubes - addr = 0x07c
+        { // PDP set surface stride of output cube - addr = 0x07c
             auto instr = m.NewInstr("set_destination_surface_stride");
             instr.SetDecode(pdp_csb_addr == 0x07c & pdp_csb_valid & pdp_csb_write);
 
@@ -432,7 +432,7 @@ namespace ilang
             auto data_format = m.state(NVDLA_PDP_D_DATA_FORMAT);
 
             auto mem_ptr = MemConst(0, {}, PDP_OUTPUT_ADDR_WIDTH, PDP_INT_16_WIDTH).get();
-            for (auto output_k = 0; output_k < output_channel; output_k++)
+            for (auto output_k = output_channel - output_channel; output_k < output_channel; output_k++)
             {
                 for (auto output_i = 0; output_i < output_height; output_i++)
                 {
