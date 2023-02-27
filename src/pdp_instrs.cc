@@ -364,11 +364,12 @@ namespace ilang
 
         {
             // PDP operations
-            //  Load input variablesw
+            //  Load input variables
 
             auto instr = m.NewInstr("load_input_variables");
             instr.SetDecode(pdp_state == START);
-            instr.SetUpdate(pdp_state == LOAD);
+            instr.SetUpdate(m.state("pdp_state"), LOAD);
+            pdp_state = LOAD;
 
             // update padding value
             instr.SetUpdate(m.state("pdp_padding_value"), Extract(m.state(NVDLA_PDP_D_POOLING_PADDING_VALUE_1_CFG), PDP_INT_16_WIDTH - 1, 0));
@@ -409,7 +410,9 @@ namespace ilang
         {
             // Max pooling option
             auto instr = m.NewInstr("max_pool");
-            instr.SetDecode(pdp_state == MAXPOOL);
+            instr.SetDecode(pdp_state == LOAD);
+            instr.SetUpdate(m.state("pdp_state"), MAXPOOL);
+            pdp_state = MAXPOOL;
 
             auto output_channel = m.state(NVDLA_PDP_D_DATA_CUBE_OUT_CHANNEL);
             auto output_height = m.state(NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT);
@@ -487,7 +490,9 @@ namespace ilang
         {
             // Min pooling option
             auto instr = m.NewInstr("min_pool");
-            instr.SetDecode(pdp_state == MINPOOL);
+            instr.SetDecode(pdp_state == LOAD);
+            instr.SetUpdate(m.state("pdp_state"), MINPOOL);
+            pdp_state = MINPOOL;
 
             auto output_channel = m.state(NVDLA_PDP_D_DATA_CUBE_OUT_CHANNEL);
             auto output_height = m.state(NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT);
@@ -565,7 +570,9 @@ namespace ilang
         {
             // average pooling option
             auto instr = m.NewInstr("avg_pool");
-            instr.SetDecode(pdp_state == AVGPOOL);
+            instr.SetDecode(pdp_state == LOAD);
+            instr.SetUpdate(m.state("pdp_state"), AVGPOOL);
+            pdp_state = AVGPOOL;
 
             auto output_channel = m.state(NVDLA_PDP_D_DATA_CUBE_OUT_CHANNEL);
             auto output_height = m.state(NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT);
