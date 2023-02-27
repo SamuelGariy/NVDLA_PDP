@@ -432,7 +432,7 @@ namespace ilang
             auto data_format = m.state(NVDLA_PDP_D_DATA_FORMAT);
 
             auto mem_ptr = MemConst(0, {}, PDP_OUTPUT_ADDR_WIDTH, PDP_INT_16_WIDTH).get();
-            for (auto output_k = output_channel - output_channel; output_k < output_channel; output_k++)
+            for (auto output_k = output_channel - output_channel; output_k < output_channel;)
             {
                 for (auto output_i = 0; output_i < output_height; output_i++)
                 {
@@ -487,6 +487,7 @@ namespace ilang
                         // counter = counter + BvConst(1,5)
                     }
                 }
+                output_k = output_k + BvConst(1,output_k.width());
             }
             instr.SetUpdate(pdp_state, Ite(m.input("pdp_input_done"), START, LOAD));
         }
