@@ -432,7 +432,9 @@ namespace ilang
             auto data_format = m.state(NVDLA_PDP_D_DATA_FORMAT);
 
             auto mem_ptr = MemConst(0, {}, PDP_OUTPUT_ADDR_WIDTH, PDP_INT_16_WIDTH).get();
-            for (auto output_k = output_channel - output_channel; output_k < output_channel;)
+            auto output_k = output_channel - output_channel;
+          //  for (auto output_k = output_channel - output_channel; output_k < output_channel;)
+          while(output_k < output_channel)
             {
                 for (auto output_i = 0; output_i < output_height; output_i++)
                 {
