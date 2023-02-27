@@ -338,8 +338,8 @@ namespace ilang
         }
 
         { // PDP set output NaN element number - addr = 0x090
-            auto instr = m.NewInstr("set_nan_output_number")
-                             instr.SetDecode(pdp_csb_addr == 0; x090 & pdp_csb_valid & pdp_csb_write);
+            auto instr = m.NewInstr("set_nan_output_number");
+            instr.SetDecode(pdp_csb_addr == 0; x090 & pdp_csb_valid & pdp_csb_write);
 
             instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_NAN_OUTPUT_NUM)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_NAN_OUTPUT_NUM_WIDTH - 1, 0));
         }
