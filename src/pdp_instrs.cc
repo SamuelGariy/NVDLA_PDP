@@ -414,7 +414,9 @@ namespace ilang
             instr.SetUpdate(m.state("pdp_state"), MAXPOOL);
             pdp_state = MAXPOOL;
 
-            auto output_height = m.state(NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT).val();
+            auto input_height = BvVal(m.state(NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT));
+            
+            auto output_height = m.state(NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT);
             auto output_width = m.state(NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH);
             auto kernel_height = m.state(NVDLA_PDP_D_KERNEL_HEIGHT);
             auto kernel_width = m.state(NVDLA_PDP_D_KERNEL_WIDTH);
