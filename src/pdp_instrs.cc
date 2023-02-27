@@ -560,6 +560,7 @@ namespace ilang
                 }
                 instr.SetUpdate(pdp_state, Ite(m.input("pdp_input_done"), START, LOAD));
             }
+        }
 
             {
                 // average pooling option
@@ -637,6 +638,7 @@ namespace ilang
                     }
                     instr.SetUpdate(pdp_state, Ite(m.input("pdp_input_done"), START, LOAD));
                 }
+            }
 
                 // { // PDP Set Start Group 0 (addr:008)
                 //     auto instr = m.NewInstr("store");
@@ -654,6 +656,6 @@ namespace ilang
                 //     // }
                 //     instr.SetUpdate(pdp_state, START);
                 // }
-            }
+    }    
 
         } // namespace ilang
