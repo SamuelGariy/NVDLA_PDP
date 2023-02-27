@@ -415,7 +415,8 @@ namespace ilang
             pdp_state = MAXPOOL;
 
             auto input_height = BvVal(m.state(NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT));
-            
+            auto output_channel = BvVal(m.state(NVDLA_PDP_D_DATA_CUBE_IN_CHANNEL));
+
             auto output_height = m.state(NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT);
             auto output_width = m.state(NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH);
             auto kernel_height = m.state(NVDLA_PDP_D_KERNEL_HEIGHT);
