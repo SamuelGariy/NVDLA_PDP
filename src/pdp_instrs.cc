@@ -439,7 +439,8 @@ namespace ilang
        //  while(output_k < output_channel)
              //for (auto output_k = output_channel - output_channel; (output_channel - output_k) != BvConst(0,output_channel.bit_width());)
              //while(output_k < output_channel)
-             while(skip1)
+            auto channel_continue = Ite(output_channel > BvConst(0,1),BoolConst(true),BoolConst(false));
+            for (auto output_k = BvConst(0,0,output_channel.bit_width()); channel_continue;)
             {
                 for (auto output_i = 0; output_i < output_height; output_i++)
                 {
@@ -495,6 +496,7 @@ namespace ilang
                     }
                 }
                 output_k = output_k + BvConst(1,output_k.width());
+                channel_continue = Ite(output_k < output_channel, BoolConst(true),BoolConst(false));
             }
             instr.SetUpdate(pdp_state, Ite(m.input("pdp_input_done"), START, LOAD));
         }
