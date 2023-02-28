@@ -482,7 +482,7 @@ namespace ilang
                     // width loop
                     for (auto output_j = 0; width_loop_cond; output_j++)
                     {
-                        auto mem_addr = BvConst(output_i, NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT_WIDTH) * output_width + BVConst(output_j, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH);
+                        auto mem_addr = BvConst(output_i, NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT_WIDTH) * output_width + BvConst(output_j, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH);
                         // auto max = Load(ExprRef(mem_ptr), BvConst(mem_addr, PDP_OUTPUT_ADDR_WIDTH));
                         auto max = Load(ExprRef(mem_ptr), mem_addr);
 
@@ -515,7 +515,7 @@ namespace ilang
                                 skip_input = Ite(padding_top > 0, Ite(i < padding_top, true, Ite(padding_bottom > 0, true, false)), false);
                                 curr = Ite(skip_input, pdp_padding_value, curr);
 
-                                auto j = BVConst(output_j, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH) * stride_width + BvConst(kernel_j, NVDLA_PDP_D_KERNEL_WIDTH_WIDTH);
+                                auto j = BvConst(output_j, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH) * stride_width + BvConst(kernel_j, NVDLA_PDP_D_KERNEL_WIDTH_WIDTH);
                                 auto actual_j = j;
 
                                 // update if there is horizontal padding
