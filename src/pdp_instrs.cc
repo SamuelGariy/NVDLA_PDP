@@ -436,6 +436,11 @@ namespace ilang
             auto stride_width = m.state(NVDLA_PDP_D_KERNEL_STRIDE_WIDTH);
             auto pdp_padding_value = m.state("pdp_padding_value");
 
+            auto padding_left = m.state(NVDLA_PDP_D_PAD_LEFT);
+            auto padding_right = m.state(NVDLA_PDP_D_PAD_RIGHT);
+            auto padding_top = m.state(NVDLA_PDP_D_PAD_TOP);
+            auto padding_bottom = m.state(NVDLA_PDP_D_PAD_BOTTOM);
+
             auto output_width_first = m.state(NVDLA_PDP_D_PARTIAL_WIDTH_OUT_FIRST);
             auto output_width_mid = m.state(NVDLA_PDP_D_PARTIAL_WIDTH_OUT_MID);
             auto output_width_last = m.state(NVDLA_PDP_D_PARTIAL_WIDTH_OUT_LAST);
@@ -466,7 +471,7 @@ namespace ilang
                 auto height_loop_bv = BvConst(0, NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT_WIDTH);
 
                 // height loop
-                for (auto output_i = 0; output_i < output_height; output_i++)
+                for (auto output_i = 0; height_loop_cond; output_i++)
                 {
 
                     // width loop variables
@@ -475,7 +480,7 @@ namespace ilang
                     auto width_loop_bv = BvConst(0, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH);
 
                     // width loop
-                    for (auto output_j = 0; output_j < output_width; output_j++)
+                    for (auto output_j = 0; width_loop_cond; output_j++)
                     {
                         auto mem_addr = output_i * output_width + output_j;
                         auto max = Load(ExprRef(mem_ptr), BvConst(mem_addr, PDP_OUTPUT_ADDR_WIDTH));
@@ -486,7 +491,7 @@ namespace ilang
                         auto kernel_height_loop_bv = BvConst(0, NVDLA_PDP_D_KERNEL_HEIGHT_WIDTH);
 
                         // kernel height loop
-                        for (auto kernel_i = 0; kernel_i < kernel_height; kernel_i++)
+                        for (auto kernel_i = 0; kernel_height_loop_cond; kernel_i++)
                         {
                             // kernel width loop variables
                             auto kernel_width_cond = Ite(kernel_width > BvConst(0, 1), LOOP_TRUE_BV, LOOP_FALSE_BV);
@@ -494,7 +499,7 @@ namespace ilang
                             auto kernel_width_loop_bv = BvConst(0, NVDLA_PDP_D_KERNEL_WIDTH_WIDTH);
 
                             // kernel width loop
-                            for (auto kernel_j = 0; kernel_j < kernel_width; kernel_j++)
+                            for (auto kernel_j = 0; kernel_width_loop_cond; kernel_j++)
                             {
                                 // load from memory and read
                                 // assumes they don't stride out of input (kernel and stride fit perfectly)
