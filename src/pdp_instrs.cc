@@ -454,7 +454,7 @@ namespace ilang
             auto channel_cond = Ite(output_channel > BvConst(0, 1), LOOP_TRUE_BV, LOOP_FALSE_BV);
             bool start_cond_chan = channel_cond.bit_width() == LOOP_TRUE;
 
-            for (struct {auto output_k = 0; auto bv = BvConst(0,NVDLA_PDP_D_DATA_CUBE_OUT_CHANNEL_WIDTH); bool cond } chan_loop; chan_loop.cond; output_k++)
+            for (struct {auto output_k = 0; auto bv = BvConst(0,NVDLA_PDP_D_DATA_CUBE_OUT_CHANNEL_WIDTH); bool cond; } chan_loop; chan_loop.cond; chan_loop.output_k++)
             {
                 for (auto output_i = 0; output_i < output_height; output_i++)
                 {
