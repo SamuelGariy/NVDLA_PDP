@@ -451,10 +451,14 @@ namespace ilang
             // for (auto output_k = output_channel - output_channel; (output_channel - output_k) != BvConst(0,output_channel.bit_width());)
             // while(output_k < output_channel)
             // auto channel_continue = Ite(output_channel > BvConst(0,1),BoolConst(true),BoolConst(false));
-            auto channel_cond = Ite(output_channel > BvConst(0, 1), LOOP_TRUE_BV, LOOP_FALSE_BV);
-            bool start_cond_chan = channel_cond.bit_width() == LOOP_TRUE;
 
-            for (struct {auto output_k = 0; auto bv = BvConst(0,NVDLA_PDP_D_DATA_CUBE_OUT_CHANNEL_WIDTH); bool cond; } chan_loop; chan_loop.cond; chan_loop.output_k++)
+            // chan loop variables
+            auto channel_cond = Ite(output_channel > BvConst(0, 1), LOOP_TRUE_BV, LOOP_FALSE_BV);
+            bool chan_loop_cond = channel_cond.bit_width() == LOOP_TRUE;
+            auto chan_loop_bv = BvConst(0, NVDLA_PDP_D_DATA_CUBE_OUT_CHANNEL_WIDTH);
+
+            // chan loop
+            for (auto output_k = 0; chan_loop_cond; output_k++)
             {
                 for (auto output_i = 0; output_i < output_height; output_i++)
                 {
@@ -509,9 +513,9 @@ namespace ilang
                         // counter = counter + BvConst(1,5)
                     }
                 }
-                chan_loop.bv = chan_loop.bv + 1;
+                chan_loop_bv = chan_loop_bv + 1;
                 channel_cond = new auto(Ite(chan_bv < output_channel, LOOP_TRUE, LOOP_FALSE));
-                chan_loop.cond = channel_cond.bit_width() == LOOP_TRUE;
+                chan_loop_cond = channel_cond.bit_width() == LOOP_TRUE;
 
                 instr.SetUpdate(pdp_state, Ite(m.input("pdp_input_done"), START, LOAD));
             }
