@@ -504,7 +504,7 @@ namespace ilang
                                 // load from memory and read
                                 // assumes they don't stride out of input (kernel and stride fit perfectly)
 
-                                auto i = output_i * stride_height + kernel_i;
+                                auto i = BvConst(output_i, NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT_WIDTH) * stride_height + BvConst(kernel_i, NVDLA_PDP_D_KERNEL_HEIGHT);
                                 auto actual_i = i;
                                 auto curr = BvConst(SHRT_MIN, PDP_INT_16_WIDTH);
                                 auto skip_input = BoolConst(false);
@@ -514,7 +514,7 @@ namespace ilang
                                 skip_input = Ite(padding_top > 0, Ite(i < padding_top, true, Ite(padding_bottom > 0, true, false)), false);
                                 curr = Ite(skip_input, pdp_padding_value, curr);
 
-                                auto j = output_j * stride_width + kernel_j;
+                                auto j = BVConst(output_j, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH) * stride_width + BvConst(kernel_j, NVDLA_PDP_D_KERNEL_WIDTH_WIDTH);
                                 auto actual_j = j;
 
                                 // update if there is horizontal padding
@@ -537,13 +537,13 @@ namespace ilang
 
                                 // kernel width loop update
                                 kernel_width_loop_bv = kernel_width_loop_bv + 1;
-                                kernel_width_cond = new auto(Ite(kernel_width_loop_bv < kernel_width, LOOP_TRUE, LOOP_FALSE));
+                                kernel_width_cond = new auto(Ite(kernel_width_loop_bv < kernel_width, LOOP_TRUE_BV, LOOP_FALSE_BV));
                                 kernel_width_loop_cond = kernel_width_cond.bit_width() == LOOP_TRUE;
                             }
 
                             // kernel height loop update
                             kernel_height_loop_bv = kernel_height_loop_bv + 1;
-                            kernel_height_cond = new auto(Ite(kernel_height_loop_bv < kernel_height, LOOP_TRUE, LOOP_FALSE));
+                            kernel_height_cond = new auto(Ite(kernel_height_loop_bv < kernel_height, LOOP_TRUE_BV, LOOP_FALSE_BV));
                             kernel_height_loop_cond = kernel_height_cond.bit_width() == LOOP_TRUE;
                         }
 
@@ -552,7 +552,7 @@ namespace ilang
 
                         // width loop update
                         width_loop_bv = width_loop_bv + 1;
-                        width_cond = new auto(Ite(width_loop_bv < output_width, LOOP_TRUE, LOOP_FALSE));
+                        width_cond = new auto(Ite(width_loop_bv < output_width, LOOP_TRUE_BV, LOOP_FALSE_BV));
                         width_loop_cond = width_cond.bit_width() == LOOP_TRUE;
                         // instr.SetUpdate(inputarr[i][j],Extract(m.input("pdp_input"+ (std::to_string(counter))), 31, 0 ));
                         // instr.SetUpdate(m.state("pdp_input"+ (std::to_string(counter))), );
@@ -561,13 +561,13 @@ namespace ilang
 
                     // height loop update
                     height_loop_bv = height_loop_bv + 1;
-                    height_cond = new auto(Ite(height_loop_bv < output_height, LOOP_TRUE, LOOP_FALSE));
+                    height_cond = new auto(Ite(height_loop_bv < output_height, LOOP_TRUE_BV, LOOP_FALSE_BV));
                     height_loop_cond = height_cond.bit_width() == LOOP_TRUE;
                 }
 
                 // chan loop update
                 chan_loop_bv = chan_loop_bv + 1;
-                channel_cond = new auto(Ite(chan_loop_bv < output_channel, LOOP_TRUE, LOOP_FALSE));
+                channel_cond = new auto(Ite(chan_loop_bv < output_channel, LOOP_TRUE_BV, LOOP_FALSE_BV));
                 chan_loop_cond = channel_cond.bit_width() == LOOP_TRUE;
             }
             instr.SetUpdate(pdp_state, Ite(m.input("pdp_input_done"), START, LOAD));
