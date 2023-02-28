@@ -512,7 +512,7 @@ namespace ilang
 
                                 // update if there is vertical padding
                                 actual_i = Ite(padding_top > 0, Ite(i < padding_top, BvConst(0, PDP_INT_16_WIDTH), Ite((i - padding_top) < input_height, i - padding_top, Ite(padding_bottom > 0, input_height - 1, i))), i);
-                                skip_input = Ite(padding_top > 0, Ite(i < padding_top, true, Ite(padding_bottom > 0, BoolConst(true), BoolConst(false))), BoolConst(false));
+                                skip_input = Ite(padding_top > 0, Ite(i < padding_top, BoolConst(true), Ite(padding_bottom > 0, BoolConst(true), BoolConst(false))), BoolConst(false));
                                 curr = Ite(skip_input, pdp_padding_value, curr);
 
                                 auto j = BvConst(output_j, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH) * stride_width + BvConst(kernel_j, NVDLA_PDP_D_KERNEL_WIDTH_WIDTH);
@@ -568,7 +568,7 @@ namespace ilang
 
                 // chan loop update
                 chan_loop_bv = chan_loop_bv + 1;
-                channel_cond.get() = new auto(Ite(chan_loop_bv < output_channel, LOOP_TRUE_BV, LOOP_FALSE_BV));
+                channel_cond = new auto(Ite(chan_loop_bv < output_channel, LOOP_TRUE_BV, LOOP_FALSE_BV));
                 chan_loop_cond = channel_cond.bit_width() == LOOP_TRUE;
             }
             instr.SetUpdate(pdp_state, Ite(m.input("pdp_input_done"), START, LOAD));
