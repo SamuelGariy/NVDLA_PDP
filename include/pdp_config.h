@@ -294,7 +294,11 @@ inline std::string GetVarName(const std::string& var_name0, const std::string& v
 #define PDP_INT_8_WIDTH  8
 #define PDP_INT_16_WIDTH  16
 
-
+// LOOPING CONSTANTS
+#define LOOP_TRUE_BV BvConst(0,1)
+#define LOOP_FALSE_BV BvConst(1,3)
+#define LOOP_TRUE 1
+#define LOOP_FALSE 3
 //#define INPUT_BIT_WIDTH  32
 
 

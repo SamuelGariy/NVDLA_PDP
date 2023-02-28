@@ -43,12 +43,12 @@ namespace ilang
     //     return bv;
     // }
 
-    //Convert bit vector  to int
-    // int bv_to_int(ExprRef bv)
-    // {
-    //     curr = BvConst(0, PDP_INT_16_WIDTH);
-    //     for(auto i = 0; i < SHRT_MAX; i++ ){
-            
+    // Convert bit vector  to int
+    //  int bv_to_int(ExprRef bv)
+    //  {
+    //      curr = BvConst(0, PDP_INT_16_WIDTH);
+    //      for(auto i = 0; i < SHRT_MAX; i++ ){
+
     //     }
 
     //     return bv;
@@ -388,9 +388,9 @@ namespace ilang
             // update output variables
             // update output channel
             instr.SetUpdate(m.state(NVDLA_PDP_D_DATA_CUBE_OUT_CHANNEL), Extract(m.state(NVDLA_PDP_D_DATA_CUBE_IN_CHANNEL), NVDLA_PDP_D_DATA_CUBE_IN_CHANNEL_WIDTH - 1, 0));
-            
+
             // update output height
-            auto output_var = (m.state(NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT)- m.state(NVDLA_PDP_D_KERNEL_HEIGHT) + m.state(NVDLA_PDP_D_PAD_BOTTOM) + m.state(NVDLA_PDP_D_PAD_TOP));
+            auto output_var = (m.state(NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT) - m.state(NVDLA_PDP_D_KERNEL_HEIGHT) + m.state(NVDLA_PDP_D_PAD_BOTTOM) + m.state(NVDLA_PDP_D_PAD_TOP));
             output_var = (output_var / m.state(NVDLA_PDP_D_KERNEL_STRIDE_HEIGHT)) + 1;
             instr.SetUpdate(m.state(NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT), output_var);
 
@@ -445,17 +445,18 @@ namespace ilang
             auto mem_ptr = MemConst(0, {}, PDP_OUTPUT_ADDR_WIDTH, PDP_INT_16_WIDTH).get();
             auto output_k = output_channel - output_channel;
             auto skip1 = output_k < output_channel;
-           // auto output_k = output_channel - output_channel;
-      
-       //  while(output_k < output_channel)
-             //for (auto output_k = output_channel - output_channel; (output_channel - output_k) != BvConst(0,output_channel.bit_width());)
-             //while(output_k < output_channel)
-            auto channel_continue = Ite(output_channel > BvConst(0,1),BoolConst(true),BoolConst(false));
-            for (auto output_k = BvConst(0,output_channel.bit_width()); (channel_continue.get()).is_bool();)
+            // auto output_k = output_channel - output_channel;
+
+            //  while(output_k < output_channel)
+            // for (auto output_k = output_channel - output_channel; (output_channel - output_k) != BvConst(0,output_channel.bit_width());)
+            // while(output_k < output_channel)
+            // auto channel_continue = Ite(output_channel > BvConst(0,1),BoolConst(true),BoolConst(false));
+            auto channel_cond;
+            for (struct {auto output_k = 0; auto bv = BvConst(0,NVDLA_PDP_D_DATA_CUBE_OUT_CHANNEL_WIDTH); bool cond } chan_loop; output_k++)
             {
                 for (auto output_i = 0; output_i < output_height; output_i++)
                 {
-                    for (auto output_j = 0 ; output_j < output_width; output_j++)
+                    for (auto output_j = 0; output_j < output_width; output_j++)
                     {
                         auto mem_addr = output_i * output_width + output_j;
                         auto max = Load(ExprRef(mem_ptr), BvConst(mem_addr, PDP_OUTPUT_ADDR_WIDTH));
@@ -483,8 +484,8 @@ namespace ilang
                                 actual_j = Ite(padding_left > 0, Ite(i < padding_left, 0, Ite((i - padding_left) < input_height, i - padding_left, Ite(padding_bottom > 0, input_height - 1, i))), i);
                                 skip_input = Ite(padding_left > 0, Ite(i < padding_left, true, Ite(padding_right > 0, true, skip_input)), skip_input);
 
-                                //auto input_curr = int8_to_int_16(m.inputGetVarName("pdp_input_chan_", (std::to_string(k)) + "_" + (std::to_string(i)) + "_" + (std::to_string(j))), data_format);
-                                auto input_curr = SExt(m.input(GetVarName("pdp_input_chan_", (std::to_string(k)) + "_" + (std::to_string(i)) + "_" + (std::to_string(j)))),16);
+                                // auto input_curr = int8_to_int_16(m.inputGetVarName("pdp_input_chan_", (std::to_string(k)) + "_" + (std::to_string(i)) + "_" + (std::to_string(j))), data_format);
+                                auto input_curr = SExt(m.input(GetVarName("pdp_input_chan_", (std::to_string(output_k)) + "_" + (std::to_string(i)) + "_" + (std::to_string(j)))), 16);
 
                                 curr = Ite(skip_input, pdp_padding_value, input_curr);
 
@@ -506,8 +507,16 @@ namespace ilang
                         // counter = counter + BvConst(1,5)
                     }
                 }
-                output_k = output_k + BvConst(1,output_k.width());
-                channel_continue = Ite(output_k < output_channel, BoolConst(true),BoolConst(false));
+                chan_loop.bv = chan_loop.bv + 1;
+                channel_cond = new auto(Ite(chan_bv < output_channel, LOOP_TRUE, LOOP_FALSE));
+                if (channel_cond.bit_width() == LOOP_TRUE)
+                {
+                    chan_loop.cond = true;
+                }
+                else
+                {
+                    chan_loop.cond = false;
+                }
             }
             instr.SetUpdate(pdp_state, Ite(m.input("pdp_input_done"), START, LOAD));
         }
