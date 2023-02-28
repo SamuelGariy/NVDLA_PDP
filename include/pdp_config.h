@@ -293,6 +293,8 @@ inline std::string GetVarName(const std::string& var_name0, const std::string& v
 //DATA_FORMAT
 #define PDP_INT_8_WIDTH  8
 #define PDP_INT_16_WIDTH  16
+
+
 //#define INPUT_BIT_WIDTH  32
 
 

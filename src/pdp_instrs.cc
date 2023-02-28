@@ -43,6 +43,17 @@ namespace ilang
     //     return bv;
     // }
 
+    //Convert bit vector  to int
+    // int bv_to_int(ExprRef bv)
+    // {
+    //     curr = BvConst(0, PDP_INT_16_WIDTH);
+    //     for(auto i = 0; i < SHRT_MAX; i++ ){
+            
+    //     }
+
+    //     return bv;
+    // }
+
     // Define PDP instructions relevant to configuration registers
     void DefinePDPInstrs(Ila &m)
     {
@@ -440,7 +451,7 @@ namespace ilang
              //for (auto output_k = output_channel - output_channel; (output_channel - output_k) != BvConst(0,output_channel.bit_width());)
              //while(output_k < output_channel)
             auto channel_continue = Ite(output_channel > BvConst(0,1),BoolConst(true),BoolConst(false));
-            for (auto output_k = BvConst(0,0,output_channel.bit_width()); channel_continue;)
+            for (auto output_k = BvConst(0,0,output_channel.bit_width()); channel_continue.val();)
             {
                 for (auto output_i = 0; output_i < output_height; output_i++)
                 {
@@ -541,7 +552,7 @@ namespace ilang
 
         //                         auto i = output_i * stride_height + kernel_i;
         //                         auto actual_i = i;
-        //                         auto curr = BvConst(SHRT_MIN, PDP_INT_16_WIDTH);
+        //                         auto curr = BvConst(SHRT_MAX, PDP_INT_16_WIDTH);
         //                         auto skip_input = BoolConst(false);
 
         //                         // update if there is vertical padding
