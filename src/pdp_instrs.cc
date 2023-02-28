@@ -458,7 +458,7 @@ namespace ilang
             // auto channel_continue = Ite(output_channel > BvConst(0,1),BoolConst(true),BoolConst(false));
 
             // chan loop variables
-            auto *channel_cond = Ite(output_channel > BvConst(0, 1), LOOP_TRUE_BV, LOOP_FALSE_BV);
+            auto channel_cond = Ite(output_channel > BvConst(0, 1), LOOP_TRUE_BV, LOOP_FALSE_BV);
             bool chan_loop_cond = channel_cond.bit_width() == LOOP_TRUE;
             auto chan_loop_bv = BvConst(0, NVDLA_PDP_D_DATA_CUBE_OUT_CHANNEL_WIDTH);
 
@@ -505,7 +505,7 @@ namespace ilang
                                 // load from memory and read
                                 // assumes they don't stride out of input (kernel and stride fit perfectly)
 
-                                auto i = BvConst(output_i, NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT_WIDTH) * stride_height + BvConst(kernel_i, NVDLA_PDP_D_KERNEL_HEIGHT);
+                                auto i = BvConst(output_i, NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT_WIDTH) * stride_height + BvConst(kernel_i, NVDLA_PDP_D_KERNEL_HEIGHT_WIDTH);
                                 auto actual_i = i;
                                 auto curr = BvConst(SHRT_MIN, PDP_INT_16_WIDTH);
                                 auto skip_input = BoolConst(false);
@@ -515,7 +515,7 @@ namespace ilang
                                 skip_input = Ite(padding_top > 0, Ite(i < padding_top, true, Ite(padding_bottom > 0, BoolConst(true), BoolConst(false))), BoolConst(false));
                                 curr = Ite(skip_input, pdp_padding_value, curr);
 
-                                auto j = BvConst(output_j, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH) * stride_width + BvConst(kernel_j, NVDLA_PDP_D_KERNEL_WIDTH_WIDTH);
+                                auto j = BvConst(output_j, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH) * stride_width + BvConst(kernel_j, NVDLA_PDP_D_KERNEL_WIDTH_WIDTH);
                                 auto actual_j = j;
 
                                 // update if there is horizontal padding
@@ -568,7 +568,7 @@ namespace ilang
 
                 // chan loop update
                 chan_loop_bv = chan_loop_bv + 1;
-                channel_cond = new auto(Ite(chan_loop_bv < output_channel, LOOP_TRUE_BV, LOOP_FALSE_BV));
+                channel_cond.get() = new auto(Ite(chan_loop_bv < output_channel, LOOP_TRUE_BV, LOOP_FALSE_BV));
                 chan_loop_cond = channel_cond.bit_width() == LOOP_TRUE;
             }
             instr.SetUpdate(pdp_state, Ite(m.input("pdp_input_done"), START, LOAD));
