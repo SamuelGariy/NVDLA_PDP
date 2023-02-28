@@ -458,7 +458,7 @@ namespace ilang
             // auto channel_continue = Ite(output_channel > BvConst(0,1),BoolConst(true),BoolConst(false));
 
             // chan loop variables
-            auto channel_cond = Ite(output_channel > BvConst(0, 1), LOOP_TRUE_BV, LOOP_FALSE_BV);
+            auto *channel_cond = Ite(output_channel > BvConst(0, 1), LOOP_TRUE_BV, LOOP_FALSE_BV);
             bool chan_loop_cond = channel_cond.bit_width() == LOOP_TRUE;
             auto chan_loop_bv = BvConst(0, NVDLA_PDP_D_DATA_CUBE_OUT_CHANNEL_WIDTH);
 
@@ -482,7 +482,7 @@ namespace ilang
                     // width loop
                     for (auto output_j = 0; width_loop_cond; output_j++)
                     {
-                        auto mem_addr = BvConst(output_i, NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT_WIDTH) * output_width + BvConst(output_j, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH);
+                        auto mem_addr = BvConst(output_i, NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT_WIDTH) * output_width + BvConst(output_j, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH);
                         // auto max = Load(ExprRef(mem_ptr), BvConst(mem_addr, PDP_OUTPUT_ADDR_WIDTH));
                         auto max = Load(ExprRef(mem_ptr), mem_addr);
 
@@ -511,16 +511,16 @@ namespace ilang
                                 auto skip_input = BoolConst(false);
 
                                 // update if there is vertical padding
-                                actual_i = Ite(padding_top > 0, Ite(i < padding_top, BvConst(0,PDP_INT_16_WIDTH), Ite((i - padding_top) < input_height, i - padding_top, Ite(padding_bottom > 0, input_height - 1, i))), i);
-                                skip_input = Ite(padding_top > 0, Ite(i < padding_top, true, Ite(padding_bottom > 0, true, false)), false);
+                                actual_i = Ite(padding_top > 0, Ite(i < padding_top, BvConst(0, PDP_INT_16_WIDTH), Ite((i - padding_top) < input_height, i - padding_top, Ite(padding_bottom > 0, input_height - 1, i))), i);
+                                skip_input = Ite(padding_top > 0, Ite(i < padding_top, true, Ite(padding_bottom > 0, BoolConst(true), BoolConst(false))), BoolConst(false));
                                 curr = Ite(skip_input, pdp_padding_value, curr);
 
                                 auto j = BvConst(output_j, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH) * stride_width + BvConst(kernel_j, NVDLA_PDP_D_KERNEL_WIDTH_WIDTH);
                                 auto actual_j = j;
 
                                 // update if there is horizontal padding
-                                actual_j = Ite(padding_left > 0, Ite(i < padding_left, BvConst(0,PDP_INT_16_WIDTH), Ite((i - padding_left) < input_height, i - padding_left, Ite(padding_bottom > 0, input_height - 1, i))), i);
-                                skip_input = Ite(padding_left > 0, Ite(i < padding_left, true, Ite(padding_right > 0, true, skip_input)), skip_input);
+                                actual_j = Ite(padding_left > 0, Ite(i < padding_left, BvConst(0, PDP_INT_16_WIDTH), Ite((i - padding_left) < input_height, i - padding_left, Ite(padding_bottom > 0, input_height - 1, i))), i);
+                                skip_input = Ite(padding_left > 0, Ite(i < padding_left, BoolConst(true), Ite(padding_right > 0, BoolConst(true), skip_input)), skip_input);
 
                                 // auto input_curr = int8_to_int_16(m.inputGetVarName("pdp_input_chan_", (std::to_string(k)) + "_" + (std::to_string(i)) + "_" + (std::to_string(j))), data_format);
                                 auto input_curr = SExt(m.input(GetVarName("pdp_input_chan_", (std::to_string(output_k)) + "_" + (std::to_string(i)) + "_" + (std::to_string(j)))), 16);
