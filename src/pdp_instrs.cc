@@ -451,7 +451,7 @@ namespace ilang
              //for (auto output_k = output_channel - output_channel; (output_channel - output_k) != BvConst(0,output_channel.bit_width());)
              //while(output_k < output_channel)
             auto channel_continue = Ite(output_channel > BvConst(0,1),BoolConst(true),BoolConst(false));
-            for (auto output_k = BvConst(0,output_channel.bit_width()); (channel_continue.get()).bool();)
+            for (auto output_k = BvConst(0,output_channel.bit_width()); (channel_continue.get()).is_bool();)
             {
                 for (auto output_i = 0; output_i < output_height; output_i++)
                 {
