@@ -469,16 +469,16 @@ namespace ilang
 
             auto data_format = m.state(GetVarName("group0_",NVDLA_PDP_D_DATA_FORMAT));
             auto mode = Ite(m.state(GetVarName("group0_",NVDLA_PDP_FLYING_MODE)) == BvConst(0, NVDLA_PDP_FLYING_MODE_WIDTH), PDP_FLYING, Ite(m.state(GetVarName("group0_", NVDLA_PDP_SPLIT_NUM)) > BvConst(0, NVDLA_PDP_SPLIT_NUM_WIDTH), PDP_OFF_FLYING_SPLIT, PDP_OFF_FLYING_NO_SPLIT));
-            // auto split_stage = m.state("pdp_pooling_stage_split_width");
+            auto split_stage = m.state("pdp_pooling_stage_split_width");
 
-        //     // update output width in use depending on mode
-        //     output_width = Ite(mode == PDP_OFF_FLYING_NO_SPLIT, output_width_first, Ite(mode == PDP_OFF_FLYING_SPLIT, Ite(split_stage == SPLIT_STAGE_1, output_width_first, Ite(split_stage == SPLIT_STAGE_2, output_width_mid, output_width_last)), output_width));
+            // update output width in use depending on mode
+            output_width = Ite(mode == PDP_OFF_FLYING_NO_SPLIT, output_width_first, Ite(mode == PDP_OFF_FLYING_SPLIT, Ite(split_stage == SPLIT_STAGE_1, output_width_first, Ite(split_stage == SPLIT_STAGE_2, output_width_mid, output_width_last)), output_width));
 
-        //     // share line buffer
-        //     auto share_buffer_ptr = MemConst(SHRT_MIN, {}, PDP_SHARE_LINE_ADDR_WIDTH, PDP_INT_16_WIDTH).get();
+            // share line buffer
+            auto share_buffer_ptr = MemConst(SHRT_MIN, {}, PDP_SHARE_LINE_ADDR_WIDTH, PDP_INT_16_WIDTH).get();
 
-        //     // for use in split width
-        //     auto split_buffer_ptr = MemConst(SHRT_MIN, {}, PDP_SPLIT_WIDTH_BUFFER_ADDR_WIDTH, PDP_INT_16_WIDTH).get();
+            // for use in split width
+            auto split_buffer_ptr = MemConst(SHRT_MIN, {}, PDP_SPLIT_WIDTH_BUFFER_ADDR_WIDTH, PDP_INT_16_WIDTH).get();
 
         //     for (auto output_j = 0; output_j < PDP_OUTPUT_MAX; output_j++)
         //     {
