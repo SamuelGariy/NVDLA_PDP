@@ -422,7 +422,8 @@ namespace ilang
         }
 
         {
-            max - pooling instruction auto instr = m.NewInstr("max_pool");
+            // max - pooling instruction 
+            auto instr = m.NewInstr("max_pool");
             instr.SetDecode(pdp_state == MAXPOOL);
             // instr.SetUpdate(m.state("pdp_state"), MAXPOOL);
             // pdp_state = MAXPOOL;
