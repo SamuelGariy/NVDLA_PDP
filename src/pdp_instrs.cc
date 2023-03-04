@@ -81,9 +81,9 @@ namespace ilang
 
         // csb  - pdp variables
         auto pdp_csb_addr = Extract(m.input("csb2pdp_addr"), 11, 0);
-        auto pdp_csb_valid = (m.state("pdp2csb_rdy") == SIG_TRUE) & (m.input("csb2pdp_vld") == SIG_TRUE);
-        auto pdp_csb_write = m.input("pdp_csb_write") == SIG_TRUE;
-        auto pdp_group0_unset = m.state(GetVarName("group0_", NVDLA_PDP_D_OP_ENABLE)) == BvConst(0, 1);
+        // auto pdp_csb_valid = (m.state("pdp2csb_rdy") == SIG_TRUE) & (m.input("csb2pdp_vld") == SIG_TRUE);
+        // auto pdp_csb_write = m.input("pdp_csb_write") == SIG_TRUE;
+        // auto pdp_group0_unset = m.state(GetVarName("group0_", NVDLA_PDP_D_OP_ENABLE)) == BvConst(0, 1);
         // auto pdp_producer = m.state(NVDLA_PDP_S_PRODUCER);
         // auto pdp_consumer = m.state(NVDLA_PDP_S_CONSUMER);
         // auto pdp_state = m.state("pdp_state");
