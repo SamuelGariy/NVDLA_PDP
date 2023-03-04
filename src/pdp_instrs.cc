@@ -480,33 +480,33 @@ namespace ilang
             // for use in split width
             auto split_buffer_ptr = MemConst(SHRT_MIN, {}, PDP_SPLIT_WIDTH_BUFFER_ADDR_WIDTH, PDP_INT_16_WIDTH).get();
 
-        //     for (auto output_j = 0; output_j < PDP_OUTPUT_MAX; output_j++)
-        //     {
-        //         // skip output_update when operation is over
-        //         auto skip_output_bv = Ite(BvConst(output_j, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH) < output_width, BoolConst(false), BoolConst(true));
-        //         auto actual_output_j = Ite(skip_output_bv, output_width - 1, BvConst(output_j, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH));
-        //         auto max = BvConst(SHRT_MIN, PDP_INT_16_WIDTH);
+            for (auto output_j = 0; output_j < PDP_OUTPUT_MAX; output_j++)
+            {
+                // skip output_update when operation is over
+                auto skip_output_bv = Ite(BvConst(output_j, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH) < output_width, BoolConst(false), BoolConst(true));
+                auto actual_output_j = Ite(skip_output_bv, output_width - 1, BvConst(output_j, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH));
+                auto max = BvConst(SHRT_MIN, PDP_INT_16_WIDTH);
 
-        //         for (int kernel_j = 0; kernel_j < PDP_KERNEL_MAX; kernel_j++)
-        //         {
-        //             auto curr = BvConst(SHRT_MIN, PDP_INT_16_WIDTH);
-        //             auto kernel_j_bv = BvConst(kernel_j, PDP_INT_16_WIDTH);
-        //             auto actual_kernel_j = Ite(kernel_j_bv < kernel_width, kernel_j_bv, kernel_width - 1);
-        //             auto j = actual_output_j * stride_width + actual_kernel_j;
-        //             auto input_j_marker = output_j + kernel_j;
-        //             auto input_j_marker_bv = BvConst(input_j_marker, NVDLA_PDP_D_DATA_CUBE_IN_WIDTH_WIDTH);
-        //             curr = Ite(input_j_marker_bv == j, SExt(m.input(GetVarName("pdp_input_", std::to_string(input_j_marker))), PDP_INT_16_WIDTH), curr);
+                // for (int kernel_j = 0; kernel_j < PDP_KERNEL_MAX; kernel_j++)
+                // {
+                //     auto curr = BvConst(SHRT_MIN, PDP_INT_16_WIDTH);
+                //     auto kernel_j_bv = BvConst(kernel_j, PDP_INT_16_WIDTH);
+                //     auto actual_kernel_j = Ite(kernel_j_bv < kernel_width, kernel_j_bv, kernel_width - 1);
+                //     auto j = actual_output_j * stride_width + actual_kernel_j;
+                //     auto input_j_marker = output_j + kernel_j;
+                //     auto input_j_marker_bv = BvConst(input_j_marker, NVDLA_PDP_D_DATA_CUBE_IN_WIDTH_WIDTH);
+                //     curr = Ite(input_j_marker_bv == j, SExt(m.input(GetVarName("pdp_input_", std::to_string(input_j_marker))), PDP_INT_16_WIDTH), curr);
 
-        //             max = Ite(curr > max, curr, max);
-        //         }
-        //         auto curr_max = Load(m.state("pdp_share_line_buffer"), BvConst(output_j, PDP_SHARE_LINE_ADDR_WIDTH));
+                //     max = Ite(curr > max, curr, max);
+                // }
+                // auto curr_max = Load(m.state("pdp_share_line_buffer"), BvConst(output_j, PDP_SHARE_LINE_ADDR_WIDTH));
 
-        //         skip_output_bv = Ite(max > curr_max, skip_output_bv, BoolConst(true));
+                // skip_output_bv = Ite(max > curr_max, skip_output_bv, BoolConst(true));
 
-        //         // update memory and increment memory pointer
-        //         auto new_share_buffer = ExprRef(share_buffer_ptr).Store(BvConst(output_j, PDP_SHARE_LINE_ADDR_WIDTH), Ite(skip_output_bv, curr_max, max));
-        //         share_buffer_ptr = new_share_buffer.get();
-        //     }
+                // // update memory and increment memory pointer
+                // auto new_share_buffer = ExprRef(share_buffer_ptr).Store(BvConst(output_j, PDP_SHARE_LINE_ADDR_WIDTH), Ite(skip_output_bv, curr_max, max));
+                // share_buffer_ptr = new_share_buffer.get();
+            }
 
         //     // load to buffer
         //     instr.SetUpdate(m.state("pdp_share_line_buffer"), ExprRef(share_buffer_ptr));
