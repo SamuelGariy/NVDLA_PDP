@@ -378,13 +378,22 @@ namespace ilang
         // // /***************************************************************************/
 
         {
+            //Start LOAD stage
+            auto instr = m.NewInstr("pdp_start_to_load");
+            auto group0_ready = pdp_consumer == BvConst(0, 1) & m.state(GetVarName("group0_", NVDLA_PDP_D_OP_ENABLE)) == SIG_TRUE;
+            instr.SetDecode(pdp_state == START & group0_ready);
+
+            instr.SetUpdate(m.state("pdp_state"), BUSY);
+
+        }
+
+
+        {
             // PDP operations
             //  Load input variables
 
             auto instr = m.NewInstr("load_prepooling_variables");
-            instr.SetDecode(pdp_state == START);
-            instr.SetUpdate(m.state("pdp_state"), LOAD);
-            pdp_state = LOAD;
+            instr.SetDecode(pdp_state == LOAD);
 
             // update padding value
             instr.SetUpdate(m.state("pdp_padding_value"), Extract(m.state(GetVarName("group0_", NVDLA_PDP_D_POOLING_PADDING_VALUE_1_CFG)), PDP_INT_16_WIDTH - 1, 0));
@@ -420,7 +429,7 @@ namespace ilang
 
             // update next state
             instr.SetUpdate(m.state("pdp_state"), Ite(m.state(GetVarName("group0_", NVDLA_PDP_POOLING_METHOD)) == PDP_MAXPOOL, MAXPOOL,
-                                                      Ite(m.state(GetVarName("group0_", NVDLA_PDP_POOLING_METHOD)) == PDP_MINPOOL, MINPOOL, PDP_AVGPOOL)));
+                                                      Ite(m.state(GetVarName("group0_", NVDLA_PDP_POOLING_METHOD)) == PDP_MINPOOL, MINPOOL, AVGPOOL)));
 
             // // update_pooling_stage (for split_width)
             instr.SetUpdate(m.state("pdp_pooling_stage_split_width"), SPLIT_STAGE_1);
