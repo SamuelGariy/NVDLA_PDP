@@ -394,8 +394,8 @@ namespace ilang
             // update output channel
              instr.SetUpdate(m.state(GetVarName("group0_",NVDLA_PDP_D_DATA_CUBE_OUT_CHANNEL)), Extract(m.state(GetVarName("group0_",NVDLA_PDP_D_DATA_CUBE_IN_CHANNEL)), NVDLA_PDP_D_DATA_CUBE_IN_CHANNEL_WIDTH - 1, 0));
 
-            // // update output height
-            // auto output_var = m.state(GetVarName("group0_",NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT)) - m.state(GetVarName("group0_",NVDLA_PDP_D_KERNEL_HEIGHT)) + m.state(GetVarName("group0_",NVDLA_PDP_D_PAD_BOTTOM)) + m.state(GetVarName("group0_",NVDLA_PDP_D_PAD_TOP));
+            // update output height
+            auto output_var = m.state(GetVarName("group0_",NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT)) - m.state(GetVarName("group0_",NVDLA_PDP_D_KERNEL_HEIGHT)) + m.state(GetVarName("group0_",NVDLA_PDP_D_PAD_BOTTOM)) + m.state(GetVarName("group0_",NVDLA_PDP_D_PAD_TOP));
             // output_var = (output_var / m.state(GetVarName("group0_",NVDLA_PDP_D_KERNEL_STRIDE_HEIGHT))) + 1;
             // instr.SetUpdate(m.state(GetVarName("group0_",NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT)), output_var);
 
