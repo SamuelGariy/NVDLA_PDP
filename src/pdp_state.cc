@@ -178,7 +178,7 @@ namespace ilang
         // /***************************************************************************/
 
         // PDP_ILA states
-        m.NewState("pdp_state", 3);
+        m.NewBvState("pdp_state", 3);
 
         // share line buffer
         m.NewMemState("pdp_share_line_buffer", PDP_SHARE_LINE_ADDR_WIDTH, PDP_INT_16_WIDTH);
