@@ -40,12 +40,13 @@ namespace ilang
         // /***************************************************************************/
 
         m.NewBvState("pdp2csb_rdy", 1);
-        m.NewBvState("pdp2csb_data_vld", 1);
+        m.NewBvState("pdp2csb_data_vld", 1); // true when output is valid
+          
+        // to RAM  
+        m.NewMemState("pdp_output", PDP_OUTPUT_ADDR_WIDTH, PDP_INT_16_WIDTH); // 2^13- holds 8191 output
 
-        for (auto i = 0; i < PDP_OUTPUT_CHANNEL_MAX; i++)
-        {
-            m.NewMemState(GetVarName("pdp_output_chan_", (std::to_string(i))),PDP_OUTPUT_ADDR_WIDTH, PDP_INT_16_WIDTH); // 2^4 - 16 output
-        }
+        
+    
     }
 
 } // namespace ilang

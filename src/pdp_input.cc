@@ -41,25 +41,18 @@ namespace ilang
         m.NewBvInput("csb2pdp_write", 1); // 0 - read request; 1  write request
         m.NewBvInput("csb2pdp_vld", 1);
 
-      
-
         // /****************************************************************************/
         // // ********************* INPUT DATA FROM SDP or PDMA*************************//
         // /***************************************************************************/
 
-        for (auto i = 0; i < PDP_INPUT_CHANNEL_MAX; i++)
+        // input one row along cubes width
+        for (auto i = 0; i < PDP_INPUT_MAX; i++)
         {
-            for (auto j = 0; j < PDP_INPUT_HEIGHT_MAX; j++)
-            {
-                for (auto k = 0; k < PDP_INPUT_WIDTH_MAX; k++)
-                {
-                    m.NewBvInput(GetVarName("pdp_input_chan_", (std::to_string(i)) + "_" + (std::to_string(j)) + "_" + (std::to_string(k))), PDP_INT_16_WIDTH);
-                }
-            }
+            m.NewBvInput(GetVarName("pdp_input_", std::to_string(i)), PDP_INT_16_WIDTH);
         }
 
-// Control Signals
-         m.NewBvInput("pdp_input_done", 1); // is it last pdp input
+        // Control Signals
+        m.NewBvInput("pdp_input_done", 1); // is it last pdp input
 
         // Control Signals
         // m.NewBvInput("pending_clr", 1);

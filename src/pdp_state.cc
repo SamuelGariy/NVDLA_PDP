@@ -178,13 +178,25 @@ namespace ilang
         // /***************************************************************************/
 
         // PDP_ILA states
-        m.NewBvState("pdp_state", 3);
+        m.NewState("pdp_state", 3);
+
+        // share line buffer
+        m.NewMemState("pdp_share_line_buffer", PDP_SHARE_LINE_ADDR_WIDTH, PDP_INT_16_WIDTH);
+
+        // buffer storing last kernel values for split width
+        m.NewMemState("pdp_split_width_buffer", PDP_SPLIT_WIDTH_BUFFER_ADDR_WIDTH, PDP_INT_16_WIDTH);
 
         // Padding value in use
         m.NewBvState("pdp_padding_value", PDP_INT_16_WIDTH);
 
+        // pooling_stage_split_width
+        m.NewBvState("pdp_pooling_stage_split_width", 2);
 
+        // input height computed
+      //  m.NewBvState("input_height_marker", NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT_WIDTH);
 
+        // input kernel computed
+        m.NewBvState("kernel_height_marker", NVDLA_PDP_D_KERNEL_HEIGHT_WIDTH);
 
         // for (auto i = 0; i < 2; i++)
         // {
