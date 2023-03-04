@@ -308,9 +308,9 @@ namespace ilang
 #define LOOP_FALSE 3
 
 // MODES
-#define PDP_FLYING 0
-#define PDP_OFF_FLYING_NO_SPLIT 1
-#define PDP_OFF_FLYING_SPLIT 2
+#define PDP_FLYING BvConst(0,2)
+#define PDP_OFF_FLYING_NO_SPLIT BvConst(1,2)
+#define PDP_OFF_FLYING_SPLIT BvConst(2,2)
 
 // SPLIT WIDTH STAGES
 #define SPLIT_STAGE_1 BvConst(0,2)
