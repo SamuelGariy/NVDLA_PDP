@@ -313,9 +313,9 @@ namespace ilang
 #define PDP_OFF_FLYING_SPLIT 2
 
 // SPLIT WIDTH STAGES
-#define SPLIT_STAGE_1 0
-#define SPLIT_STAGE_2 1
-#define SPLIT_STAGE_3 2
+#define SPLIT_STAGE_1 BvConst(0,2)
+#define SPLIT_STAGE_2 BvConst(1,2)
+#define SPLIT_STAGE_3 BvConst(2,2)
 
 // SIGNAL CONSTANTS
 #define SIG_FALSE BvConst(0,1)
