@@ -491,10 +491,10 @@ namespace ilang
                 {
                     auto curr = BvConst(0, PDP_INT_16_WIDTH);
                     auto kernel_j_bv = BvConst(kernel_j, PDP_INT_16_WIDTH);
-                    auto actual_kernel_j = Ite(kernel_j_bv < kernel_width, kernel_j_bv, kernel_width - 1);
-                    auto j = actual_output_j * stride_width + actual_kernel_j;
+                    auto actual_kernel_j = Ite(kernel_j_bv < SExt(kernel_width,PDP_INT_16_WIDTH), kernel_j_bv, SExt(kernel_width,PDP_INT_16_WIDTH) - 1);
+                    auto j = SExt(actual_output_j,PDP_INT_16_WIDTH) * SExt(stride_width,PDP_INT_16_WIDTH) + actual_kernel_j;
                     auto input_j_marker = output_j + kernel_j;
-                    auto input_j_marker_bv = BvConst(input_j_marker, NVDLA_PDP_D_DATA_CUBE_IN_WIDTH_WIDTH);
+                    auto input_j_marker_bv = BvConst(input_j_marker, PDP_INT_16_WIDTH);
                 //     curr = Ite(input_j_marker_bv == j, SExt(m.input(GetVarName("pdp_input_", std::to_string(input_j_marker))), PDP_INT_16_WIDTH), curr);
 
                 //     max = Ite(curr > max, curr, max);
