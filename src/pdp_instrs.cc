@@ -390,9 +390,9 @@ namespace ilang
             // update padding value
             instr.SetUpdate(m.state("pdp_padding_value"), Extract(m.state(NVDLA_PDP_D_POOLING_PADDING_VALUE_1_CFG), PDP_INT_16_WIDTH - 1, 0));
 
-            // // update output variables
-            // // update output channel
-            instr.SetUpdate(m.state(NVDLA_PDP_D_DATA_CUBE_OUT_CHANNEL), Extract(m.state(NVDLA_PDP_D_DATA_CUBE_IN_CHANNEL), NVDLA_PDP_D_DATA_CUBE_IN_CHANNEL_WIDTH - 1, 0));
+            // update output variables
+            // update output channel
+            // instr.SetUpdate(m.state(NVDLA_PDP_D_DATA_CUBE_OUT_CHANNEL), Extract(m.state(NVDLA_PDP_D_DATA_CUBE_IN_CHANNEL), NVDLA_PDP_D_DATA_CUBE_IN_CHANNEL_WIDTH - 1, 0));
 
             // update output height
             // auto output_var = (m.state(NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT) - m.state(NVDLA_PDP_D_KERNEL_HEIGHT) + m.state(NVDLA_PDP_D_PAD_BOTTOM) + m.state(NVDLA_PDP_D_PAD_TOP));
