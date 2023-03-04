@@ -205,169 +205,169 @@ namespace ilang
             instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_RECIP_KERNEL_HEIGHT)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_RECIP_KERNEL_HEIGHT_WIDTH - 1, 0));
         }
 
-        { // PDP set left/right/top/bottom padding size - addr = 0x040
-            auto instr = m.NewInstr("set_padding_size");
-            instr.SetDecode(pdp_csb_addr == 0x040 & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set left/right/top/bottom padding size - addr = 0x040
+        //     auto instr = m.NewInstr("set_padding_size");
+        //     instr.SetDecode(pdp_csb_addr == 0x040 & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_PAD_LEFT)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_PAD_LEFT_WIDTH - 1, 0));
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_PAD_TOP)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_PAD_TOP_END_BIT, NVDLA_PDP_D_PAD_TOP_START_BIT));
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_PAD_RIGHT)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_PAD_RIGHT_END_BIT, NVDLA_PDP_D_PAD_RIGHT_START_BIT));
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_PAD_BOTTOM)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_PAD_BOTTOM_END_BIT, NVDLA_PDP_D_PAD_BOTTOM_START_BIT));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_PAD_LEFT)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_PAD_LEFT_WIDTH - 1, 0));
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_PAD_TOP)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_PAD_TOP_END_BIT, NVDLA_PDP_D_PAD_TOP_START_BIT));
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_PAD_RIGHT)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_PAD_RIGHT_END_BIT, NVDLA_PDP_D_PAD_RIGHT_START_BIT));
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_PAD_BOTTOM)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_PAD_BOTTOM_END_BIT, NVDLA_PDP_D_PAD_BOTTOM_START_BIT));
+        // }
 
-        { // PDP set Padding_value*1 - addr = 0x044
-            auto instr = m.NewInstr("set_padding_value_1x");
-            instr.SetDecode(pdp_csb_addr == 0x044 & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set Padding_value*1 - addr = 0x044
+        //     auto instr = m.NewInstr("set_padding_value_1x");
+        //     instr.SetDecode(pdp_csb_addr == 0x044 & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_POOLING_PADDING_VALUE_1_CFG)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_POOLING_PADDING_VALUE_1_CFG_WIDTH - 1, 0));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_POOLING_PADDING_VALUE_1_CFG)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_POOLING_PADDING_VALUE_1_CFG_WIDTH - 1, 0));
+        // }
 
-        { // PDP set Padding_value*2 - addr = 0x048
-            auto instr = m.NewInstr("set_padding_value_2x");
-            instr.SetDecode(pdp_csb_addr == 0x048 & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set Padding_value*2 - addr = 0x048
+        //     auto instr = m.NewInstr("set_padding_value_2x");
+        //     instr.SetDecode(pdp_csb_addr == 0x048 & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_POOLING_PADDING_VALUE_2_CFG)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_POOLING_PADDING_VALUE_2_CFG_WIDTH - 1, 0));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_POOLING_PADDING_VALUE_2_CFG)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_POOLING_PADDING_VALUE_2_CFG_WIDTH - 1, 0));
+        // }
 
-        { // PDP set Padding_value*3 - addr = 0x04c
-            auto instr = m.NewInstr("set_padding_value_3x");
-            instr.SetDecode(pdp_csb_addr == 0x04c & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set Padding_value*3 - addr = 0x04c
+        //     auto instr = m.NewInstr("set_padding_value_3x");
+        //     instr.SetDecode(pdp_csb_addr == 0x04c & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_POOLING_PADDING_VALUE_3_CFG)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_POOLING_PADDING_VALUE_3_CFG_WIDTH - 1, 0));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_POOLING_PADDING_VALUE_3_CFG)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_POOLING_PADDING_VALUE_3_CFG_WIDTH - 1, 0));
+        // }
 
-        { // PDP set Padding_value*4 - addr = 0x050
-            auto instr = m.NewInstr("set_padding_value_4x");
-            instr.SetDecode(pdp_csb_addr == 0x050 & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set Padding_value*4 - addr = 0x050
+        //     auto instr = m.NewInstr("set_padding_value_4x");
+        //     instr.SetDecode(pdp_csb_addr == 0x050 & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_POOLING_PADDING_VALUE_4_CFG)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_POOLING_PADDING_VALUE_4_CFG_WIDTH - 1, 0));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_POOLING_PADDING_VALUE_4_CFG)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_POOLING_PADDING_VALUE_4_CFG_WIDTH - 1, 0));
+        // }
 
-        { // PDP set Padding_value*5 - addr = 0x054
-            auto instr = m.NewInstr("set_padding_value_5x");
-            instr.SetDecode(pdp_csb_addr == 0x054 & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set Padding_value*5 - addr = 0x054
+        //     auto instr = m.NewInstr("set_padding_value_5x");
+        //     instr.SetDecode(pdp_csb_addr == 0x054 & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_POOLING_PADDING_VALUE_5_CFG)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_POOLING_PADDING_VALUE_5_CFG_WIDTH - 1, 0));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_POOLING_PADDING_VALUE_5_CFG)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_POOLING_PADDING_VALUE_5_CFG_WIDTH - 1, 0));
+        // }
 
-        { // PDP set Padding_value*6 - addr = 0x058
-            auto instr = m.NewInstr("set_padding_value_6x");
-            instr.SetDecode(pdp_csb_addr == 0x058 & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set Padding_value*6 - addr = 0x058
+        //     auto instr = m.NewInstr("set_padding_value_6x");
+        //     instr.SetDecode(pdp_csb_addr == 0x058 & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_POOLING_PADDING_VALUE_6_CFG)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_POOLING_PADDING_VALUE_6_CFG_WIDTH - 1, 0));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_POOLING_PADDING_VALUE_6_CFG)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_POOLING_PADDING_VALUE_6_CFG_WIDTH - 1, 0));
+        // }
 
-        { // PDP set Padding_value*7 - addr = 0x05c
-            auto instr = m.NewInstr("set_padding_value_7x");
-            instr.SetDecode(pdp_csb_addr == 0x05c & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set Padding_value*7 - addr = 0x05c
+        //     auto instr = m.NewInstr("set_padding_value_7x");
+        //     instr.SetDecode(pdp_csb_addr == 0x05c & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_POOLING_PADDING_VALUE_7_CFG)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_POOLING_PADDING_VALUE_7_CFG_WIDTH - 1, 0));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_POOLING_PADDING_VALUE_7_CFG)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_POOLING_PADDING_VALUE_7_CFG_WIDTH - 1, 0));
+        // }
 
-        { // PDP set lower 32bits of input data address - addr = 0x060
-            auto instr = m.NewInstr("set_source_address_low");
-            instr.SetDecode(pdp_csb_addr == 0x060 & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set lower 32bits of input data address - addr = 0x060
+        //     auto instr = m.NewInstr("set_source_address_low");
+        //     instr.SetDecode(pdp_csb_addr == 0x060 & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_SRC_BASE_ADDR_LOW)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_SRC_BASE_ADDR_LOW_END_BIT, NVDLA_PDP_D_SRC_BASE_ADDR_LOW_START_BIT));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_SRC_BASE_ADDR_LOW)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_SRC_BASE_ADDR_LOW_END_BIT, NVDLA_PDP_D_SRC_BASE_ADDR_LOW_START_BIT));
+        // }
 
-        { // PDP set higher 32bits of input data address - addr = 0x064
-            auto instr = m.NewInstr("set_source_address_high");
-            instr.SetDecode(pdp_csb_addr == 0x064 & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set higher 32bits of input data address - addr = 0x064
+        //     auto instr = m.NewInstr("set_source_address_high");
+        //     instr.SetDecode(pdp_csb_addr == 0x064 & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_SRC_BASE_ADDR_HIGH)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_SRC_BASE_ADDR_HIGH_WIDTH - 1, 0));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_SRC_BASE_ADDR_HIGH)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_SRC_BASE_ADDR_HIGH_WIDTH - 1, 0));
+        // }
 
-        { // PDP set line stride of input cube - addr = 0x068
-            auto instr = m.NewInstr("set_source_line_stride");
-            instr.SetDecode(pdp_csb_addr == 0x068 & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set line stride of input cube - addr = 0x068
+        //     auto instr = m.NewInstr("set_source_line_stride");
+        //     instr.SetDecode(pdp_csb_addr == 0x068 & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_SRC_LINE_STRIDE)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_SRC_LINE_STRIDE_END_BIT, NVDLA_PDP_D_SRC_LINE_STRIDE_START_BIT));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_SRC_LINE_STRIDE)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_SRC_LINE_STRIDE_END_BIT, NVDLA_PDP_D_SRC_LINE_STRIDE_START_BIT));
+        // }
 
-        { // PDP set surface stride of input cube - addr = 0x06c
-            auto instr = m.NewInstr("set_source_surface_stride");
-            instr.SetDecode(pdp_csb_addr == 0x06c & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set surface stride of input cube - addr = 0x06c
+        //     auto instr = m.NewInstr("set_source_surface_stride");
+        //     instr.SetDecode(pdp_csb_addr == 0x06c & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_SRC_SURFACE_STRIDE)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_SRC_SURFACE_STRIDE_END_BIT, NVDLA_PDP_D_SRC_SURFACE_STRIDE_START_BIT));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_SRC_SURFACE_STRIDE)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_SRC_SURFACE_STRIDE_END_BIT, NVDLA_PDP_D_SRC_SURFACE_STRIDE_START_BIT));
+        // }
 
-        { // PDP set lower 32bits of output data address - addr = 0x070
-            auto instr = m.NewInstr("set_destination_address_low");
-            instr.SetDecode(pdp_csb_addr == 0x070 & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set lower 32bits of output data address - addr = 0x070
+        //     auto instr = m.NewInstr("set_destination_address_low");
+        //     instr.SetDecode(pdp_csb_addr == 0x070 & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_DST_BASE_ADDR_LOW)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_DST_BASE_ADDR_LOW_END_BIT, NVDLA_PDP_D_DST_BASE_ADDR_LOW_START_BIT));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_DST_BASE_ADDR_LOW)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_DST_BASE_ADDR_LOW_END_BIT, NVDLA_PDP_D_DST_BASE_ADDR_LOW_START_BIT));
+        // }
 
-        { // PDP set higher 32bits of output data address - addr = 0x074
-            auto instr = m.NewInstr("set_destination_address_high");
-            instr.SetDecode(pdp_csb_addr == 0x074 & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set higher 32bits of output data address - addr = 0x074
+        //     auto instr = m.NewInstr("set_destination_address_high");
+        //     instr.SetDecode(pdp_csb_addr == 0x074 & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_DST_BASE_ADDR_HIGH)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_DST_BASE_ADDR_HIGH_WIDTH - 1, 0));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_DST_BASE_ADDR_HIGH)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_DST_BASE_ADDR_HIGH_WIDTH - 1, 0));
+        // }
 
-        { // PDP set line stride of output cube - addr = 0x078
-            auto instr = m.NewInstr("set_destination_line_stride");
-            instr.SetDecode(pdp_csb_addr == 0x078 & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set line stride of output cube - addr = 0x078
+        //     auto instr = m.NewInstr("set_destination_line_stride");
+        //     instr.SetDecode(pdp_csb_addr == 0x078 & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_DST_LINE_STRIDE)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_DST_LINE_STRIDE_END_BIT, NVDLA_PDP_D_DST_LINE_STRIDE_START_BIT));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_DST_LINE_STRIDE)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_DST_LINE_STRIDE_END_BIT, NVDLA_PDP_D_DST_LINE_STRIDE_START_BIT));
+        // }
 
-        { // PDP set surface stride of output cube - addr = 0x07c
-            auto instr = m.NewInstr("set_destination_surface_stride");
-            instr.SetDecode(pdp_csb_addr == 0x07c & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set surface stride of output cube - addr = 0x07c
+        //     auto instr = m.NewInstr("set_destination_surface_stride");
+        //     instr.SetDecode(pdp_csb_addr == 0x07c & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_SRC_SURFACE_STRIDE)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_SRC_SURFACE_STRIDE_END_BIT, NVDLA_PDP_D_SRC_SURFACE_STRIDE_START_BIT));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_SRC_SURFACE_STRIDE)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_SRC_SURFACE_STRIDE_END_BIT, NVDLA_PDP_D_SRC_SURFACE_STRIDE_START_BIT));
+        // }
 
-        { // PDP set RAM type of destination cube - addr = 0x080
-            auto instr = m.NewInstr("set_ram_type");
-            instr.SetDecode(pdp_csb_addr == 0x080 & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set RAM type of destination cube - addr = 0x080
+        //     auto instr = m.NewInstr("set_ram_type");
+        //     instr.SetDecode(pdp_csb_addr == 0x080 & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_DST_RAM_CFG)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_DST_RAM_CFG_WIDTH - 1, 0));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_DST_RAM_CFG)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_DST_RAM_CFG_WIDTH - 1, 0));
+        // }
 
-        { // PDP set precision of input data - addr = 0x084
-            auto instr = m.NewInstr("set_input_data_format");
-            instr.SetDecode(pdp_csb_addr == 0x084 & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set precision of input data - addr = 0x084
+        //     auto instr = m.NewInstr("set_input_data_format");
+        //     instr.SetDecode(pdp_csb_addr == 0x084 & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_FORMAT)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_DATA_FORMAT_WIDTH - 1, 0));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_FORMAT)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_DATA_FORMAT_WIDTH - 1, 0));
+        // }
 
-        { // PDP set input infinity element number- addr = 0x088
-            auto instr = m.NewInstr("set_infinity_input_number");
-            instr.SetDecode(pdp_csb_addr == 0x088 & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set input infinity element number- addr = 0x088
+        //     auto instr = m.NewInstr("set_infinity_input_number");
+        //     instr.SetDecode(pdp_csb_addr == 0x088 & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_INF_INPUT_NUM)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_INF_INPUT_NUM_WIDTH - 1, 0));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_INF_INPUT_NUM)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_INF_INPUT_NUM_WIDTH - 1, 0));
+        // }
 
-        { // PDP set input NaN element number - addr = 0x08c
-            auto instr = m.NewInstr("set_nan_input_number");
-            instr.SetDecode(pdp_csb_addr == 0x08c & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set input NaN element number - addr = 0x08c
+        //     auto instr = m.NewInstr("set_nan_input_number");
+        //     instr.SetDecode(pdp_csb_addr == 0x08c & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_NAN_INPUT_NUM)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_NAN_INPUT_NUM_WIDTH - 1, 0));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_NAN_INPUT_NUM)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_NAN_INPUT_NUM_WIDTH - 1, 0));
+        // }
 
-        { // PDP set output NaN element number - addr = 0x090
-            auto instr = m.NewInstr("set_nan_output_number");
-            instr.SetDecode(pdp_csb_addr == 0x090 & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set output NaN element number - addr = 0x090
+        //     auto instr = m.NewInstr("set_nan_output_number");
+        //     instr.SetDecode(pdp_csb_addr == 0x090 & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_NAN_OUTPUT_NUM)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_NAN_OUTPUT_NUM_WIDTH - 1, 0));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_NAN_OUTPUT_NUM)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_NAN_OUTPUT_NUM_WIDTH - 1, 0));
+        // }
 
-        { // PDP set performance counting (enable/disable) - addr = 0x094
-            auto instr = m.NewInstr("set_perf_count_enable");
-            instr.SetDecode(pdp_csb_addr == 0x094 & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set performance counting (enable/disable) - addr = 0x094
+        //     auto instr = m.NewInstr("set_perf_count_enable");
+        //     instr.SetDecode(pdp_csb_addr == 0x094 & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_PERF_ENABLE)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_PERF_ENABLE_WIDTH - 1, 0));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_PERF_ENABLE)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_PERF_ENABLE_WIDTH - 1, 0));
+        // }
 
-        { // PDP set counting stalls of write requests - addr = 0x098
-            auto instr = m.NewInstr("set_perf_write_stall");
-            instr.SetDecode(pdp_csb_addr == 0x098 & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set counting stalls of write requests - addr = 0x098
+        //     auto instr = m.NewInstr("set_perf_write_stall");
+        //     instr.SetDecode(pdp_csb_addr == 0x098 & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_PERF_WRITE_STALL)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_PERF_WRITE_STALL_WIDTH - 1, 0));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_PERF_WRITE_STALL)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_PERF_WRITE_STALL_WIDTH - 1, 0));
+        // }
 
         // // /****************************************************************************/
         // // // ***************** PDP OPERATIONS INSTRUCTIONS ***************************//
