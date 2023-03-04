@@ -468,7 +468,7 @@ namespace ilang
             auto output_width_last = m.state(NVDLA_PDP_D_PARTIAL_WIDTH_OUT_LAST);
 
             auto data_format = m.state(NVDLA_PDP_D_DATA_FORMAT);
-            // auto mode = Ite(m.state(NVDLA_PDP_FLYING_MODE) == BvConst(0, NVDLA_PDP_FLYING_MODE_WIDTH), PDP_FLYING, Ite(m.state(NVDLA_PDP_SPLIT_NUM) > BvConst(0, NVDLA_PDP_SPLIT_NUM_WIDTH), PDP_OFF_FLYING_SPLIT, PDP_OFF_FLYING_NO_SPLIT));
+            auto mode = Ite(m.state(NVDLA_PDP_FLYING_MODE) == BvConst(0, NVDLA_PDP_FLYING_MODE_WIDTH), PDP_FLYING, Ite(m.state(NVDLA_PDP_SPLIT_NUM) > BvConst(0, NVDLA_PDP_SPLIT_NUM_WIDTH), PDP_OFF_FLYING_SPLIT, PDP_OFF_FLYING_NO_SPLIT));
             // auto split_stage = m.state("pdp_pooling_stage_split_width");
 
         //     // update output width in use depending on mode
