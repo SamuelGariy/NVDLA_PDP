@@ -90,34 +90,34 @@ namespace ilang
         // // ***************** REGISTER CONFIGURATION INSTRUCTIONS ********************//
         // /***************************************************************************/
 
-        { // PDP set producer - addr = 0x004
-            auto instr = m.NewInstr("set_producer");
-            instr.SetDecode(pdp_csb_addr == 0x004 & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set producer - addr = 0x004
+        //     auto instr = m.NewInstr("set_producer");
+        //     instr.SetDecode(pdp_csb_addr == 0x004 & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(pdp_producer, Extract(m.input("csb2pdp_data"), NVDLA_PDP_S_PRODUCER_WIDTH - 1, 0));
-        }
+        //     instr.SetUpdate(pdp_producer, Extract(m.input("csb2pdp_data"), NVDLA_PDP_S_PRODUCER_WIDTH - 1, 0));
+        // }
 
-        { // PDP set start group 0 - addr = 0x008
-            auto instr = m.NewInstr("set_start_group0");
-            instr.SetDecode(pdp_csb_addr == 0x008 & pdp_csb_valid & pdp_csb_write & pdp_producer == BvConst(0, 1) & pdp_group0_unset);
+        // { // PDP set start group 0 - addr = 0x008
+        //     auto instr = m.NewInstr("set_start_group0");
+        //     instr.SetDecode(pdp_csb_addr == 0x008 & pdp_csb_valid & pdp_csb_write & pdp_producer == BvConst(0, 1) & pdp_group0_unset);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_OP_ENABLE)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_OP_ENABLE_WIDTH - 1, 0));
-            instr.SetUpdate(pdp_state, START);
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_OP_ENABLE)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_OP_ENABLE_WIDTH - 1, 0));
+        //     instr.SetUpdate(pdp_state, START);
+        // }
 
-        { // PDP set input data cube's width - addr = 0x00c
-            auto instr = m.NewInstr("set_cube_in_width");
-            instr.SetDecode(pdp_csb_addr == 0x00c & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set input data cube's width - addr = 0x00c
+        //     auto instr = m.NewInstr("set_cube_in_width");
+        //     instr.SetDecode(pdp_csb_addr == 0x00c & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_CUBE_IN_WIDTH)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_DATA_CUBE_IN_WIDTH_WIDTH - 1, 0));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_CUBE_IN_WIDTH)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_DATA_CUBE_IN_WIDTH_WIDTH - 1, 0));
+        // }
 
-        { // PDP set input data cube's height - addr = 0x010
-            auto instr = m.NewInstr("set_cube_in_height");
-            instr.SetDecode(pdp_csb_addr == 0x010 & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set input data cube's height - addr = 0x010
+        //     auto instr = m.NewInstr("set_cube_in_height");
+        //     instr.SetDecode(pdp_csb_addr == 0x010 & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT_WIDTH - 1, 0));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT_WIDTH - 1, 0));
+        // }
 
         // { // PDP set input data cube's channel - addr = 0x014
         //     auto instr = m.NewInstr("set_cube_in_channel");
