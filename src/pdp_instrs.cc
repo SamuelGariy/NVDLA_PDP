@@ -458,18 +458,18 @@ namespace ilang
             auto stride_width = m.state(NVDLA_PDP_D_KERNEL_STRIDE_WIDTH);
             auto pdp_padding_value = m.state("pdp_padding_value");
 
-            auto padding_left = m.state(NVDLA_PDP_D_PAD_LEFT);
-            auto padding_right = m.state(NVDLA_PDP_D_PAD_RIGHT);
-            auto padding_top = m.state(NVDLA_PDP_D_PAD_TOP);
-            auto padding_bottom = m.state(NVDLA_PDP_D_PAD_BOTTOM);
+            // auto padding_left = m.state(NVDLA_PDP_D_PAD_LEFT);
+            // auto padding_right = m.state(NVDLA_PDP_D_PAD_RIGHT);
+            // auto padding_top = m.state(NVDLA_PDP_D_PAD_TOP);
+            // auto padding_bottom = m.state(NVDLA_PDP_D_PAD_BOTTOM);
 
-            auto output_width_first = m.state(NVDLA_PDP_D_PARTIAL_WIDTH_OUT_FIRST);
-            auto output_width_mid = m.state(NVDLA_PDP_D_PARTIAL_WIDTH_OUT_MID);
-            auto output_width_last = m.state(NVDLA_PDP_D_PARTIAL_WIDTH_OUT_LAST);
+            // auto output_width_first = m.state(NVDLA_PDP_D_PARTIAL_WIDTH_OUT_FIRST);
+            // auto output_width_mid = m.state(NVDLA_PDP_D_PARTIAL_WIDTH_OUT_MID);
+            // auto output_width_last = m.state(NVDLA_PDP_D_PARTIAL_WIDTH_OUT_LAST);
 
-            auto data_format = m.state(NVDLA_PDP_D_DATA_FORMAT);
-            auto mode = Ite(m.state(NVDLA_PDP_FLYING_MODE) == BvConst(0, NVDLA_PDP_FLYING_MODE_WIDTH), PDP_FLYING, Ite(m.state(NVDLA_PDP_SPLIT_NUM) > BvConst(0, NVDLA_PDP_SPLIT_NUM_WIDTH), PDP_OFF_FLYING_SPLIT, PDP_OFF_FLYING_NO_SPLIT));
-            auto split_stage = m.state("pdp_pooling_stage_split_width");
+            // auto data_format = m.state(NVDLA_PDP_D_DATA_FORMAT);
+            // auto mode = Ite(m.state(NVDLA_PDP_FLYING_MODE) == BvConst(0, NVDLA_PDP_FLYING_MODE_WIDTH), PDP_FLYING, Ite(m.state(NVDLA_PDP_SPLIT_NUM) > BvConst(0, NVDLA_PDP_SPLIT_NUM_WIDTH), PDP_OFF_FLYING_SPLIT, PDP_OFF_FLYING_NO_SPLIT));
+            // auto split_stage = m.state("pdp_pooling_stage_split_width");
 
         //     // update output width in use depending on mode
         //     output_width = Ite(mode == PDP_OFF_FLYING_NO_SPLIT, output_width_first, Ite(mode == PDP_OFF_FLYING_SPLIT, Ite(split_stage == SPLIT_STAGE_1, output_width_first, Ite(split_stage == SPLIT_STAGE_2, output_width_mid, output_width_last)), output_width));
