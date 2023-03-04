@@ -489,14 +489,14 @@ namespace ilang
 
                 for (int kernel_j = 0; kernel_j < PDP_KERNEL_MAX; kernel_j++)
                 {
-                    auto curr = BvConst(0, PDP_INT_16_WIDTH);
+                    //auto curr = BvConst(0, PDP_INT_16_WIDTH);
                     auto kernel_j_bv = BvConst(kernel_j, PDP_INT_16_WIDTH);
                     auto actual_kernel_j = Ite(kernel_j_bv < SExt(kernel_width,PDP_INT_16_WIDTH), kernel_j_bv, SExt(kernel_width,PDP_INT_16_WIDTH) - 1);
                     auto j = SExt(actual_output_j,PDP_INT_16_WIDTH) * SExt(stride_width,PDP_INT_16_WIDTH) + actual_kernel_j;
                     auto input_j_marker = output_j + kernel_j;
                     auto input_j_marker_bv = BvConst(input_j_marker, PDP_INT_16_WIDTH);
                    // auto input_in = 
-                   curr = Ite(input_j_marker_bv == j, SExt(m.input(GetVarName("pdp_input_", std::to_string(input_j_marker))), PDP_INT_16_WIDTH), curr);
+                   auto curr = Ite(input_j_marker_bv == j, SExt(m.input(GetVarName("pdp_input_", std::to_string(input_j_marker))), PDP_INT_16_WIDTH), curr);
 
                     // max = Ite(curr > max, curr, max);
                 }
