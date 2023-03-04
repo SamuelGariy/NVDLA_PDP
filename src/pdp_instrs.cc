@@ -466,7 +466,7 @@ namespace ilang
             {
                 // skip output_update when operation is over
                 auto skip_output_bv = Ite(BvConst(output_j, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH) < output_width, BoolConst(false), BoolConst(true));
-                auto actual_output_j = Ite(skip_output_bv, output_width - 1, BvConst(output_j, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH) );
+                auto actual_output_j = Ite(skip_output_bv, output_width - 1, BvConst(output_j, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH));
                 auto max = BvConst(SHRT_MIN, PDP_INT_16_WIDTH);
 
                 for (int kernel_j = 0; kernel_j < PDP_KERNEL_MAX; kernel_j++)
@@ -506,8 +506,8 @@ namespace ilang
             instr.SetUpdate(m.state("kernel_height_marker"), kernel_height_marker);
 
             // update output if ready
-            instr.SetUpdate(m.state("pdp2csb_data_vld"), Ite(output_ready, SIG_TRUE, m.state("pdp2csb_data_vld")));
-            instr.SetUpdate(m.output("pdp_output"), Ite(output_ready, m.state("pdp_share_line_buffer"), m.output("pdp_output")));
+            Instr.SetUpdate(m.state("pdp2csb_data_vld"), Ite(output_ready, SIG_TRUE, m.state("pdp2csb_data_vld")));
+            Instr.SetUpdate(m.state("pdp_output"), Ite(output_ready, m.state("pdp_share_line_buffer"), m.output("pdp_output")));
 
             // reset share line buffer if output is ready
             instr.SetUpdate(m.state("pdp_share_line_buffer"), Ite(output_ready, MemConst(SHRT_MIN, {}, PDP_SHARE_LINE_ADDR_WIDTH, PDP_INT_16_WIDTH), m.state("pdp_share_line_buffer")));
