@@ -451,7 +451,7 @@ namespace ilang
             auto output_channel = m.state(GetVarName("group0_",NVDLA_PDP_D_DATA_CUBE_IN_CHANNEL));
 
             auto output_height = m.state(GetVarName("group0_",NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT));
-            auto output_width = m.state(GetVarName("group0_",NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH));
+            auto output_width_sdp = m.state(GetVarName("group0_",NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH));
             auto kernel_height = m.state(GetVarName("group0_",NVDLA_PDP_D_KERNEL_HEIGHT));
             auto kernel_width = m.state(GetVarName("group0_",NVDLA_PDP_D_KERNEL_WIDTH));
             auto stride_height = m.state(GetVarName("group0_",NVDLA_PDP_D_KERNEL_STRIDE_HEIGHT));
@@ -472,7 +472,7 @@ namespace ilang
             auto split_stage = m.state("pdp_pooling_stage_split_width");
 
             // update output width in use depending on mode
-            output_width = Ite(mode == PDP_OFF_FLYING_NO_SPLIT, output_width_first, Ite(mode == PDP_OFF_FLYING_SPLIT, Ite(split_stage == SPLIT_STAGE_1, output_width_first, Ite(split_stage == SPLIT_STAGE_2, output_width_mid, output_width_last)), output_width));
+            auto output_width = Ite(mode == PDP_OFF_FLYING_NO_SPLIT, output_width_first, Ite(mode == PDP_OFF_FLYING_SPLIT, Ite(split_stage == SPLIT_STAGE_1, output_width_first, Ite(split_stage == SPLIT_STAGE_2, output_width_mid, output_width_last)), output_width_sdp));
 
             // // share line buffer
             // auto share_buffer_ptr = MemConst(SHRT_MIN, {}, PDP_SHARE_LINE_ADDR_WIDTH, PDP_INT_16_WIDTH).get();
