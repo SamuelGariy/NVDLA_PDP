@@ -377,7 +377,7 @@ namespace ilang
         // // // ***************************** PDP STATE CONTROL ***************************//
         // // /***************************************************************************/
     {
-                    //start to load
+          //start to load
             auto instr = m.NewInstr("pdp_start_to_load");
             auto group0_ready = pdp_consumer == BvConst(0, 1) & m.state(GetVarName("group0_", NVDLA_PDP_D_OP_ENABLE)) == SIG_TRUE;
             instr.SetDecode(pdp_state == START & group0_ready);
@@ -439,100 +439,100 @@ namespace ilang
             instr.SetUpdate(m.state("pdp_pooling_stage_split_width"), SPLIT_STAGE_1);
         }
 
-        // {
-        //     // max - pooling instruction
-        //     auto instr = m.NewInstr("max_pool");
-        //     instr.SetDecode(pdp_state == MAXPOOL);
-        //     // instr.SetUpdate(m.state("pdp_state"), MAXPOOL);
-        //     // pdp_state = MAXPOOL;
+        {
+            // max - pooling instruction
+            auto instr = m.NewInstr("max_pool");
+            instr.SetDecode(pdp_state == MAXPOOL);
+            // instr.SetUpdate(m.state("pdp_state"), MAXPOOL);
+            // pdp_state = MAXPOOL;
 
-        //     // variables needed for max pooling
-        //     auto input_height = m.state(NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT);
-        //     auto output_channel = m.state(NVDLA_PDP_D_DATA_CUBE_IN_CHANNEL);
+            // variables needed for max pooling
+            auto input_height = m.state(NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT);
+            auto output_channel = m.state(NVDLA_PDP_D_DATA_CUBE_IN_CHANNEL);
 
-        //     auto output_height = m.state(NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT);
-        //     auto output_width = m.state(NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH);
-        //     auto kernel_height = m.state(NVDLA_PDP_D_KERNEL_HEIGHT);
-        //     auto kernel_width = m.state(NVDLA_PDP_D_KERNEL_WIDTH);
-        //     auto stride_height = m.state(NVDLA_PDP_D_KERNEL_STRIDE_HEIGHT);
-        //     auto stride_width = m.state(NVDLA_PDP_D_KERNEL_STRIDE_WIDTH);
-        //     auto pdp_padding_value = m.state("pdp_padding_value");
+            auto output_height = m.state(NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT);
+            auto output_width = m.state(NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH);
+            auto kernel_height = m.state(NVDLA_PDP_D_KERNEL_HEIGHT);
+            auto kernel_width = m.state(NVDLA_PDP_D_KERNEL_WIDTH);
+            auto stride_height = m.state(NVDLA_PDP_D_KERNEL_STRIDE_HEIGHT);
+            auto stride_width = m.state(NVDLA_PDP_D_KERNEL_STRIDE_WIDTH);
+            auto pdp_padding_value = m.state("pdp_padding_value");
 
-        //     auto padding_left = m.state(NVDLA_PDP_D_PAD_LEFT);
-        //     auto padding_right = m.state(NVDLA_PDP_D_PAD_RIGHT);
-        //     auto padding_top = m.state(NVDLA_PDP_D_PAD_TOP);
-        //     auto padding_bottom = m.state(NVDLA_PDP_D_PAD_BOTTOM);
+            auto padding_left = m.state(NVDLA_PDP_D_PAD_LEFT);
+            auto padding_right = m.state(NVDLA_PDP_D_PAD_RIGHT);
+            auto padding_top = m.state(NVDLA_PDP_D_PAD_TOP);
+            auto padding_bottom = m.state(NVDLA_PDP_D_PAD_BOTTOM);
 
-        //     auto output_width_first = m.state(NVDLA_PDP_D_PARTIAL_WIDTH_OUT_FIRST);
-        //     auto output_width_mid = m.state(NVDLA_PDP_D_PARTIAL_WIDTH_OUT_MID);
-        //     auto output_width_last = m.state(NVDLA_PDP_D_PARTIAL_WIDTH_OUT_LAST);
+            auto output_width_first = m.state(NVDLA_PDP_D_PARTIAL_WIDTH_OUT_FIRST);
+            auto output_width_mid = m.state(NVDLA_PDP_D_PARTIAL_WIDTH_OUT_MID);
+            auto output_width_last = m.state(NVDLA_PDP_D_PARTIAL_WIDTH_OUT_LAST);
 
-        //     auto data_format = m.state(NVDLA_PDP_D_DATA_FORMAT);
-        //     auto mode = Ite(m.state(NVDLA_PDP_FLYING_MODE) == BvConst(0, NVDLA_PDP_FLYING_MODE_WIDTH), PDP_FLYING, Ite(m.state(NVDLA_PDP_SPLIT_NUM) > BvConst(0, NVDLA_PDP_SPLIT_NUM_WIDTH), PDP_OFF_FLYING_SPLIT, PDP_OFF_FLYING_NO_SPLIT));
-        //     auto split_stage = m.state("pdp_pooling_stage_split_width");
+            auto data_format = m.state(NVDLA_PDP_D_DATA_FORMAT);
+            auto mode = Ite(m.state(NVDLA_PDP_FLYING_MODE) == BvConst(0, NVDLA_PDP_FLYING_MODE_WIDTH), PDP_FLYING, Ite(m.state(NVDLA_PDP_SPLIT_NUM) > BvConst(0, NVDLA_PDP_SPLIT_NUM_WIDTH), PDP_OFF_FLYING_SPLIT, PDP_OFF_FLYING_NO_SPLIT));
+            auto split_stage = m.state("pdp_pooling_stage_split_width");
 
-        //     // update output width in use depending on mode
-        //     output_width = Ite(mode == PDP_OFF_FLYING_NO_SPLIT, output_width_first, Ite(mode == PDP_OFF_FLYING_SPLIT, Ite(split_stage == SPLIT_STAGE_1, output_width_first, Ite(split_stage == SPLIT_STAGE_2, output_width_mid, output_width_last)), output_width));
+            // update output width in use depending on mode
+            output_width = Ite(mode == PDP_OFF_FLYING_NO_SPLIT, output_width_first, Ite(mode == PDP_OFF_FLYING_SPLIT, Ite(split_stage == SPLIT_STAGE_1, output_width_first, Ite(split_stage == SPLIT_STAGE_2, output_width_mid, output_width_last)), output_width));
 
-        //     // share line buffer
-        //     auto share_buffer_ptr = MemConst(SHRT_MIN, {}, PDP_SHARE_LINE_ADDR_WIDTH, PDP_INT_16_WIDTH).get();
+            // share line buffer
+            auto share_buffer_ptr = MemConst(SHRT_MIN, {}, PDP_SHARE_LINE_ADDR_WIDTH, PDP_INT_16_WIDTH).get();
 
-        //     // for use in split width
-        //     auto split_buffer_ptr = MemConst(SHRT_MIN, {}, PDP_SPLIT_WIDTH_BUFFER_ADDR_WIDTH, PDP_INT_16_WIDTH).get();
+            // for use in split width
+            auto split_buffer_ptr = MemConst(SHRT_MIN, {}, PDP_SPLIT_WIDTH_BUFFER_ADDR_WIDTH, PDP_INT_16_WIDTH).get();
 
-        //     for (auto output_j = 0; output_j < PDP_OUTPUT_MAX; output_j++)
-        //     {
-        //         // skip output_update when operation is over
-        //         auto skip_output_bv = Ite(BvConst(output_j, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH) < output_width, BoolConst(false), BoolConst(true));
-        //         auto actual_output_j = Ite(skip_output_bv, output_width - 1, BvConst(output_j, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH));
-        //         auto max = BvConst(SHRT_MIN, PDP_INT_16_WIDTH);
+            for (auto output_j = 0; output_j < PDP_OUTPUT_MAX; output_j++)
+            {
+                // skip output_update when operation is over
+                auto skip_output_bv = Ite(BvConst(output_j, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH) < output_width, BoolConst(false), BoolConst(true));
+                auto actual_output_j = Ite(skip_output_bv, output_width - 1, BvConst(output_j, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH));
+                auto max = BvConst(SHRT_MIN, PDP_INT_16_WIDTH);
 
-        //         for (int kernel_j = 0; kernel_j < PDP_KERNEL_MAX; kernel_j++)
-        //         {
-        //             auto curr = BvConst(SHRT_MIN, PDP_INT_16_WIDTH);
-        //             auto kernel_j_bv = BvConst(kernel_j, PDP_INT_16_WIDTH);
-        //             auto actual_kernel_j = Ite(kernel_j_bv < kernel_width, kernel_j_bv, kernel_width - 1);
-        //             auto j = actual_output_j * stride_width + actual_kernel_j;
-        //             auto input_j_marker = output_j + kernel_j;
-        //             auto input_j_marker_bv = BvConst(input_j_marker, NVDLA_PDP_D_DATA_CUBE_IN_WIDTH_WIDTH);
-        //             curr = Ite(input_j_marker_bv == j, SExt(m.input(GetVarName("pdp_input_", std::to_string(input_j_marker))), PDP_INT_16_WIDTH), curr);
+                for (int kernel_j = 0; kernel_j < PDP_KERNEL_MAX; kernel_j++)
+                {
+                    auto curr = BvConst(SHRT_MIN, PDP_INT_16_WIDTH);
+                    auto kernel_j_bv = BvConst(kernel_j, PDP_INT_16_WIDTH);
+                    auto actual_kernel_j = Ite(kernel_j_bv < kernel_width, kernel_j_bv, kernel_width - 1);
+                    auto j = actual_output_j * stride_width + actual_kernel_j;
+                    auto input_j_marker = output_j + kernel_j;
+                    auto input_j_marker_bv = BvConst(input_j_marker, NVDLA_PDP_D_DATA_CUBE_IN_WIDTH_WIDTH);
+                    curr = Ite(input_j_marker_bv == j, SExt(m.input(GetVarName("pdp_input_", std::to_string(input_j_marker))), PDP_INT_16_WIDTH), curr);
 
-        //             max = Ite(curr > max, curr, max);
-        //         }
-        //         auto curr_max = Load(m.state("pdp_share_line_buffer"), BvConst(output_j, PDP_SHARE_LINE_ADDR_WIDTH));
+                    max = Ite(curr > max, curr, max);
+                }
+                auto curr_max = Load(m.state("pdp_share_line_buffer"), BvConst(output_j, PDP_SHARE_LINE_ADDR_WIDTH));
 
-        //         skip_output_bv = Ite(max > curr_max, skip_output_bv, BoolConst(true));
+                skip_output_bv = Ite(max > curr_max, skip_output_bv, BoolConst(true));
 
-        //         // update memory and increment memory pointer
-        //         auto new_share_buffer = ExprRef(share_buffer_ptr).Store(BvConst(output_j, PDP_SHARE_LINE_ADDR_WIDTH), Ite(skip_output_bv, curr_max, max));
-        //         share_buffer_ptr = new_share_buffer.get();
-        //     }
+                // update memory and increment memory pointer
+                auto new_share_buffer = ExprRef(share_buffer_ptr).Store(BvConst(output_j, PDP_SHARE_LINE_ADDR_WIDTH), Ite(skip_output_bv, curr_max, max));
+                share_buffer_ptr = new_share_buffer.get();
+            }
 
-        //     // load to buffer
-        //     instr.SetUpdate(m.state("pdp_share_line_buffer"), ExprRef(share_buffer_ptr));
+            // load to buffer
+            instr.SetUpdate(m.state("pdp_share_line_buffer"), ExprRef(share_buffer_ptr));
 
-        //     auto kernel_height_marker = m.state("kernel_height_marker");
-        //     //   auto input_height_marker = m.state("input_height_marker");
+            auto kernel_height_marker = m.state("kernel_height_marker");
+            //   auto input_height_marker = m.state("input_height_marker");
 
-        //     MemConst(SHRT_MIN, {}, PDP_SHARE_LINE_ADDR_WIDTH, PDP_INT_16_WIDTH);
+            MemConst(SHRT_MIN, {}, PDP_SHARE_LINE_ADDR_WIDTH, PDP_INT_16_WIDTH);
 
-        //     kernel_height_marker = kernel_height_marker + 1;
+            kernel_height_marker = kernel_height_marker + 1;
 
-        //     // check if output is ready
-        //     auto output_ready = Ite(kernel_height_marker == kernel_height, BoolConst(true), BoolConst(false));
-        //     kernel_height_marker = Ite(output_ready, BvConst(0, NVDLA_PDP_D_KERNEL_HEIGHT_WIDTH), kernel_height_marker);
-        //     instr.SetUpdate(m.state("kernel_height_marker"), kernel_height_marker);
+            // check if output is ready
+            auto output_ready = Ite(kernel_height_marker == kernel_height, BoolConst(true), BoolConst(false));
+            kernel_height_marker = Ite(output_ready, BvConst(0, NVDLA_PDP_D_KERNEL_HEIGHT_WIDTH), kernel_height_marker);
+            instr.SetUpdate(m.state("kernel_height_marker"), kernel_height_marker);
 
-        //     // update output if ready
-        //     instr.SetUpdate(m.state("pdp2csb_data_vld"), Ite(output_ready, SIG_TRUE, m.state("pdp2csb_data_vld")));
-        //     instr.SetUpdate(m.state("pdp_output"), Ite(output_ready, m.state("pdp_share_line_buffer"), m.state("pdp_output")));
+            // update output if ready
+            instr.SetUpdate(m.state("pdp2csb_data_vld"), Ite(output_ready, SIG_TRUE, m.state("pdp2csb_data_vld")));
+            instr.SetUpdate(m.state("pdp_output"), Ite(output_ready, m.state("pdp_share_line_buffer"), m.state("pdp_output")));
 
-        //     // reset share line buffer if output is ready
-            // instr.SetUpdate(m.state("pdp_share_line_buffer"), Ite(output_ready, MemConst(SHRT_MIN, {}, PDP_SHARE_LINE_ADDR_WIDTH, PDP_INT_16_WIDTH), m.state("pdp_share_line_buffer")));
+            // reset share line buffer if output is ready
+            instr.SetUpdate(m.state("pdp_share_line_buffer"), Ite(output_ready, MemConst(SHRT_MIN, {}, PDP_SHARE_LINE_ADDR_WIDTH, PDP_INT_16_WIDTH), m.state("pdp_share_line_buffer")));
        
-        //   instr.SetUpdate(m.state("pdp_state"), Ite(m.input("pdp_last_input_batch") == BoolConst(true), START, MAXPOOL));
-        // instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_CMAC_D_OP_ENABLE)), Ite(m.input("pdp_last_input_batch") == BoolConst(true), SIG_FALSE, SIG_TRUE));
-        // }
+          instr.SetUpdate(m.state("pdp_state"), Ite(m.input("pdp_last_input_batch") == BoolConst(true), START, MAXPOOL));
+        instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_CMAC_D_OP_ENABLE)), Ite(m.input("pdp_last_input_batch") == BoolConst(true), SIG_FALSE, SIG_TRUE));
+        }
 
         // {
         //     // Max pooling option
