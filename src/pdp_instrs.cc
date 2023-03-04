@@ -485,7 +485,7 @@ namespace ilang
                 // skip output_update when operation is over
                 auto skip_output_bv = Ite(BvConst(output_j, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH) < output_width, BoolConst(false), BoolConst(true));
                 auto actual_output_j = Ite(skip_output_bv, output_width - 1, BvConst(output_j, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH));
-                // auto max = BvConst(SHRT_MIN, PDP_INT_16_WIDTH);
+                auto max = BvConst(SHRT_MIN + 1, PDP_INT_16_WIDTH);
 
                 // for (int kernel_j = 0; kernel_j < PDP_KERNEL_MAX; kernel_j++)
                 // {
