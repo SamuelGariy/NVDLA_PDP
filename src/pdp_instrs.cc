@@ -405,8 +405,8 @@ namespace ilang
             instr.SetUpdate(m.state(GetVarName("group0_",NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT)), output_var);
 
             // update first width
-            output_var = m.state(GetVarName("group0_",NVDLA_PDP_D_PARTIAL_WIDTH_IN_FIRST)) - SExt(m.state(GetVarName("group0_",NVDLA_PDP_D_KERNEL_WIDTH)),NVDLA_PDP_D_PARTIAL_WIDTH_IN_FIRST_WIDTH_WIDTH) + SExt(m.state(GetVarName("group0_",NVDLA_PDP_D_PAD_LEFT)),NVDLA_PDP_D_PARTIAL_WIDTH_IN_FIRST_WIDTH_WIDTH) + SExt(m.state(GetVarName("group0_",NVDLA_PDP_D_PAD_RIGHT)),NVDLA_PDP_D_PARTIAL_WIDTH_IN_FIRST_WIDTH_WIDTH);
-            output_var = (output_var / SExt(m.state(GetVarName("group0_",NVDLA_PDP_D_KERNEL_STRIDE_WIDTH)),NVDLA_PDP_D_PARTIAL_WIDTH_IN_FIRST_WIDTH_WIDTH)) + 1;
+            output_var = m.state(GetVarName("group0_",NVDLA_PDP_D_PARTIAL_WIDTH_IN_FIRST)) - SExt(m.state(GetVarName("group0_",NVDLA_PDP_D_KERNEL_WIDTH)),NVDLA_PDP_D_PARTIAL_WIDTH_IN_FIRST_WIDTH) + SExt(m.state(GetVarName("group0_",NVDLA_PDP_D_PAD_LEFT)),NVDLA_PDP_D_PARTIAL_WIDTH_IN_FIRST_WIDTH) + SExt(m.state(GetVarName("group0_",NVDLA_PDP_D_PAD_RIGHT)),NVDLA_PDP_D_PARTIAL_WIDTH_IN_FIRST_WIDTH);
+            output_var = (output_var / SExt(m.state(GetVarName("group0_",NVDLA_PDP_D_KERNEL_STRIDE_WIDTH)),NVDLA_PDP_D_PARTIAL_WIDTH_IN_FIRST_WIDTH)) + 1;
             instr.SetUpdate(m.state(GetVarName("group0_",NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT)), output_var);
 
             //  update mid width
