@@ -414,9 +414,9 @@ namespace ilang
             instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_PARTIAL_WIDTH_OUT_MID)), output_var);
 
             // // update last width
-            // output_var = m.state(GetVarName("group0_", NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST)) - SExt(m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_WIDTH)), NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST_WIDTH) + SExt(m.state(GetVarName("group0_", NVDLA_PDP_D_PAD_LEFT)), NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST_WIDTH) + SExt(m.state(GetVarName("group0_", NVDLA_PDP_D_PAD_RIGHT)), NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST_WIDTH);
-            // output_var = (output_var / SExt(m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_STRIDE_WIDTH)), NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST_WIDTH)) + 1;
-            // instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_PARTIAL_WIDTH_OUT_LAST)), output_var);
+            output_var = m.state(GetVarName("group0_", NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST)) - SExt(m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_WIDTH)), NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST_WIDTH) + SExt(m.state(GetVarName("group0_", NVDLA_PDP_D_PAD_LEFT)), NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST_WIDTH) + SExt(m.state(GetVarName("group0_", NVDLA_PDP_D_PAD_RIGHT)), NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST_WIDTH);
+            output_var = (output_var / SExt(m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_STRIDE_WIDTH)), NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST_WIDTH)) + 1;
+            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_PARTIAL_WIDTH_OUT_LAST)), output_var);
 
             // instr.SetUpdate(m.state("pdp_state"), Ite(m.state(GetVarName("group0_", NVDLA_PDP_POOLING_METHOD)) == PDP_MAXPOOL, MAXPOOL,
             //                                           Ite(m.state(GetVarName("group0_", NVDLA_PDP_POOLING_METHOD)) == PDP_MINPOOL, MINPOOL, PDP_AVGPOOL)));
