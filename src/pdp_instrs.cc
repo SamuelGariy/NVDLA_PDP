@@ -507,7 +507,7 @@ namespace ilang
 
             // update output if ready
             instr.SetUpdate(m.state("pdp2csb_data_vld"), Ite(output_ready, SIG_TRUE, m.state("pdp2csb_data_vld")));
-            instr.SetUpdate(m.state("pdp_output"), Ite(output_ready, m.state("pdp_share_line_buffer"), m.output("pdp_output")));
+            instr.SetUpdate(m.state("pdp_output"), Ite(output_ready, m.state("pdp_share_line_buffer"), m.state("pdp_output")));
 
             // reset share line buffer if output is ready
             instr.SetUpdate(m.state("pdp_share_line_buffer"), Ite(output_ready, MemConst(SHRT_MIN, {}, PDP_SHARE_LINE_ADDR_WIDTH, PDP_INT_16_WIDTH), m.state("pdp_share_line_buffer")));
