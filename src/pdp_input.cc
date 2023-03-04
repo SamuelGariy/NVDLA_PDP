@@ -52,7 +52,7 @@ namespace ilang
         }
 
         // Control Signals
-        m.NewBvInput("pdp_input_done", 1); // is it last pdp input
+        m.NewBoolInput("pdp_last_input_batch"); // is it last pdp input
 
         // Control Signals
         // m.NewBvInput("pending_clr", 1);

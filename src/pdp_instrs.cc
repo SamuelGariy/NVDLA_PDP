@@ -373,19 +373,23 @@ namespace ilang
             instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_PERF_WRITE_STALL)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_PERF_WRITE_STALL_WIDTH - 1, 0));
         }
 
-        // // /****************************************************************************/
-        // // // ***************** PDP OPERATIONS INSTRUCTIONS ***************************//
+          // // /****************************************************************************/
+        // // // ***************************** PDP STATE CONTROL ***************************//
         // // /***************************************************************************/
-
-        {
-            //Start LOAD stage
+    {
+                    //start to load
             auto instr = m.NewInstr("pdp_start_to_load");
             auto group0_ready = pdp_consumer == BvConst(0, 1) & m.state(GetVarName("group0_", NVDLA_PDP_D_OP_ENABLE)) == SIG_TRUE;
             instr.SetDecode(pdp_state == START & group0_ready);
 
-            instr.SetUpdate(m.state("pdp_state"), BUSY);
+            instr.SetUpdate(m.state("pdp_state"), LOAD);
 
         }
+
+        
+        // // /****************************************************************************/
+        // // // ***************** PDP OPERATIONS INSTRUCTIONS ***************************//
+        // // /***************************************************************************/
 
 
         {
@@ -524,7 +528,10 @@ namespace ilang
         //     instr.SetUpdate(m.state("pdp_output"), Ite(output_ready, m.state("pdp_share_line_buffer"), m.state("pdp_output")));
 
         //     // reset share line buffer if output is ready
-        //     instr.SetUpdate(m.state("pdp_share_line_buffer"), Ite(output_ready, MemConst(SHRT_MIN, {}, PDP_SHARE_LINE_ADDR_WIDTH, PDP_INT_16_WIDTH), m.state("pdp_share_line_buffer")));
+            // instr.SetUpdate(m.state("pdp_share_line_buffer"), Ite(output_ready, MemConst(SHRT_MIN, {}, PDP_SHARE_LINE_ADDR_WIDTH, PDP_INT_16_WIDTH), m.state("pdp_share_line_buffer")));
+       
+        //   instr.SetUpdate(m.state("pdp_state"), Ite(m.input("pdp_last_input_batch") == BoolConst(true), START, MAXPOOL));
+        // instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_CMAC_D_OP_ENABLE)), Ite(m.input("pdp_last_input_batch") == BoolConst(true), SIG_FALSE, SIG_TRUE));
         // }
 
         // {
