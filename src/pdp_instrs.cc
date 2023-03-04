@@ -415,7 +415,7 @@ namespace ilang
             instr.SetUpdate(m.state(GetVarName("group0_",NVDLA_PDP_D_PARTIAL_WIDTH_IN_MID)), output_var);
 
             // // update last width
-            output_var = m.state(GetVarName("group0_",NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST)) - m.state(GetVarName("group0_",NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST)) + m.state(GetVarName("group0_",NVDLA_PDP_D_PAD_LEFT)) + m.stateGetVarName("group0_",(NVDLA_PDP_D_PAD_RIGHT));
+            output_var = m.state(GetVarName("group0_",NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST)) - m.state(GetVarName("group0_",NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST)) + m.state(GetVarName("group0_",NVDLA_PDP_D_PAD_LEFT)) + m.state(GetVarName("group0_",NVDLA_PDP_D_PAD_RIGHT));
             output_var = (output_var / m.state(GetVarName("group0_",NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST))) + 1;
             instr.SetUpdate(m.state(GetVarName("group0_",NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST)), output_var);
 
