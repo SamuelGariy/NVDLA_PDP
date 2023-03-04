@@ -119,12 +119,12 @@ namespace ilang
             instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT_WIDTH - 1, 0));
         }
 
-        { // PDP set input data cube's channel - addr = 0x014
-            auto instr = m.NewInstr("set_cube_in_channel");
-            instr.SetDecode(pdp_csb_addr == 0x014 & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set input data cube's channel - addr = 0x014
+        //     auto instr = m.NewInstr("set_cube_in_channel");
+        //     instr.SetDecode(pdp_csb_addr == 0x014 & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_CUBE_IN_CHANNEL)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_DATA_CUBE_IN_CHANNEL_WIDTH - 1, 0));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_CUBE_IN_CHANNEL)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_DATA_CUBE_IN_CHANNEL_WIDTH - 1, 0));
+        // }
 
         // { // PDP set output data cube's width - addr = 0x0018
         //     auto instr = m.NewInstr("set_cube_out_width");
