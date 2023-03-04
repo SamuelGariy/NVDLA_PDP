@@ -126,84 +126,84 @@ namespace ilang
             instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_CUBE_IN_CHANNEL)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_DATA_CUBE_IN_CHANNEL_WIDTH - 1, 0));
         }
 
-        { // PDP set output data cube's width - addr = 0x0018
-            auto instr = m.NewInstr("set_cube_out_width");
-            instr.SetDecode(pdp_csb_addr == 0x018 & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set output data cube's width - addr = 0x0018
+        //     auto instr = m.NewInstr("set_cube_out_width");
+        //     instr.SetDecode(pdp_csb_addr == 0x018 & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH - 1, 0));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH - 1, 0));
+        // }
 
-        { // PDP set output data cube's height - addr = 0x01c
-            auto instr = m.NewInstr("set_cube_out_height");
-            instr.SetDecode(pdp_csb_addr == 0x01c & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set output data cube's height - addr = 0x01c
+        //     auto instr = m.NewInstr("set_cube_out_height");
+        //     instr.SetDecode(pdp_csb_addr == 0x01c & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT_WIDTH - 1, 0));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT_WIDTH - 1, 0));
+        // }
 
-        { // PDP set output data cube's channel - addr = 0x020
-            auto instr = m.NewInstr("set_cube_out_channel");
-            instr.SetDecode(pdp_csb_addr == 0x020 & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set output data cube's channel - addr = 0x020
+        //     auto instr = m.NewInstr("set_cube_out_channel");
+        //     instr.SetDecode(pdp_csb_addr == 0x020 & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_CUBE_OUT_CHANNEL)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_DATA_CUBE_OUT_CHANNEL_WIDTH - 1, 0));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_CUBE_OUT_CHANNEL)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_DATA_CUBE_OUT_CHANNEL_WIDTH - 1, 0));
+        // }
 
-        { // PDP set split number and pooling method and operation mode - addr = 0x024
-            auto instr = m.NewInstr("set_split_number");
-            instr.SetDecode(pdp_csb_addr == 0x024 & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set split number and pooling method and operation mode - addr = 0x024
+        //     auto instr = m.NewInstr("set_split_number");
+        //     instr.SetDecode(pdp_csb_addr == 0x024 & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_POOLING_METHOD)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_POOLING_METHOD_WIDTH - 1, 0));
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_FLYING_MODE)), SelectBit(m.input("csb2pdp_data"),NVDLA_PDP_FLYING_MODE_START_BIT));
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_SPLIT_NUM)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_SPLIT_NUM_WIDTH_END_BIT, NVDLA_PDP_SPLIT_NUM_WIDTH_START_BIT));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_POOLING_METHOD)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_POOLING_METHOD_WIDTH - 1, 0));
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_FLYING_MODE)), SelectBit(m.input("csb2pdp_data"),NVDLA_PDP_FLYING_MODE_START_BIT));
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_SPLIT_NUM)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_SPLIT_NUM_WIDTH_END_BIT, NVDLA_PDP_SPLIT_NUM_WIDTH_START_BIT));
+        // }
 
-        { // PDP set option to flush input NaN to zero - addr = 0x028
-            auto instr = m.NewInstr("set_nan_flush_to_zero");
-            instr.SetDecode(pdp_csb_addr == 0x028 & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set option to flush input NaN to zero - addr = 0x028
+        //     auto instr = m.NewInstr("set_nan_flush_to_zero");
+        //     instr.SetDecode(pdp_csb_addr == 0x028 & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_NAN_FLUSH_TO_ZERO)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_NAN_FLUSH_TO_ZERO_WIDTH - 1, 0));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_NAN_FLUSH_TO_ZERO)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_NAN_FLUSH_TO_ZERO_WIDTH - 1, 0));
+        // }
 
-        { // PDP set partial width for first, last and middle partitions of input cube - addr = 0x02c
-            auto instr = m.NewInstr("set_partial_width_in");
-            instr.SetDecode(pdp_csb_addr == 0x02c & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set partial width for first, last and middle partitions of input cube - addr = 0x02c
+        //     auto instr = m.NewInstr("set_partial_width_in");
+        //     instr.SetDecode(pdp_csb_addr == 0x02c & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_PARTIAL_WIDTH_IN_FIRST)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_PARTIAL_WIDTH_IN_FIRST_WIDTH - 1, 0));
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_PARTIAL_WIDTH_IN_MID)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_PARTIAL_WIDTH_IN_MID_END_BIT, NVDLA_PDP_D_PARTIAL_WIDTH_IN_MID_START_BIT));
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST_END_BIT, NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST_START_BIT));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_PARTIAL_WIDTH_IN_FIRST)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_PARTIAL_WIDTH_IN_FIRST_WIDTH - 1, 0));
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_PARTIAL_WIDTH_IN_MID)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_PARTIAL_WIDTH_IN_MID_END_BIT, NVDLA_PDP_D_PARTIAL_WIDTH_IN_MID_START_BIT));
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST_END_BIT, NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST_START_BIT));
+        // }
 
-        { // PDP set partial width for first, last and middle partitions of output cube - addr = 0x030
-            auto instr = m.NewInstr("set_partial_width_out");
-            instr.SetDecode(pdp_csb_addr == 0x030 & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set partial width for first, last and middle partitions of output cube - addr = 0x030
+        //     auto instr = m.NewInstr("set_partial_width_out");
+        //     instr.SetDecode(pdp_csb_addr == 0x030 & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_PARTIAL_WIDTH_OUT_FIRST)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_PARTIAL_WIDTH_OUT_FIRST_WIDTH - 1, 0));
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_PARTIAL_WIDTH_OUT_MID)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_PARTIAL_WIDTH_OUT_MID_END_BIT, NVDLA_PDP_D_PARTIAL_WIDTH_OUT_MID_START_BIT));
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_PARTIAL_WIDTH_OUT_LAST)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_PARTIAL_WIDTH_OUT_LAST_END_BIT, NVDLA_PDP_D_PARTIAL_WIDTH_OUT_LAST_START_BIT));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_PARTIAL_WIDTH_OUT_FIRST)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_PARTIAL_WIDTH_OUT_FIRST_WIDTH - 1, 0));
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_PARTIAL_WIDTH_OUT_MID)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_PARTIAL_WIDTH_OUT_MID_END_BIT, NVDLA_PDP_D_PARTIAL_WIDTH_OUT_MID_START_BIT));
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_PARTIAL_WIDTH_OUT_LAST)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_PARTIAL_WIDTH_OUT_LAST_END_BIT, NVDLA_PDP_D_PARTIAL_WIDTH_OUT_LAST_START_BIT));
+        // }
 
-        { // PDP set kernel width and kernel stride - addr = 0x034
-            auto instr = m.NewInstr("set_kernel_width_height");
-            instr.SetDecode(pdp_csb_addr == 0x034 & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set kernel width and kernel stride - addr = 0x034
+        //     auto instr = m.NewInstr("set_kernel_width_height");
+        //     instr.SetDecode(pdp_csb_addr == 0x034 & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_WIDTH)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_KERNEL_WIDTH_WIDTH - 1, 0));
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_HEIGHT)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_KERNEL_HEIGHT_END_BIT, NVDLA_PDP_D_KERNEL_HEIGHT_START_BIT));
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_STRIDE_HEIGHT)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_KERNEL_STRIDE_HEIGHT_END_BIT, NVDLA_PDP_D_KERNEL_STRIDE_HEIGHT_START_BIT));
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_STRIDE_WIDTH)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_KERNEL_STRIDE_WIDTH_END_BIT, NVDLA_PDP_D_KERNEL_STRIDE_WIDTH_START_BIT));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_WIDTH)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_KERNEL_WIDTH_WIDTH - 1, 0));
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_HEIGHT)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_KERNEL_HEIGHT_END_BIT, NVDLA_PDP_D_KERNEL_HEIGHT_START_BIT));
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_STRIDE_HEIGHT)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_KERNEL_STRIDE_HEIGHT_END_BIT, NVDLA_PDP_D_KERNEL_STRIDE_HEIGHT_START_BIT));
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_STRIDE_WIDTH)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_KERNEL_STRIDE_WIDTH_END_BIT, NVDLA_PDP_D_KERNEL_STRIDE_WIDTH_START_BIT));
+        // }
 
-        { // PDP set reciprocal of pooling kernel width - addr = 0x038
-            auto instr = m.NewInstr("set_kernel_width_reciprocal");
-            instr.SetDecode(pdp_csb_addr == 0x038 & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set reciprocal of pooling kernel width - addr = 0x038
+        //     auto instr = m.NewInstr("set_kernel_width_reciprocal");
+        //     instr.SetDecode(pdp_csb_addr == 0x038 & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_RECIP_KERNEL_WIDTH)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_RECIP_KERNEL_WIDTH_WIDTH - 1, 0));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_RECIP_KERNEL_WIDTH)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_RECIP_KERNEL_WIDTH_WIDTH - 1, 0));
+        // }
 
-        { // PDP set reciprocal of pooling kernel height - addr = 0x03c
-            auto instr = m.NewInstr("set_kernel_height_reciprocal");
-            instr.SetDecode(pdp_csb_addr == 0x03c & pdp_csb_valid & pdp_csb_write);
+        // { // PDP set reciprocal of pooling kernel height - addr = 0x03c
+        //     auto instr = m.NewInstr("set_kernel_height_reciprocal");
+        //     instr.SetDecode(pdp_csb_addr == 0x03c & pdp_csb_valid & pdp_csb_write);
 
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_RECIP_KERNEL_HEIGHT)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_RECIP_KERNEL_HEIGHT_WIDTH - 1, 0));
-        }
+        //     instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_RECIP_KERNEL_HEIGHT)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_RECIP_KERNEL_HEIGHT_WIDTH - 1, 0));
+        // }
 
         // { // PDP set left/right/top/bottom padding size - addr = 0x040
         //     auto instr = m.NewInstr("set_padding_size");
