@@ -152,7 +152,7 @@ namespace ilang
             instr.SetDecode(pdp_csb_addr == 0x024 & pdp_csb_valid & pdp_csb_write);
 
             instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_POOLING_METHOD)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_POOLING_METHOD_WIDTH - 1, 0));
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_FLYING_MODE)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_FLYING_MODE_END_BIT, NVDLA_PDP_FLYING_MODE_START_BIT));
+            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_FLYING_MODE)), SelectBit(m.input("csb2pdp_data"),NVDLA_PDP_FLYING_MODE_START_BIT));
             instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_SPLIT_NUM)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_SPLIT_NUM_WIDTH_END_BIT, NVDLA_PDP_SPLIT_NUM_WIDTH_START_BIT));
         }
 
