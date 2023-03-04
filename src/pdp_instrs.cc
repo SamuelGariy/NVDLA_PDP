@@ -422,7 +422,7 @@ namespace ilang
         }
 
         {
-            // max - pooling instruction 
+            // max - pooling instruction
             auto instr = m.NewInstr("max_pool");
             instr.SetDecode(pdp_state == MAXPOOL);
             // instr.SetUpdate(m.state("pdp_state"), MAXPOOL);
@@ -450,11 +450,11 @@ namespace ilang
             auto output_width_last = m.state(NVDLA_PDP_D_PARTIAL_WIDTH_OUT_LAST);
 
             auto data_format = m.state(NVDLA_PDP_D_DATA_FORMAT);
-            auto mode = Ite(m.state(NVDLA_PDP_FLYING_MODE) == BvConst(0,NVDLA_PDP_FLYING_MODE_WIDTH), PDP_FLYING, Ite(m.state(NVDLA_PDP_SPLIT_NUM) > BvConst(0,NVDLA_PDP_SPLIT_NUM_WIDTH), PDP_OFF_FLYING_SPLIT, PDP_OFF_FLYING_NO_SPLIT));
+            auto mode = Ite(m.state(NVDLA_PDP_FLYING_MODE) == BvConst(0, NVDLA_PDP_FLYING_MODE_WIDTH), PDP_FLYING, Ite(m.state(NVDLA_PDP_SPLIT_NUM) > BvConst(0, NVDLA_PDP_SPLIT_NUM_WIDTH), PDP_OFF_FLYING_SPLIT, PDP_OFF_FLYING_NO_SPLIT));
             auto split_stage = m.state("pdp_pooling_stage_split_width");
 
             // update output width in use depending on mode
-            output_width = Ite(mode == PDP_OFF_FLYING_NO_SPLIT, output_width_first, Ite(mode == PDP_OFF_FLYING_SPLIT, Ite(split_stage == SPLIT_STAGE_1, output_width_first, Ite(split_stage == SPLIT_STAGE_2, output_width_mid, output_width_last))), output_width);
+            output_width = Ite(mode == PDP_OFF_FLYING_NO_SPLIT, output_width_first, Ite(mode == PDP_OFF_FLYING_SPLIT, Ite(split_stage == SPLIT_STAGE_1, output_width_first, Ite(split_stage == SPLIT_STAGE_2, output_width_mid, output_width_last)), output_width));
 
             // share line buffer
             auto share_buffer_ptr = MemConst(SHRT_MIN, {}, PDP_SHARE_LINE_ADDR_WIDTH, PDP_INT_16_WIDTH).get();
