@@ -62,8 +62,13 @@ namespace ilang
         // /***************************************************************************/
 
         // Initialize both the PRODUCER and CONSUMER states to be 0
-        m.AddInit(m.state(NVDLA_PDP_S_PRODUCER) == BvConst(0, NVDLA_PDP_S_STATUS_WIDTH));
-        m.AddInit(m.state(NVDLA_PDP_S_CONSUMER) == BvConst(0, NVDLA_PDP_S_STATUS_WIDTH));
+        m.AddInit(m.state(NVDLA_PDP_S_PRODUCER) == BvConst(0, NVDLA_PDP_S_PRODUCER_WIDTH));
+        m.AddInit(m.state(NVDLA_PDP_S_CONSUMER) == BvConst(0, NVDLA_PDP_S_CONSUMER_WIDTH));
+
+         m.AddInit(m.state(NVDLA_PDP_S_STATUS_0) == BvConst(0, NVDLA_PDP_S_STATUS_WIDTH));
+        m.AddInit(m.state(NVDLA_PDP_S_STATUS_1) == BvConst(0, NVDLA_PDP_S_STATUS_WIDTH));
+        
+        
         m.AddInit(m.state(GetVarName("group0_", NVDLA_PDP_D_OP_ENABLE)) == BvConst(0, NVDLA_PDP_D_OP_ENABLE_WIDTH));
 
         // Initialize output signals
