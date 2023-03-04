@@ -418,8 +418,9 @@ namespace ilang
             output_var = (output_var / SExt(m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_STRIDE_WIDTH)), NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST_WIDTH)) + 1;
             instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_PARTIAL_WIDTH_OUT_LAST)), output_var);
 
-            // instr.SetUpdate(m.state("pdp_state"), Ite(m.state(GetVarName("group0_", NVDLA_PDP_POOLING_METHOD)) == PDP_MAXPOOL, MAXPOOL,
-            //                                           Ite(m.state(GetVarName("group0_", NVDLA_PDP_POOLING_METHOD)) == PDP_MINPOOL, MINPOOL, PDP_AVGPOOL)));
+            // update next state
+            instr.SetUpdate(m.state("pdp_state"), Ite(m.state(GetVarName("group0_", NVDLA_PDP_POOLING_METHOD)) == PDP_MAXPOOL, MAXPOOL,
+                                                      Ite(m.state(GetVarName("group0_", NVDLA_PDP_POOLING_METHOD)) == PDP_MINPOOL, MINPOOL, PDP_AVGPOOL)));
 
             // // update_pooling_stage (for split_width)
             instr.SetUpdate(m.state("pdp_pooling_stage_split_width"), SPLIT_STAGE_1);
