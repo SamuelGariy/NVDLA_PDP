@@ -30,7 +30,7 @@
 
 namespace ilang
 {
-    sign extends 8 bits to 16 bits
+    // sign extends 8 bits to 16 bits
     ExprRef int8_to_int16(ExprRef bv16, ExprRef data_type)
     {
         auto bv7_unsigned = bv16 & BvConst(0x7F, PDP_INT_16_WIDTH);
