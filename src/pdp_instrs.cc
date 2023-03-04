@@ -404,26 +404,26 @@ namespace ilang
             output_var = (output_var / m.state(GetVarName("group0_",NVDLA_PDP_D_KERNEL_STRIDE_WIDTH))) + 1;
             instr.SetUpdate(m.state(GetVarName("group0_",NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH)), output_var);
 
-            // // update first width
-            output_var = m.state(GetVarName("group0_",NVDLA_PDP_D_PARTIAL_WIDTH_IN_FIRST)) - m.state(GetVarName("group0_",NVDLA_PDP_D_KERNEL_WIDTH)) + m.state(GetVarName("group0_",NVDLA_PDP_D_PAD_LEFT)) + m.state(GetVarName("group0_",NVDLA_PDP_D_PAD_RIGHT));
-            output_var = (output_var / m.state(GetVarName("group0_",NVDLA_PDP_D_KERNEL_STRIDE_WIDTH))) + 1;
-            instr.SetUpdate(m.state(GetVarName("group0_",NVDLA_PDP_D_PARTIAL_WIDTH_IN_FIRST)), output_var);
+            // // // update first width
+            // output_var = m.state(GetVarName("group0_",NVDLA_PDP_D_PARTIAL_WIDTH_IN_FIRST)) - m.state(GetVarName("group0_",NVDLA_PDP_D_KERNEL_WIDTH)) + m.state(GetVarName("group0_",NVDLA_PDP_D_PAD_LEFT)) + m.state(GetVarName("group0_",NVDLA_PDP_D_PAD_RIGHT));
+            // output_var = (output_var / m.state(GetVarName("group0_",NVDLA_PDP_D_KERNEL_STRIDE_WIDTH))) + 1;
+            // instr.SetUpdate(m.state(GetVarName("group0_",NVDLA_PDP_D_PARTIAL_WIDTH_IN_FIRST)), output_var);
 
-            // // update mid width
-            output_var = m.state(GetVarName("group0_",NVDLA_PDP_D_PARTIAL_WIDTH_IN_MID)) - m.state(GetVarName("group0_",NVDLA_PDP_D_PARTIAL_WIDTH_IN_MID)) + m.state(GetVarName("group0_",NVDLA_PDP_D_PAD_LEFT)) + m.state(GetVarName("group0_",NVDLA_PDP_D_PAD_RIGHT));
-            output_var = (output_var / m.state(GetVarName("group0_",NVDLA_PDP_D_PARTIAL_WIDTH_IN_MID))) + 1;
-            instr.SetUpdate(m.state(GetVarName("group0_",NVDLA_PDP_D_PARTIAL_WIDTH_IN_MID)), output_var);
+            // // // update mid width
+            // output_var = m.state(GetVarName("group0_",NVDLA_PDP_D_PARTIAL_WIDTH_IN_MID)) - m.state(GetVarName("group0_",NVDLA_PDP_D_PARTIAL_WIDTH_IN_MID)) + m.state(GetVarName("group0_",NVDLA_PDP_D_PAD_LEFT)) + m.state(GetVarName("group0_",NVDLA_PDP_D_PAD_RIGHT));
+            // output_var = (output_var / m.state(GetVarName("group0_",NVDLA_PDP_D_PARTIAL_WIDTH_IN_MID))) + 1;
+            // instr.SetUpdate(m.state(GetVarName("group0_",NVDLA_PDP_D_PARTIAL_WIDTH_IN_MID)), output_var);
 
-            // // update last width
-            output_var = m.state(GetVarName("group0_",NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST)) - m.state(GetVarName("group0_",NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST)) + m.state(GetVarName("group0_",NVDLA_PDP_D_PAD_LEFT)) + m.state(GetVarName("group0_",NVDLA_PDP_D_PAD_RIGHT));
-            output_var = (output_var / m.state(GetVarName("group0_",NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST))) + 1;
-            instr.SetUpdate(m.state(GetVarName("group0_",NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST)), output_var);
+            // // // update last width
+            // output_var = m.state(GetVarName("group0_",NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST)) - m.state(GetVarName("group0_",NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST)) + m.state(GetVarName("group0_",NVDLA_PDP_D_PAD_LEFT)) + m.state(GetVarName("group0_",NVDLA_PDP_D_PAD_RIGHT));
+            // output_var = (output_var / m.state(GetVarName("group0_",NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST))) + 1;
+            // instr.SetUpdate(m.state(GetVarName("group0_",NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST)), output_var);
 
-            instr.SetUpdate(m.state("pdp_state"), Ite(m.state(GetVarName("group0_",NVDLA_PDP_POOLING_METHOD)) == PDP_MAXPOOL, MAXPOOL,
-                                                      Ite(m.state(GetVarName("group0_",NVDLA_PDP_POOLING_METHOD)) == PDP_MINPOOL, MINPOOL, PDP_AVGPOOL)));
+            // instr.SetUpdate(m.state("pdp_state"), Ite(m.state(GetVarName("group0_",NVDLA_PDP_POOLING_METHOD)) == PDP_MAXPOOL, MAXPOOL,
+            //                                           Ite(m.state(GetVarName("group0_",NVDLA_PDP_POOLING_METHOD)) == PDP_MINPOOL, MINPOOL, PDP_AVGPOOL)));
 
-            // // update_pooling_stage (for split_width)
-            instr.SetUpdate(m.state("pdp_pooling_stage_split_width"), SPLIT_STAGE_1);
+            // // // update_pooling_stage (for split_width)
+            // instr.SetUpdate(m.state("pdp_pooling_stage_split_width"), SPLIT_STAGE_1);
         }
 
         // {
