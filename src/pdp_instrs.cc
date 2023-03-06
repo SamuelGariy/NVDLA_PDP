@@ -30,18 +30,27 @@
 
 namespace ilang
 {
-    // sign extends 8 bits to 16 bits
-    ExprRef int8_to_int16(ExprRef bv16, ExprRef data_type)
-    {
-        auto bv7_unsigned = bv16 & BvConst(0x7F, PDP_INT_16_WIDTH);
-
-        // update weight based on datatype
-        auto bv = Ite(data_type == INT16, bv16,
-                      Ite(data_type == INT8, Ite(SelectBit(bv16, 7) == 0, bv7_unsigned, bv7_unsigned | BvConst(0xFF80, PDP_INT_16_WIDTH)),
-                          BvConst(0, PDP_INT_16_WIDTH)));
-
+    
+    
+    // Return 16-bit representation of int8
+    ExprRef int8_to_int16(ExprRef num){
+        auto bv7_unsigned = num & BvConst(0x7F, NVDLA_CMAC_KERNEL_MAX_ELEM_WIDTH);
+        auto bv = Ite(SelectBit(num, 7) == 0, bv7_unsigned, bv7_unsigned | BvConst(0xFF80, NVDLA_CMAC_KERNEL_MAX_ELEM_WIDTH));
         return bv;
     }
+    
+    // // sign extends 8 bits to 16 bits
+    // ExprRef int8_to_int16(ExprRef bv16, ExprRef data_type)
+    // {
+    //     auto bv7_unsigned = bv16 & BvConst(0x7F, PDP_INT_16_WIDTH);
+
+    //     // update weight based on datatype
+    //     auto bv = Ite(data_type == INT16, bv16,
+    //                   Ite(data_type == INT8, Ite(SelectBit(bv16, 7) == 0, bv7_unsigned, bv7_unsigned | BvConst(0xFF80, PDP_INT_16_WIDTH)),
+    //                       BvConst(0, PDP_INT_16_WIDTH)));
+
+    //     return bv;
+    // }
 
     // Convert bit vector  to int
     //  int bv_to_int(ExprRef bv)
@@ -497,7 +506,7 @@ namespace ilang
                     auto input_j_marker_bv = BvConst(input_j_marker, PDP_INT_16_WIDTH);
                     auto input_in_marker = input_j_marker < PDP_OUTPUT_MAX ? input_j_marker :PDP_OUTPUT_MAX - 1; 
                     auto input_in = m.input(GetVarName("pdp_input_", std::to_string(input_j_marker)));
-                    auto sign_ext_input = SExt(input_in,16);
+                    auto sign_ext_input = Ite(data_format == INT8,int8_to_int16(input_in),input_in);;
                    // auto curr = Ite(input_j_marker_bv == j, BvConst(1, PDP_INT_16_WIDTH), BvConst(0, PDP_INT_16_WIDTH));
 //SExt(input_in, PDP_INT_16_WIDTH)
                     // max = Ite(curr > max, curr, max);
