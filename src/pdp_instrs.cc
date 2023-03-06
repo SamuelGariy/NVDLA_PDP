@@ -497,7 +497,7 @@ namespace ilang
                     auto input_j_marker_bv = BvConst(input_j_marker, PDP_INT_16_WIDTH);
                     auto input_in_marker = input_j_marker < PDP_OUTPUT_MAX ? input_j_marker :PDP_OUTPUT_MAX - 1; 
                     auto input_in = m.input(GetVarName("pdp_input_", std::to_string(input_j_marker)));
-                    auto sign_ext_input = Extract(input_in,15,0);
+                    auto sign_ext_input = SExt(input_in,16);
                    // auto curr = Ite(input_j_marker_bv == j, BvConst(1, PDP_INT_16_WIDTH), BvConst(0, PDP_INT_16_WIDTH));
 //SExt(input_in, PDP_INT_16_WIDTH)
                     // max = Ite(curr > max, curr, max);
