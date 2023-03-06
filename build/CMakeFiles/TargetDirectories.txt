@@ -1,0 +1,4 @@
+/root/ILAng/build/NVDLA_PDP/build/CMakeFiles/rebuild_cache.dir
+/root/ILAng/build/NVDLA_PDP/build/CMakeFiles/edit_cache.dir
+/root/ILAng/build/NVDLA_PDP/build/CMakeFiles/nvdlaila.dir
+/root/ILAng/build/NVDLA_PDP/build/CMakeFiles/nvdla.dir
