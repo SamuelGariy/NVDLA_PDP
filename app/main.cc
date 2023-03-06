@@ -61,7 +61,7 @@ int main(int argc, char* argv[]) {
     ILA_INFO << pdp.input(i);
   }
 
- std::vector<std::string> csc_design_files = {
+ std::vector<std::string> pdp_design_files = {
    "NV_NVDLA_pdp_top.v"
  };
 
@@ -69,7 +69,7 @@ int main(int argc, char* argv[]) {
 
 //  verify_csc(csc, vtg_cfg, csc_design_files);
 
-  ExportSysCSim(pdp, "./sim_model");  
+  ExportSysCSim(pdp, "./sim_model", false);  
 
   return 0;
 }
