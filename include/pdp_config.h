@@ -287,8 +287,8 @@ namespace ilang
 // #define PDP_INPUT_WIDTH_MAX  8               // actual max 8191
 
 // states constants
-#define PDP_SHARE_LINE_ADDR_WIDTH 13
-#define PDP_SPLIT_WIDTH_BUFFER_ADDR_WIDTH 13
+#define PDP_SHARE_LINE_ADDR_WIDTH 7    //13
+#define PDP_SPLIT_WIDTH_BUFFER_ADDR_WIDTH  7 // 13
 
 // Input Data Constants
 #define PDP_INPUT_MAX 128 // actual max 8191
