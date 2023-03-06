@@ -495,7 +495,7 @@ namespace ilang
                 for (int kernel_j = 0; kernel_j < PDP_KERNEL_MAX; kernel_j++)
                 {
                    
-                    auto input_in_marker = kernel_j < kernel_width ? kernel_j : PDP_KERNEL_MAX - 1;
+                    auto input_in_marker = BvConst(kernel_j,NVDLA_PDP_D_KERNEL_WIDTH_WIDTH) < kernel_width ? kernel_j : PDP_KERNEL_MAX - 1;
                     auto input_in = m.input(GetVarName("pdp_input_", std::to_string(output_j) + std::to_string(input_in_marker)));
                     auto sign_ext_input = Ite(data_format == INT8, int8_to_int16(input_in), input_in);
 
