@@ -531,9 +531,9 @@ namespace ilang
             kernel_height_marker = kernel_height_marker + 1;
 
         //     // check if output is ready
-        //     auto output_ready = Ite(kernel_height_marker == kernel_height, BoolConst(true), BoolConst(false));
-        //     kernel_height_marker = Ite(output_ready, BvConst(0, NVDLA_PDP_D_KERNEL_HEIGHT_WIDTH), kernel_height_marker);
-        //     instr.SetUpdate(m.state("kernel_height_marker"), kernel_height_marker);
+            auto output_ready = Ite(kernel_height_marker == kernel_height, BoolConst(true), BoolConst(false));
+            kernel_height_marker = Ite(output_ready, BvConst(0, NVDLA_PDP_D_KERNEL_HEIGHT_WIDTH), kernel_height_marker);
+            instr.SetUpdate(m.state("kernel_height_marker"), kernel_height_marker);
 
         //     // update output if ready
         //     instr.SetUpdate(m.state("pdp2csb_data_vld"), Ite(output_ready, SIG_TRUE, m.state("pdp2csb_data_vld")));
