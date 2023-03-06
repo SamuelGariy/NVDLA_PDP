@@ -61,9 +61,9 @@ int main(int argc, char* argv[]) {
     ILA_INFO << pdp.input(i);
   }
 
-//  std::vector<std::string> csc_design_files = {
-//    "NV_NVDLA_csc_top.v"
-//  };
+ std::vector<std::string> csc_design_files = {
+   "NV_NVDLA_pdp_top.v"
+ };
 
 //  auto vtg_cfg = SetConfiguration();
 
