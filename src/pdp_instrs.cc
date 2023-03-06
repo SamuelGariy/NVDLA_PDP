@@ -519,12 +519,12 @@ namespace ilang
             }
 
             // // load to buffer
-            // instr.SetUpdate(m.state("pdp_share_line_buffer"), ExprRef(share_buffer_ptr));
+            instr.SetUpdate(m.state("pdp_share_line_buffer"), ExprRef(share_buffer_ptr));
 
             // auto kernel_height_marker = m.state("kernel_height_marker");
             // //   auto input_height_marker = m.state("input_height_marker");
 
-            // // MemConst(0, {}, PDP_SHARE_LINE_ADDR_WIDTH, PDP_INT_16_WIDTH);
+    
 
             // kernel_height_marker = kernel_height_marker + 1;
 
