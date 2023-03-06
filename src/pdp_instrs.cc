@@ -511,9 +511,9 @@ namespace ilang
 
                   max = Ite(curr > max, curr, max);
                 }
-                // auto curr_max = Load(m.state("pdp_share_line_buffer"), BvConst(output_j, PDP_SHARE_LINE_ADDR_WIDTH));
+                auto curr_max = Load(m.state("pdp_share_line_buffer"), BvConst(output_j, PDP_SHARE_LINE_ADDR_WIDTH));
 
-                // skip_output_bv = Ite(max > curr_max, skip_output_bv, BoolConst(true));
+                skip_output_bv = Ite(max > curr_max, skip_output_bv, BoolConst(true));
 
                 // // update memory and increment memory pointer
                 // auto new_share_buffer = ExprRef(share_buffer_ptr).Store(BvConst(output_j, PDP_SHARE_LINE_ADDR_WIDTH), Ite(skip_output_bv, curr_max, max));
