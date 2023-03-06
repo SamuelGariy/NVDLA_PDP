@@ -49,7 +49,7 @@ namespace ilang
 
         for (auto i = 0; i < PDP_INPUT_MAX; i++)
         {
-            for (auto i = 0; i < PDP_KERNEL_MAX; i++){
+            for (auto j = 0; j < PDP_KERNEL_MAX; j++){
             m.NewBvInput(GetVarName("pdp_input_kernel", std::to_string(i) + std::to_string(j)), PDP_INT_16_WIDTH);
             }
         }
