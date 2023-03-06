@@ -45,11 +45,24 @@ namespace ilang
         // // ********************* INPUT DATA FROM SDP or PDMA*************************//
         // /***************************************************************************/
 
-        // input one row along cubes width
+           // input one row along cubes width
+
         for (auto i = 0; i < PDP_INPUT_MAX; i++)
         {
-            m.NewBvInput(GetVarName("pdp_input_", std::to_string(i)), PDP_INT_16_WIDTH);
+            for (auto i = 0; i < PDP_KERNEL_MAX; i++){
+            m.NewBvInput(GetVarName("pdp_input_kernel", std::to_string(i) + std::to_string(j)), PDP_INT_16_WIDTH);
+            }
         }
+        
+        
+        
+        
+        
+        // // input one row along cubes width
+        // for (auto i = 0; i < PDP_INPUT_MAX; i++)
+        // {
+        //     m.NewBvInput(GetVarName("pdp_input_", std::to_string(i)), PDP_INT_16_WIDTH);
+        // }
 
         // Control Signals
         m.NewBoolInput("pdp_last_input_batch"); // is it last pdp input
