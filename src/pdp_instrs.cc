@@ -529,19 +529,19 @@ namespace ilang
             kernel_height_marker = kernel_height_marker + 1;
 
             //     // check if output is ready
-            auto output_ready = Ite(kernel_height_marker == kernel_height, BoolConst(true), BoolConst(false));
-            kernel_height_marker = Ite(output_ready, BvConst(0, NVDLA_PDP_D_KERNEL_HEIGHT_WIDTH), kernel_height_marker);
-            instr.SetUpdate(m.state("kernel_height_marker"), kernel_height_marker);
+            // auto output_ready = Ite(kernel_height_marker == kernel_height, BoolConst(true), BoolConst(false));
+            // kernel_height_marker = Ite(output_ready, BvConst(0, NVDLA_PDP_D_KERNEL_HEIGHT_WIDTH), kernel_height_marker);
+            // instr.SetUpdate(m.state("kernel_height_marker"), kernel_height_marker);
 
-            //     // update output if ready
-            instr.SetUpdate(m.state("pdp2csb_data_vld"), Ite(output_ready, SIG_TRUE, m.state("pdp2csb_data_vld")));
-            instr.SetUpdate(m.state("pdp_output"), Ite(output_ready, m.state("pdp_share_line_buffer"), m.state("pdp_output")));
+            // //     // update output if ready
+            // instr.SetUpdate(m.state("pdp2csb_data_vld"), Ite(output_ready, SIG_TRUE, m.state("pdp2csb_data_vld")));
+            // instr.SetUpdate(m.state("pdp_output"), Ite(output_ready, m.state("pdp_share_line_buffer"), m.state("pdp_output")));
 
-            //     // reset share line buffer if output is ready
-            instr.SetUpdate(m.state("pdp_share_line_buffer"), Ite(output_ready, MemConst(0, {}, PDP_SHARE_LINE_ADDR_WIDTH, PDP_INT_16_WIDTH), m.state("pdp_share_line_buffer")));
+            // //     // reset share line buffer if output is ready
+            // instr.SetUpdate(m.state("pdp_share_line_buffer"), Ite(output_ready, MemConst(0, {}, PDP_SHARE_LINE_ADDR_WIDTH, PDP_INT_16_WIDTH), m.state("pdp_share_line_buffer")));
 
-            instr.SetUpdate(m.state("pdp_state"), Ite(m.input("pdp_last_input_batch") == BoolConst(true), START, MAXPOOL));
-            instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_OP_ENABLE)), Ite(m.input("pdp_last_input_batch") == BoolConst(true), SIG_FALSE, SIG_TRUE));
+            // instr.SetUpdate(m.state("pdp_state"), Ite(m.input("pdp_last_input_batch") == BoolConst(true), START, MAXPOOL));
+            // instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_OP_ENABLE)), Ite(m.input("pdp_last_input_batch") == BoolConst(true), SIG_FALSE, SIG_TRUE));
         }
 
         // {
