@@ -34,8 +34,8 @@ namespace ilang
     
     // Return 16-bit representation of int8
     ExprRef int8_to_int16(ExprRef num){
-        auto bv7_unsigned = num & BvConst(0x7F, NVDLA_CMAC_KERNEL_MAX_ELEM_WIDTH);
-        auto bv = Ite(SelectBit(num, 7) == 0, bv7_unsigned, bv7_unsigned | BvConst(0xFF80, NVDLA_CMAC_KERNEL_MAX_ELEM_WIDTH));
+        auto bv7_unsigned = num & BvConst(0x7F, PDP_INT_16_WIDTH);
+        auto bv = Ite(SelectBit(num, 7) == 0, bv7_unsigned, bv7_unsigned | BvConst(0xFF80, PDP_INT_16_WIDTH));
         return bv;
     }
     
