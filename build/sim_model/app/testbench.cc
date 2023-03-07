@@ -528,56 +528,18 @@ SC_MODULE(testbench)
 
     while (input_done == 0)
     {
-      // std::cout << "current simulation time: " << '\t' << sc_time_stamp() << "\r" << std::flush;
-
-      // fout << "datatype => " << pdp_inst.cmac_group0_cmac_d_misc_cfg << std::endl;
-      //   Output format: instr_no sum0 sum1 ... sum15
+    
       fout << std::dec << instr_no++ << " ";
       // output
       for (int i = 0; i < 16; i++)
       {
 
-        // sc_dt::sc_int<2> data_type = cmac_inst.cmac_group0_cmac_d_misc_cfg;
-        // if (data_type == 0){
-        //   fout << std::dec << (sc_dt::sc_bigint<16>) cmac_inst.cmac_cmac2cacc_partial_sums[i] << " ";
-        // } else if (data_type == 1){
-        //   fout << std::dec << (sc_dt::sc_bigint<8>) cmac_inst.cmac_cmac2cacc_partial_sums[i] << " ";
-        // }
-
         fout << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_output[i] << " ";
 
-        // sc_dt::sc_bigint<8> sum = cmac_inst.cmac_cmac2cacc_partial_sums[i];
-        // // sc_dt::sc_bigint<8> sum = 127;
-        // // sc_dt::sc_bigint<8> sum1 = 128;
-        // // sc_dt::sc_bigint<8> sum2 = 129;
-        // // fout << std::dec << (sc_dt::sc_bigint<16>) cmac_inst.cmac_cmac2cacc_partial_sums[i] << " ";
-
-        // fout << std::dec << sum << " ";
       }
       fout << std::endl;
 
-      // // cached_weights
-      // for (int i = 0; i < NUM_KERNEL_ELEM; i++) {
-      //   fout << std::dec << "cached_wt_kernel_0_elem_" << i <<  " => " << cmac_inst.cmac_cached_wt_kernel_0[i] << std::endl;
-      //   fout << std::dec << "cached_wt_kernel_1_elem_" << i <<  " => " << cmac_inst.cmac_cached_wt_kernel_1[i] << std::endl;
-      //   fout << std::dec << "cached_wt_kernel_2_elem_" << i <<  " => " << cmac_inst.cmac_cached_wt_kernel_2[i] << std::endl;
-      //   fout << std::dec << "cached_wt_kernel_3_elem_" << i <<  " => " << cmac_inst.cmac_cached_wt_kernel_3[i] << std::endl;
-
-      //   fout << std::dec << "cached_wt_kernel_4_elem_" << i <<  " => " << cmac_inst.cmac_cached_wt_kernel_4[i] << std::endl;
-      //   fout << std::dec << "cached_wt_kernel_5_elem_" << i <<  " => " << cmac_inst.cmac_cached_wt_kernel_5[i] << std::endl;
-      //   fout << std::dec << "cached_wt_kernel_6_elem_" << i <<  " => " << cmac_inst.cmac_cached_wt_kernel_6[i] << std::endl;
-      //   fout << std::dec << "cached_wt_kernel_7_elem_" << i <<  " => " << cmac_inst.cmac_cached_wt_kernel_7[i] << std::endl;
-
-      //   fout << std::dec << "cached_wt_kernel_8_elem_" << i <<  " => " << cmac_inst.cmac_cached_wt_kernel_8[i] << std::endl;
-      //   fout << std::dec << "cached_wt_kernel_9_elem_" << i <<  " => " << cmac_inst.cmac_cached_wt_kernel_9[i] << std::endl;
-      //   fout << std::dec << "cached_wt_kernel_10_elem_" << i <<  " => " << cmac_inst.cmac_cached_wt_kernel_10[i] << std::endl;
-      //   fout << std::dec << "cached_wt_kernel_11_elem_" << i <<  " => " << cmac_inst.cmac_cached_wt_kernel_11[i] << std::endl;
-
-      //   fout << std::dec << "cached_wt_kernel_12_elem_" << i <<  " => " << cmac_inst.cmac_cached_wt_kernel_12[i] << std::endl;
-      //   fout << std::dec << "cached_wt_kernel_13_elem_" << i <<  " => " << cmac_inst.cmac_cached_wt_kernel_13[i] << std::endl;
-      //   fout << std::dec << "cached_wt_kernel_14_elem_" << i <<  " => " << cmac_inst.cmac_cached_wt_kernel_14[i] << std::endl;
-      //   fout << std::dec << "cached_wt_kernel_15_elem_" << i <<  " => " << cmac_inst.cmac_cached_wt_kernel_15[i] << std::endl;
-      // }
+    
 
       wait(10, SC_NS);
     }
