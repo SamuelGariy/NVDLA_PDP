@@ -9,16 +9,20 @@
 #include "nlohmann/json.hpp"
 #include <pdp.h>
 
-using json = nlohmann::json;
-
 #define GET_JSON_INT(json_val, default_val) (!(json_val.is_null()) ? json_val.get<int>() : default_val)
 #define GET_JSON_INT_FROM_HEX_STR(json_val, default_val) (!(json_val.is_null()) ? (std::stoi(json_val.get<std::string>().c_str(), nullptr, 16)) : default_val)
 #define GET_JSON_BOOL(json_val, default_val) (!(json_val.is_null()) ? json_val.get<bool>() : default_val)
 
+#define PDP_KERNEL_MAX 16
+
+using json = nlohmann::json;
+
+
+
 std::string file_in;
 std::string file_out;
 
-#define PDP_KERNEL_MAX 16
+
 
 // Module for reading inputs into ILA model
 SC_MODULE(Source)
