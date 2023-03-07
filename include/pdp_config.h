@@ -42,7 +42,7 @@ namespace ilang
 // // ********************** CONFIG REGISTERS ***************************//
 // /**********************************************************************/
 // 0xd000 - Idle status of two register groups
-#define NVDLA_PDP_S_STATUS_0 "pdp s_status0" // read_only
+#define NVDLA_PDP_S_STATUS_0 "pdp_s_status0" // read_only
 #define NVDLA_PDP_S_STATUS_1 "pdp_s_status1" // read_only
 #define NVDLA_PDP_S_STATUS_WIDTH 2
 
