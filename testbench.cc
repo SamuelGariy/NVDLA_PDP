@@ -519,13 +519,14 @@ SC_MODULE(testbench)
     std::cout << "start running" << std::endl;
     std::cout << "*********** simulation start ***********" << std::endl;
     wait(10, SC_NS);
-
+    std::cout << "*********** check 1 ***********" << std::endl;
     // Log final outputs
     std::ofstream fout;
+    std::cout << "*********** check 2 ***********" << std::endl;
     fout.open(file_out, ios::out | ios::trunc);
-
+  std::cout << "*********** check 3 ***********" << std::endl;
     int instr_no = 0;
-
+std::cout << "*********** check 4 ***********" << std::endl;
     while (input_done == 0)
     {
     
