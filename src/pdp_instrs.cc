@@ -532,7 +532,7 @@ namespace ilang
             auto kernel_width = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_WIDTH));
               // auto kernel_size = kernel_height * kernel_width;
              // auto kernel_size = BvConst(0,PDP_INT_16_WIDTH);
-           auto  kernel_size =  kernel_height * kernel_width;
+           auto  kernel_size =  kernel_height ;
             auto stride_height = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_STRIDE_HEIGHT));
             auto stride_width = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_STRIDE_WIDTH));
             auto pdp_padding_value = m.state("pdp_padding_value");
