@@ -496,8 +496,8 @@ namespace ilang
                     //    auto input_in_marker = BvConst(kernel_j,NVDLA_PDP_D_KERNEL_WIDTH_WIDTH) < kernel_width ? kernel_j : PDP_KERNEL_MAX - 1;
                     auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(output_j) + "_" + std::to_string(kernel_j))));
                     auto sign_ext_input = Ite(data_format == INT8, int8_to_int16(input_in), input_in);
-                   //auto curr = Ite(BvConst(kernel_j,PDP_INT_16_WIDTH) < SExt(kernel_size,PDP_INT_16_WIDTH),sign_ext_input, BvConst(0,PDP_INT_16_WIDTH));
-                   auto curr = BvConst(0,PDP_INT_16_WIDTH);
+                   auto curr = Ite(BvConst(kernel_j,PDP_INT_16_WIDTH) < SExt(kernel_size,PDP_INT_16_WIDTH),sign_ext_input, BvConst(0,PDP_INT_16_WIDTH));
+                 //  auto curr = BvConst(0,PDP_INT_16_WIDTH);
                 
                     max = Ite(sign_ext_input > max, sign_ext_input, max);
                 }
