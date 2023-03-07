@@ -162,7 +162,7 @@ SC_MODULE(testbench)
   sc_signal<sc_biguint<1>> pdp_csb2pdp_write_signal;
   sc_signal<sc_biguint<1>> pdp_csb2pdp_vld_signal;
 
-  sc_signal<bool> pdp_pdp_last_input_batch;
+  sc_signal<bool> pdp_pdp_last_input_batch_signal;
 
   sc_signal<sc_biguint<16>> pdp_pdp_input_0_signal[PDP_KERNEL_MAX];
   sc_signal<sc_biguint<16>> pdp_pdp_input_1_signal[PDP_KERNEL_MAX];
