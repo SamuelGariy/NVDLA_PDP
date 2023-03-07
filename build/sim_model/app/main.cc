@@ -518,6 +518,7 @@ SC_MODULE(testbench)
 
     std::cout << "start running" << std::endl;
     std::cout << "*********** simulation start ***********" << std::endl;
+      std::cout << "*********** check 0 ***********" << std::endl;
     wait(10, SC_NS);
     std::cout << "*********** check 1 ***********" << std::endl;
     // Log final outputs
