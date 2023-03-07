@@ -503,8 +503,8 @@ namespace ilang
                 }
 
         //         // update memory and increment memory pointer
-        //         auto new_share_buffer = ExprRef(share_buffer_ptr).Store(BvConst(output_j, PDP_SHARE_LINE_ADDR_WIDTH), max);
-        //         share_buffer_ptr = new_share_buffer.get();
+                auto new_share_buffer = ExprRef(share_buffer_ptr).Store(BvConst(output_j, PDP_SHARE_LINE_ADDR_WIDTH), max);
+                share_buffer_ptr = new_share_buffer.get();
             }
 
         //     // // load to buffer
