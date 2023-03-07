@@ -701,7 +701,7 @@ namespace ilang
                 }
               
                 // update memory and increment memory pointer
-                auto avg = sum/kernel_width;
+                auto avg = sum/SExt(kernel_width,PDP_INT_16_WIDTH);
                 auto new_share_buffer = ExprRef(share_buffer_ptr).Store(BvConst(output_j, PDP_SHARE_LINE_ADDR_WIDTH),avg);
                 share_buffer_ptr = new_share_buffer.get();
             }
