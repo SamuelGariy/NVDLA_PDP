@@ -9,16 +9,20 @@
 #include "nlohmann/json.hpp"
 #include <pdp.h>
 
-using json = nlohmann::json;
-
 #define GET_JSON_INT(json_val, default_val) (!(json_val.is_null()) ? json_val.get<int>() : default_val)
 #define GET_JSON_INT_FROM_HEX_STR(json_val, default_val) (!(json_val.is_null()) ? (std::stoi(json_val.get<std::string>().c_str(), nullptr, 16)) : default_val)
 #define GET_JSON_BOOL(json_val, default_val) (!(json_val.is_null()) ? json_val.get<bool>() : default_val)
 
+#define PDP_KERNEL_MAX 16
+
+using json = nlohmann::json;
+
+
+
 std::string file_in;
 std::string file_out;
 
-#define PDP_KERNEL_MAX 16
+
 
 // Module for reading inputs into ILA model
 SC_MODULE(Source)
@@ -162,7 +166,7 @@ SC_MODULE(testbench)
   sc_signal<sc_biguint<1>> pdp_csb2pdp_write_signal;
   sc_signal<sc_biguint<1>> pdp_csb2pdp_vld_signal;
 
-  sc_signal<bool> pdp_pdp_last_input_batch;
+  sc_signal<bool> pdp_pdp_last_input_batch_signal;
 
   sc_signal<sc_biguint<16>> pdp_pdp_input_0_signal[PDP_KERNEL_MAX];
   sc_signal<sc_biguint<16>> pdp_pdp_input_1_signal[PDP_KERNEL_MAX];
@@ -544,7 +548,7 @@ SC_MODULE(testbench)
         //   fout << std::dec << (sc_dt::sc_bigint<8>) cmac_inst.cmac_cmac2cacc_partial_sums[i] << " ";
         // }
 
-        fout << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_output[i] << " ";
+        fout << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp_output[i] << " ";
 
         // sc_dt::sc_bigint<8> sum = cmac_inst.cmac_cmac2cacc_partial_sums[i];
         // // sc_dt::sc_bigint<8> sum = 127;
