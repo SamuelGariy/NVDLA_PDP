@@ -460,7 +460,7 @@ namespace ilang
             auto output_width = m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH));
             auto kernel_height = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_HEIGHT));
             auto kernel_width = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_WIDTH));
-            // auto kernel_size = kernel_height * kernel_width;
+             auto kernel_size = kernel_height * kernel_width;
             // auto kernel_size = BvConst(0,PDP_INT_16_WIDTH);
          //   auto kernel_size = kernel_height;
             auto stride_height = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_STRIDE_HEIGHT));
