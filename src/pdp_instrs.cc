@@ -485,10 +485,10 @@ namespace ilang
 
             auto share_buffer_ptr = MemConst(0, {}, PDP_SHARE_LINE_ADDR_WIDTH, PDP_INT_16_WIDTH).get();
 
-        //     for (auto output_j = 0; output_j < PDP_OUTPUT_MAX; output_j++)
-        //     {
+            for (auto output_j = 0; output_j < PDP_OUTPUT_MAX; output_j++)
+            {
 
-        //         auto max = BvConst(0, PDP_INT_16_WIDTH);
+                auto max = BvConst(0, PDP_INT_16_WIDTH);
 
         //         for (int kernel_j = 0; kernel_j < PDP_KERNEL_MAX; kernel_j++)
         //         {
@@ -500,7 +500,7 @@ namespace ilang
         //            auto curr = BvConst(0,PDP_INT_16_WIDTH);
                 
         //             max = Ite(sign_ext_input > max, sign_ext_input, max);
-        //         }
+                }
 
         //         // update memory and increment memory pointer
         //         auto new_share_buffer = ExprRef(share_buffer_ptr).Store(BvConst(output_j, PDP_SHARE_LINE_ADDR_WIDTH), max);
