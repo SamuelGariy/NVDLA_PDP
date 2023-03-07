@@ -99,10 +99,14 @@ SC_MODULE(Source)
 
     input_done = 0;
 
+    
+    wait(100, SC_NS);
+
     // read program fragment from file
     std::ifstream fin;
     fin.open(file_in, ios::in);
 
+    std::cout << "if prog_frag file open? " << fin.is_open() << std::endl;
     json cmd_seq;
     cmd_seq = json::parse(fin);
 
@@ -513,14 +517,17 @@ SC_MODULE(testbench)
   // Run the SystemC simuation and log outputs
   void run()
   {
+    //pdp_inst.instr_log.open("instr_log_conv.txt", ofstream::out | ofstream::trunc);
     pdp_inst.instr_log.open("instr_log_conv.txt", ofstream::out | ofstream::trunc);
     pdp_inst.instr_update_log.open("instr_update_log_conv.txt", ios::out | ios::trunc);
 
     std::cout << "start running" << std::endl;
     std::cout << "*********** simulation start ***********" << std::endl;
       std::cout << "*********** check 0 ***********" << std::endl;
-    wait(10, SC_NS);
+  
     std::cout << "*********** check 1 ***********" << std::endl;
+    wait(10, SC_NS);
+        std::cout << "*********** check 1.5 ***********" << std::endl;
     // Log final outputs
     std::ofstream fout;
     std::cout << "*********** check 2 ***********" << std::endl;
