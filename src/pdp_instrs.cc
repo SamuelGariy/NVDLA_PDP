@@ -452,38 +452,38 @@ namespace ilang
             // instr.SetUpdate(m.state("pdp_state"), MAXPOOL);
             // pdp_state = MAXPOOL;
 
-        //     // variables needed for max pooling
-        //     auto input_height = m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT));
-        //     auto output_channel = m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_CUBE_IN_CHANNEL));
+            // variables needed for max pooling
+            auto input_height = m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT));
+            auto output_channel = m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_CUBE_IN_CHANNEL));
 
-        //     auto output_height = m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT));
-        //     auto output_width = m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH));
-        //     auto kernel_height = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_HEIGHT));
-        //     auto kernel_width = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_WIDTH));
-        //     // auto kernel_size = kernel_height * kernel_width;
-        //     // auto kernel_size = BvConst(0,PDP_INT_16_WIDTH);
-        //  //   auto kernel_size = kernel_height;
-        //     auto stride_height = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_STRIDE_HEIGHT));
-        //     auto stride_width = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_STRIDE_WIDTH));
-        //     auto pdp_padding_value = m.state("pdp_padding_value");
+            auto output_height = m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT));
+            auto output_width = m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH));
+            auto kernel_height = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_HEIGHT));
+            auto kernel_width = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_WIDTH));
+            // auto kernel_size = kernel_height * kernel_width;
+            // auto kernel_size = BvConst(0,PDP_INT_16_WIDTH);
+         //   auto kernel_size = kernel_height;
+            auto stride_height = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_STRIDE_HEIGHT));
+            auto stride_width = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_STRIDE_WIDTH));
+            auto pdp_padding_value = m.state("pdp_padding_value");
 
-        //     auto padding_left = m.state(GetVarName("group0_", NVDLA_PDP_D_PAD_LEFT));
-        //     auto padding_right = m.state(GetVarName("group0_", NVDLA_PDP_D_PAD_RIGHT));
-        //     auto padding_top = m.state(GetVarName("group0_", NVDLA_PDP_D_PAD_TOP));
-        //     auto padding_bottom = m.state(GetVarName("group0_", NVDLA_PDP_D_PAD_BOTTOM));
+            auto padding_left = m.state(GetVarName("group0_", NVDLA_PDP_D_PAD_LEFT));
+            auto padding_right = m.state(GetVarName("group0_", NVDLA_PDP_D_PAD_RIGHT));
+            auto padding_top = m.state(GetVarName("group0_", NVDLA_PDP_D_PAD_TOP));
+            auto padding_bottom = m.state(GetVarName("group0_", NVDLA_PDP_D_PAD_BOTTOM));
 
-        //     auto output_width_first = m.state(GetVarName("group0_", NVDLA_PDP_D_PARTIAL_WIDTH_OUT_FIRST));
-        //     auto output_width_mid = m.state(GetVarName("group0_", NVDLA_PDP_D_PARTIAL_WIDTH_OUT_MID));
-        //     auto output_width_last = m.state(GetVarName("group0_", NVDLA_PDP_D_PARTIAL_WIDTH_OUT_LAST));
+            auto output_width_first = m.state(GetVarName("group0_", NVDLA_PDP_D_PARTIAL_WIDTH_OUT_FIRST));
+            auto output_width_mid = m.state(GetVarName("group0_", NVDLA_PDP_D_PARTIAL_WIDTH_OUT_MID));
+            auto output_width_last = m.state(GetVarName("group0_", NVDLA_PDP_D_PARTIAL_WIDTH_OUT_LAST));
 
-        //     auto data_format = m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_FORMAT));
-        //     auto mode = Ite(m.state(GetVarName("group0_", NVDLA_PDP_FLYING_MODE)) == BvConst(0, NVDLA_PDP_FLYING_MODE_WIDTH), PDP_FLYING, Ite(m.state(GetVarName("group0_", NVDLA_PDP_SPLIT_NUM)) > BvConst(0, NVDLA_PDP_SPLIT_NUM_WIDTH), PDP_OFF_FLYING_SPLIT, PDP_OFF_FLYING_NO_SPLIT));
-        //     auto split_stage = m.state("pdp_pooling_stage_split_width");
+            auto data_format = m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_FORMAT));
+            auto mode = Ite(m.state(GetVarName("group0_", NVDLA_PDP_FLYING_MODE)) == BvConst(0, NVDLA_PDP_FLYING_MODE_WIDTH), PDP_FLYING, Ite(m.state(GetVarName("group0_", NVDLA_PDP_SPLIT_NUM)) > BvConst(0, NVDLA_PDP_SPLIT_NUM_WIDTH), PDP_OFF_FLYING_SPLIT, PDP_OFF_FLYING_NO_SPLIT));
+            auto split_stage = m.state("pdp_pooling_stage_split_width");
 
-        //     // update output width in use depending on mode
-        //     output_width = Ite(mode == PDP_OFF_FLYING_NO_SPLIT, SExt(output_width_first, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH), Ite(mode == PDP_OFF_FLYING_SPLIT, Ite(split_stage == SPLIT_STAGE_1, SExt(output_width_first, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH), Ite(split_stage == SPLIT_STAGE_2, SExt(output_width_mid, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH), SExt(output_width_last, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH))), output_width));
+            // update output width in use depending on mode
+            output_width = Ite(mode == PDP_OFF_FLYING_NO_SPLIT, SExt(output_width_first, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH), Ite(mode == PDP_OFF_FLYING_SPLIT, Ite(split_stage == SPLIT_STAGE_1, SExt(output_width_first, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH), Ite(split_stage == SPLIT_STAGE_2, SExt(output_width_mid, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH), SExt(output_width_last, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH))), output_width));
 
-        //     auto share_buffer_ptr = MemConst(0, {}, PDP_SHARE_LINE_ADDR_WIDTH, PDP_INT_16_WIDTH).get();
+            auto share_buffer_ptr = MemConst(0, {}, PDP_SHARE_LINE_ADDR_WIDTH, PDP_INT_16_WIDTH).get();
 
         //     for (auto output_j = 0; output_j < PDP_OUTPUT_MAX; output_j++)
         //     {
