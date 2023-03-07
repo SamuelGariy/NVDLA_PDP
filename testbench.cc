@@ -535,7 +535,7 @@ std::cout << "*********** check 4 ***********" << std::endl;
       for (int i = 0; i < 16; i++)
       {
 
-        fout << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_output[i] << " ";
+        fout << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp_output[i] << " ";
 
       }
       fout << std::endl;
