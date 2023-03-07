@@ -162,7 +162,7 @@ SC_MODULE(testbench)
   sc_signal<sc_biguint<1>> pdp_csb2pdp_write_signal;
   sc_signal<sc_biguint<1>> pdp_csb2pdp_vld_signal;
 
-  sc_signal<bool> pdp_pdp_last_input_batch;
+  sc_signal<bool> pdp_pdp_last_input_batch_signal;
 
   sc_signal<sc_biguint<16>> pdp_pdp_input_0_signal[PDP_KERNEL_MAX];
   sc_signal<sc_biguint<16>> pdp_pdp_input_1_signal[PDP_KERNEL_MAX];
@@ -544,7 +544,7 @@ SC_MODULE(testbench)
         //   fout << std::dec << (sc_dt::sc_bigint<8>) cmac_inst.cmac_cmac2cacc_partial_sums[i] << " ";
         // }
 
-        fout << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_output[i] << " ";
+        fout << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp_output[i] << " ";
 
         // sc_dt::sc_bigint<8> sum = cmac_inst.cmac_cmac2cacc_partial_sums[i];
         // // sc_dt::sc_bigint<8> sum = 127;
