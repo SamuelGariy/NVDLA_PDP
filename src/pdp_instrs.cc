@@ -490,8 +490,8 @@ namespace ilang
 
                 auto max = BvConst(0, PDP_INT_16_WIDTH);
 
-        //         for (int kernel_j = 0; kernel_j < PDP_KERNEL_MAX; kernel_j++)
-        //         {
+                for (int kernel_j = 0; kernel_j < PDP_KERNEL_MAX; kernel_j++)
+                {
 
         //             //    auto input_in_marker = BvConst(kernel_j,NVDLA_PDP_D_KERNEL_WIDTH_WIDTH) < kernel_width ? kernel_j : PDP_KERNEL_MAX - 1;
         //             auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(output_j) + "_" + std::to_string(kernel_j))));
@@ -505,7 +505,7 @@ namespace ilang
         //         // update memory and increment memory pointer
         //         auto new_share_buffer = ExprRef(share_buffer_ptr).Store(BvConst(output_j, PDP_SHARE_LINE_ADDR_WIDTH), max);
         //         share_buffer_ptr = new_share_buffer.get();
-        //     }
+            }
 
         //     // // load to buffer
         //     instr.SetUpdate(m.state("pdp_output"), ExprRef(share_buffer_ptr));
