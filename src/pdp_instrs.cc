@@ -530,6 +530,7 @@ namespace ilang
             auto output_width = m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH));
             auto kernel_height = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_HEIGHT));
             auto kernel_width = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_WIDTH));
+               auto kernel_size = kernel_height * kernel_width;
             auto stride_height = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_STRIDE_HEIGHT));
             auto stride_width = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_STRIDE_WIDTH));
             auto pdp_padding_value = m.state("pdp_padding_value");
@@ -564,7 +565,7 @@ namespace ilang
                 //    auto input_in_marker = BvConst(kernel_j,NVDLA_PDP_D_KERNEL_WIDTH_WIDTH) < kernel_width ? kernel_j : PDP_KERNEL_MAX - 1;
                     auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(output_j) + "_" + std::to_string(kernel_j))));
                     auto sign_ext_input = Ite(data_format == INT8, int8_to_int16(input_in), input_in);
-                    auto curr = Ite(BvConst(kernel_j,NVDLA_PDP_D_KERNEL_WIDTH_WIDTH) < kernel_width,sign_ext_input, BvConst(0,PDP_INT_16_WIDTH));
+                    auto curr = Ite(BvConst(kernel_j,kernel_size.bit_width()) < kernel_size,sign_ext_input, BvConst(0,PDP_INT_16_WIDTH));
                     max = Ite(sign_ext_input > max, sign_ext_input, max);
                 }
               
@@ -596,6 +597,7 @@ namespace ilang
             auto output_width = m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH));
             auto kernel_height = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_HEIGHT));
             auto kernel_width = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_WIDTH));
+               auto kernel_size = kernel_height * kernel_width;
             auto stride_height = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_STRIDE_HEIGHT));
             auto stride_width = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_STRIDE_WIDTH));
             auto pdp_padding_value = m.state("pdp_padding_value");
@@ -630,7 +632,7 @@ namespace ilang
                 //    auto input_in_marker = BvConst(kernel_j,NVDLA_PDP_D_KERNEL_WIDTH_WIDTH) < kernel_width ? kernel_j : PDP_KERNEL_MAX - 1;
                     auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(output_j) + "_" + std::to_string(kernel_j))));
                     auto sign_ext_input = Ite(data_format == INT8, int8_to_int16(input_in), input_in);
-                    auto curr = Ite(BvConst(kernel_j,NVDLA_PDP_D_KERNEL_WIDTH_WIDTH) < kernel_width,sign_ext_input, BvConst(0,PDP_INT_16_WIDTH));
+                    auto curr = Ite(BvConst(kernel_j,kernel_size.bit_width()) < kernel_size,sign_ext_input, BvConst(0,PDP_INT_16_WIDTH));
                     min = Ite(sign_ext_input < min, sign_ext_input, min);
                 }
               
@@ -662,6 +664,7 @@ namespace ilang
             auto output_width = m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH));
             auto kernel_height = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_HEIGHT));
             auto kernel_width = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_WIDTH));
+            auto kernel_size = kernel_height * kernel_width;
             auto stride_height = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_STRIDE_HEIGHT));
             auto stride_width = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_STRIDE_WIDTH));
             auto pdp_padding_value = m.state("pdp_padding_value");
@@ -696,12 +699,12 @@ namespace ilang
                 //    auto input_in_marker = BvConst(kernel_j,NVDLA_PDP_D_KERNEL_WIDTH_WIDTH) < kernel_width ? kernel_j : PDP_KERNEL_MAX - 1;
                     auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(output_j) + "_" + std::to_string(kernel_j))));
                     auto sign_ext_input = Ite(data_format == INT8, int8_to_int16(input_in), input_in);
-                    auto curr = Ite(BvConst(kernel_j,NVDLA_PDP_D_KERNEL_WIDTH_WIDTH) < kernel_width,sign_ext_input, BvConst(0,PDP_INT_16_WIDTH));
+                   auto curr = Ite(BvConst(kernel_j,kernel_size.bit_width()) < kernel_size,sign_ext_input, BvConst(0,PDP_INT_16_WIDTH));
                     sum = sum + curr;
                 }
               
                 // update memory and increment memory pointer
-                auto avg = sum/SExt(kernel_width,PDP_INT_16_WIDTH);
+                auto avg = sum/SExt(kernel_size,PDP_INT_16_WIDTH);
                 auto new_share_buffer = ExprRef(share_buffer_ptr).Store(BvConst(output_j, PDP_SHARE_LINE_ADDR_WIDTH),avg);
                 share_buffer_ptr = new_share_buffer.get();
             }
