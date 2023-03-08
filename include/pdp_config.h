@@ -291,7 +291,7 @@ namespace ilang
 #define PDP_SPLIT_WIDTH_BUFFER_ADDR_WIDTH  5  //  6 // 13
 
 // Input Data Constants
-#define PDP_INPUT_MAX 64// actual max 8191
+#define PDP_INPUT_MAX  32 // 64// actual max 8191
 
 // Output Data Constants
 #define PDP_KERNEL_MAX  64 // 2 ^ 4
