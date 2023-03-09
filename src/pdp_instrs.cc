@@ -508,7 +508,7 @@ namespace ilang
             }
 
             // // load to buffer
-        //    instr.SetUpdate(m.state("pdp_output"), ExprRef(share_buffer_ptr));
+         instr.SetUpdate(m.state("pdp_output"), ExprRef(share_buffer_ptr));
             instr.SetUpdate(m.state("pdp2csb_data_vld"), SIG_TRUE);
 
             instr.SetUpdate(m.state("pdp_state"), Ite(m.input("pdp_last_input_batch") == BoolConst(true), START, MAXPOOL));
@@ -574,7 +574,7 @@ namespace ilang
                     }
 
                     // // load to buffer
-                 //   instr.SetUpdate(m.state("pdp_output"), ExprRef(share_buffer_ptr));
+                   instr.SetUpdate(m.state("pdp_output"), ExprRef(share_buffer_ptr));
                     instr.SetUpdate(m.state("pdp2csb_data_vld"),  SIG_TRUE);
 
                     instr.SetUpdate(m.state("pdp_state"), Ite(m.input("pdp_last_input_batch") == BoolConst(true), START, MAXPOOL));
@@ -642,7 +642,7 @@ namespace ilang
                     }
 
                     // // load to buffer
-                   // instr.SetUpdate(m.state("pdp_output"), ExprRef(share_buffer_ptr));
+                    instr.SetUpdate(m.state("pdp_output"), ExprRef(share_buffer_ptr));
                     instr.SetUpdate(m.state("pdp2csb_data_vld"),  SIG_TRUE);
 
                     instr.SetUpdate(m.state("pdp_state"), Ite(m.input("pdp_last_input_batch") == BoolConst(true), START, MAXPOOL));
