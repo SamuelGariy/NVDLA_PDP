@@ -35,7 +35,7 @@
 namespace ilang {
 
 // PDP
-Ila GetPDPIla(const std::string& model_name = "core_sc");
+Ila GetPDPIla(const std::string& model_name = "pdp");
 void DefinePDPInput(Ila& m);
 void DefinePDPOutput(Ila& m);
 void DefinePDPState(Ila& m);
