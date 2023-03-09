@@ -11,7 +11,8 @@ project(nvdla VERSION 0.1 LANGUAGES CXX)
 # alias and configurations
 # ---------------------------------------------------------------------------- #
 set(CMAKE_CXX_COMPILER "g++-9")
-set(CMAKE_PREFIX_PATH /home/kevinkb/local)
+set(CMAKE_PREFIX_PATH /root/ILAng/build/NVDLA_PDP/nvdla_cmac)
+# set(CMAKE_PREFIX_PATH /home/kevinkb/local)
 set(MyTarget ${PROJECT_NAME})
 
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
