@@ -483,7 +483,8 @@ namespace ilang
             // update output width in use depending on mode
             output_width = Ite(mode == PDP_OFF_FLYING_NO_SPLIT, SExt(output_width_first, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH), Ite(mode == PDP_OFF_FLYING_SPLIT, Ite(split_stage == SPLIT_STAGE_1, SExt(output_width_first, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH), Ite(split_stage == SPLIT_STAGE_2, SExt(output_width_mid, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH), SExt(output_width_last, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH))), output_width));
 
-            auto share_buffer_ptr = MemConst(0, {}, PDP_SHARE_LINE_ADDR_WIDTH, PDP_INT_16_WIDTH).get();
+           // auto share_buffer_ptr = MemConst(0, {}, PDP_SHARE_LINE_ADDR_WIDTH, PDP_INT_16_WIDTH).get();
+           auto share_buffer_ptr = MemConst(0, {}, PDP_SHARE_LINE_ADDR_WIDTH, PDP_INT_16_WIDTH);
 
             for (auto output_j = 0; output_j < PDP_OUTPUT_MAX; output_j++)
             {
@@ -504,8 +505,11 @@ namespace ilang
 
         //         // update memory and increment memory pointer
               //  auto new_share_buffer = ExprRef(share_buffer_ptr).Store(share_buffer_ptr,BvConst(output_j, PDP_SHARE_LINE_ADDR_WIDTH), max);
-                auto new_share_buffer = Store(ExprRef(share_buffer_ptr),BvConst(output_j, PDP_SHARE_LINE_ADDR_WIDTH), max);
-                share_buffer_ptr = new_share_buffer.get();
+                // auto new_share_buffer = Store(ExprRef(share_buffer_ptr),BvConst(output_j, PDP_SHARE_LINE_ADDR_WIDTH), max);
+                // share_buffer_ptr = new_share_buffer.get();
+                share_buffer_ptr.Store(BvConst(output_j, PDP_SHARE_LINE_ADDR_WIDTH), max);
+
+
             }
 
             // // load to buffer
