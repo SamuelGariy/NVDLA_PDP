@@ -43,7 +43,7 @@ namespace ilang
         m.NewBvState("pdp2csb_data_vld", 1); // true when output is valid
           
         // to RAM  
-        m.NewMemState("pdp_output", PDP_OUTPUT_ADDR_WIDTH, PDP_INT_16_WIDTH); // 2^13- holds 8191 output
+        m.NewMemState("pdp_output_1", PDP_OUTPUT_ADDR_WIDTH, PDP_INT_16_WIDTH); // 2^13- holds 8191 output
 
         
     
