@@ -515,7 +515,7 @@ namespace ilang
             // // load to buffer
             // auto test_buffer = MemConst(0, {}, PDP_SHARE_LINE_ADDR_WIDTH, PDP_INT_16_WIDTH);
 
-         instr.SetUpdate(m.state("pdp_output"), share_buffer_ptr);
+        // instr.SetUpdate(m.state("pdp_output"), share_buffer_ptr);
             instr.SetUpdate(m.state("pdp2csb_data_vld"), SIG_TRUE);
 
             instr.SetUpdate(m.state("pdp_state"), Ite(m.input("pdp_last_input_batch") == BoolConst(true), START, MAXPOOL));
