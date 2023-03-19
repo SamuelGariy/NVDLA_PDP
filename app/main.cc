@@ -69,7 +69,8 @@ int main(int argc, char* argv[]) {
 
 //  verify_csc(csc, vtg_cfg, csc_design_files);
 
-  ExportSysCSim(pdp, "./sim_model", false);  
+  //ExportSysCSim(pdp, "./sim_model", false); 
+  ExportSysCSim(pdp, "./sim_model");  
 
   return 0;
 }
