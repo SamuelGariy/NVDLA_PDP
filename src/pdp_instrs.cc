@@ -513,7 +513,7 @@ namespace ilang
             }
 
             // // load to buffer
-            auto test_buffer = MemConst(0, {}, PDP_SHARE_LINE_ADDR_WIDTH, PDP_INT_16_WIDTH);
+          //  auto test_buffer = MemConst(0, {}, PDP_SHARE_LINE_ADDR_WIDTH, PDP_INT_16_WIDTH);
 
         instr.SetUpdate(m.state("pdp_output"), share_buffer_ptr);
       // instr.SetUpdate(m.state("pdp_output_1"), ExprRef(share_buffer_ptr));
