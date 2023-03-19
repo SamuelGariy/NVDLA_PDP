@@ -184,7 +184,7 @@ namespace ilang
       //  m.NewMemState("pdp_share_line_buffer", PDP_SHARE_LINE_ADDR_WIDTH, PDP_INT_16_WIDTH);
 
         // buffer storing last kernel values for split width
-     //   m.NewMemState("pdp_split_width_buffer", PDP_SPLIT_WIDTH_BUFFER_ADDR_WIDTH, PDP_INT_16_WIDTH);
+       m.NewMemState("pdp_state_mem", PDP_SPLIT_WIDTH_BUFFER_ADDR_WIDTH, PDP_INT_16_WIDTH);
 
         // Padding value in use
         m.NewBvState("pdp_padding_value", PDP_INT_16_WIDTH);
