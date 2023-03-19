@@ -507,7 +507,7 @@ namespace ilang
               //  auto new_share_buffer = ExprRef(share_buffer_ptr).Store(share_buffer_ptr,BvConst(output_j, PDP_SHARE_LINE_ADDR_WIDTH), max);
                // auto new_share_buffer = Store(ExprRef(share_buffer_ptr),BvConst(output_j, PDP_SHARE_LINE_ADDR_WIDTH), max);
                // share_buffer_ptr = new_share_buffer.get();
-                share_buffer_ptr.Store(BvConst(output_j, PDP_OUTPUT_ADDR_WIDTH), max);
+                share_buffer_ptr = share_buffer_ptr.Store(BvConst(output_j, PDP_OUTPUT_ADDR_WIDTH), max);
 
 
             }
