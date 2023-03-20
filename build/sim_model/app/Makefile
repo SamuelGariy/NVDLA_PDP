@@ -225,30 +225,6 @@ src/constant_memory_def.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdp.dir/build.make CMakeFiles/pdp.dir/src/constant_memory_def.cc.s
 .PHONY : src/constant_memory_def.cc.s
 
-src/idu_avg_pool.o: src/idu_avg_pool.cc.o
-.PHONY : src/idu_avg_pool.o
-
-# target to build an object file
-src/idu_avg_pool.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdp.dir/build.make CMakeFiles/pdp.dir/src/idu_avg_pool.cc.o
-.PHONY : src/idu_avg_pool.cc.o
-
-src/idu_avg_pool.i: src/idu_avg_pool.cc.i
-.PHONY : src/idu_avg_pool.i
-
-# target to preprocess a source file
-src/idu_avg_pool.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdp.dir/build.make CMakeFiles/pdp.dir/src/idu_avg_pool.cc.i
-.PHONY : src/idu_avg_pool.cc.i
-
-src/idu_avg_pool.s: src/idu_avg_pool.cc.s
-.PHONY : src/idu_avg_pool.s
-
-# target to generate assembly for a file
-src/idu_avg_pool.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdp.dir/build.make CMakeFiles/pdp.dir/src/idu_avg_pool.cc.s
-.PHONY : src/idu_avg_pool.cc.s
-
 src/idu_load_prepooling_variables.o: src/idu_load_prepooling_variables.cc.o
 .PHONY : src/idu_load_prepooling_variables.o
 
@@ -1326,9 +1302,6 @@ help:
 	@echo "... src/constant_memory_def.o"
 	@echo "... src/constant_memory_def.i"
 	@echo "... src/constant_memory_def.s"
-	@echo "... src/idu_avg_pool.o"
-	@echo "... src/idu_avg_pool.i"
-	@echo "... src/idu_avg_pool.s"
 	@echo "... src/idu_load_prepooling_variables.o"
 	@echo "... src/idu_load_prepooling_variables.i"
 	@echo "... src/idu_load_prepooling_variables.s"

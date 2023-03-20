@@ -16,7 +16,6 @@ add_executable(pdp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/all_valid_funcs_in_hier.cc
   ${CMAKE_CURRENT_SOURCE_DIR}/src/compute.cc
   ${CMAKE_CURRENT_SOURCE_DIR}/src/constant_memory_def.cc
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/idu_avg_pool.cc
   ${CMAKE_CURRENT_SOURCE_DIR}/src/idu_load_prepooling_variables.cc
   ${CMAKE_CURRENT_SOURCE_DIR}/src/idu_max_pool.cc
   ${CMAKE_CURRENT_SOURCE_DIR}/src/idu_min_pool.cc

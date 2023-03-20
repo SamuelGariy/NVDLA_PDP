@@ -7,8 +7,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/pdp.dir/src/compute.cc.o.d"
   "CMakeFiles/pdp.dir/src/constant_memory_def.cc.o"
   "CMakeFiles/pdp.dir/src/constant_memory_def.cc.o.d"
-  "CMakeFiles/pdp.dir/src/idu_avg_pool.cc.o"
-  "CMakeFiles/pdp.dir/src/idu_avg_pool.cc.o.d"
   "CMakeFiles/pdp.dir/src/idu_load_prepooling_variables.cc.o"
   "CMakeFiles/pdp.dir/src/idu_load_prepooling_variables.cc.o.d"
   "CMakeFiles/pdp.dir/src/idu_max_pool.cc.o"

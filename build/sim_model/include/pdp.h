@@ -212,7 +212,6 @@ SC_MODULE(pdp) {
   sc_biguint<16> pdp_pdp_padding_value;
   sc_biguint<2> pdp_pdp_pooling_stage_split_width;
   void compute();
-  bool decode_pdp_avg_pool();
   bool decode_pdp_load_prepooling_variables();
   bool decode_pdp_max_pool();
   bool decode_pdp_min_pool();
@@ -256,7 +255,6 @@ SC_MODULE(pdp) {
   bool decode_pdp_set_split_number();
   bool decode_pdp_set_start_group0();
   void setup_initial_condition();
-  void update_pdp_avg_pool();
   void update_pdp_load_prepooling_variables();
   void update_pdp_max_pool();
   void update_pdp_min_pool();
