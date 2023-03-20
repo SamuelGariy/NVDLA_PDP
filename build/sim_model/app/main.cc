@@ -242,85 +242,85 @@ SC_MODULE(Source)
      
         // read in input
 
-        pdp_pdp_input_0[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_0"], 0);
-        pdp_pdp_input_1[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_1"] , 0);
-        pdp_pdp_input_2[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_2"], 0);
-        pdp_pdp_input_3[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_3"], 0);
+        pdp_pdp_input_0 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_0"], 0);
+        pdp_pdp_input_1 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_1"] , 0);
+        pdp_pdp_input_2 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_2"], 0);
+        pdp_pdp_input_3 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_3"], 0);
 
-        pdp_pdp_input_4[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_4"], 0);
-        pdp_pdp_input_5[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_5"], 0);
-        pdp_pdp_input_6[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_6"], 0);
-        pdp_pdp_input_7[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_7"], 0);
+        pdp_pdp_input_4 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_4"], 0);
+        pdp_pdp_input_5 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_5"], 0);
+        pdp_pdp_input_6 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_6"], 0);
+        pdp_pdp_input_7 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_7"], 0);
 
-        pdp_pdp_input_8[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_8"], 0);
-        pdp_pdp_input_9[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_9"], 0);
-        pdp_pdp_input_10[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_10"], 0);
-        pdp_pdp_input_11[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_11"], 0);
+        pdp_pdp_input_8 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_8"], 0);
+        pdp_pdp_input_9 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_9"], 0);
+        pdp_pdp_input_10 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_10"], 0);
+        pdp_pdp_input_11 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_11"], 0);
 
-        pdp_pdp_input_12[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_12"], 0);
-        pdp_pdp_input_13[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_13"], 0);
-        pdp_pdp_input_14[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_14"], 0);
-        pdp_pdp_input_15[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_15"], 0);
+        pdp_pdp_input_12 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_12"], 0);
+        pdp_pdp_input_13 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_13"], 0);
+        pdp_pdp_input_14 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_14"], 0);
+        pdp_pdp_input_15 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_15"], 0);
 
-        pdp_pdp_input_16[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_16"], 0);
-        pdp_pdp_input_17[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_17"] , 0);
-        pdp_pdp_input_18[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_18"], 0);
-        pdp_pdp_input_19[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_19"], 0);
+        pdp_pdp_input_16 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_16"], 0);
+        pdp_pdp_input_17 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_17"] , 0);
+        pdp_pdp_input_18 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_18"], 0);
+        pdp_pdp_input_19 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_19"], 0);
 
-        pdp_pdp_input_20[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_20"], 0);
-        pdp_pdp_input_21[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_21"], 0);
-        pdp_pdp_input_22[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_22"], 0);
-        pdp_pdp_input_23[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_23"], 0);
+        pdp_pdp_input_20 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_20"], 0);
+        pdp_pdp_input_21 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_21"], 0);
+        pdp_pdp_input_22 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_22"], 0);
+        pdp_pdp_input_23 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_23"], 0);
 
-        pdp_pdp_input_24[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_24"], 0);
-        pdp_pdp_input_25[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_25"], 0);
-        pdp_pdp_input_26[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_26"], 0);
-        pdp_pdp_input_27[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_27"], 0);
+        pdp_pdp_input_24 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_24"], 0);
+        pdp_pdp_input_25 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_25"], 0);
+        pdp_pdp_input_26 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_26"], 0);
+        pdp_pdp_input_27 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_27"], 0);
 
-        pdp_pdp_input_28[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_28"], 0);
-        pdp_pdp_input_29[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_29"], 0);
-        pdp_pdp_input_30[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_30"], 0);
-        pdp_pdp_input_31[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_31"], 0);
+        pdp_pdp_input_28 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_28"], 0);
+        pdp_pdp_input_29 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_29"], 0);
+        pdp_pdp_input_30 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_30"], 0);
+        pdp_pdp_input_31 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_31"], 0);
 
-        pdp_pdp_input_32[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_32"], 0);
-        pdp_pdp_input_33[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_33"] , 0);
-        pdp_pdp_input_34[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_34"], 0);
-        pdp_pdp_input_35[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_35"], 0);
+        pdp_pdp_input_32 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_32"], 0);
+        pdp_pdp_input_33 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_33"] , 0);
+        pdp_pdp_input_34 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_34"], 0);
+        pdp_pdp_input_35 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_35"], 0);
 
-        pdp_pdp_input_36[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_36"], 0);
-        pdp_pdp_input_37[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_37"], 0);
-        pdp_pdp_input_38[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_38"], 0);
-        pdp_pdp_input_39[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_39"], 0);
+        pdp_pdp_input_36 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_36"], 0);
+        pdp_pdp_input_37 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_37"], 0);
+        pdp_pdp_input_38 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_38"], 0);
+        pdp_pdp_input_39 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_39"], 0);
 
-        pdp_pdp_input_40[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_40"], 0);
-        pdp_pdp_input_41[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_41"], 0);
-        pdp_pdp_input_42[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_42"], 0);
-        pdp_pdp_input_43[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_43"], 0);
+        pdp_pdp_input_40 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_40"], 0);
+        pdp_pdp_input_41 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_41"], 0);
+        pdp_pdp_input_42 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_42"], 0);
+        pdp_pdp_input_43 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_43"], 0);
 
-        pdp_pdp_input_44[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_44"], 0);
-        pdp_pdp_input_45[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_45"], 0);
-        pdp_pdp_input_46[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_46"], 0);
-        pdp_pdp_input_47[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_47"], 0);
+        pdp_pdp_input_44 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_44"], 0);
+        pdp_pdp_input_45 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_45"], 0);
+        pdp_pdp_input_46 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_46"], 0);
+        pdp_pdp_input_47 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_47"], 0);
 
-        pdp_pdp_input_48[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_48"], 0);
-        pdp_pdp_input_49[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_49"] , 0);
-        pdp_pdp_input_50[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_50"], 0);
-        pdp_pdp_input_51[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_51"], 0);
+        pdp_pdp_input_48 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_48"], 0);
+        pdp_pdp_input_49 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_49"] , 0);
+        pdp_pdp_input_50 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_50"], 0);
+        pdp_pdp_input_51 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_51"], 0);
 
-        pdp_pdp_input_52[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_52"], 0);
-        pdp_pdp_input_53[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_53"], 0);
-        pdp_pdp_input_54[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_54"], 0);
-        pdp_pdp_input_55[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_55"], 0);
+        pdp_pdp_input_52 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_52"], 0);
+        pdp_pdp_input_53 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_53"], 0);
+        pdp_pdp_input_54 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_54"], 0);
+        pdp_pdp_input_55 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_55"], 0);
 
-        pdp_pdp_input_56[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_56"], 0);
-        pdp_pdp_input_57[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_57"], 0);
-        pdp_pdp_input_58[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_58"], 0);
-        pdp_pdp_input_59[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_59"], 0);
+        pdp_pdp_input_56 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_56"], 0);
+        pdp_pdp_input_57 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_57"], 0);
+        pdp_pdp_input_58 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_58"], 0);
+        pdp_pdp_input_59 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_59"], 0);
 
-        pdp_pdp_input_60[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_60"], 0);
-        pdp_pdp_input_61[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_61"], 0);
-        pdp_pdp_input_62[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_62"], 0);
-        pdp_pdp_input_63[j] = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_63"], 0);
+        pdp_pdp_input_60 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_60"], 0);
+        pdp_pdp_input_61 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_61"], 0);
+        pdp_pdp_input_62 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_62"], 0);
+        pdp_pdp_input_63 = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_pdp_input_63"], 0);
    
 
       wait(10, SC_NS);
