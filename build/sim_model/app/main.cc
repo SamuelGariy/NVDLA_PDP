@@ -9,7 +9,6 @@
 #include <cstdio>
 
 #include "nlohmann/json.hpp"
-#include <pdp.h>
 
 using json = nlohmann::json;
 
@@ -20,7 +19,6 @@ using json = nlohmann::json;
 std::string file_in;
 std::string file_out;
 
-#define PDP_KERNEL_MAX 16
 
 // Module for reading inputs into ILA model
 SC_MODULE(Source)
@@ -344,7 +342,7 @@ SC_MODULE(testbench)
   sc_signal<sc_biguint<1>> pdp_csb2pdp_write_signal;
   sc_signal<sc_biguint<1>> pdp_csb2pdp_vld_signal;
 
-  sc_signal<bool> pdp_pdp_last_input_batch;
+  sc_signal<bool> pdp_pdp_last_input_batch_signal;
 
   sc_out<sc_biguint<16>> pdp_pdp_input_0_signal;
   sc_out<sc_biguint<16>> pdp_pdp_input_1_signal;
