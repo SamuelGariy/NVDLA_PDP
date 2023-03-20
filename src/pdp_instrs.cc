@@ -595,7 +595,7 @@ namespace ilang
             instr.SetUpdate(m.state("pdp_output"), avg);
             instr.SetUpdate(m.state("pdp2csb_data_vld"), SIG_TRUE);
 
-            instr.SetUpdate(m.state("pdp_state"), Ite(m.input("pdp_last_input_batch") == BoolConst(true), START, MAXPOOL));
+            instr.SetUpdate(m.state("pdp_state"), Ite(m.input("pdp_last_input_batch") == BoolConst(true), START, AVGPOOL));
             instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_OP_ENABLE)), Ite(m.input("pdp_last_input_batch") == BoolConst(true), SIG_FALSE, SIG_TRUE));
         }
     }
