@@ -559,7 +559,7 @@ namespace ilang
             auto output_width = m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH));
             auto kernel_height = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_HEIGHT));
             auto kernel_width = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_WIDTH));
-            auto kernel_size = kernel_height * kernel_width;
+            auto kernel_size = SExt(kernel_height * kernel_width, PDP_INT_16_WIDTH);
 
             auto stride_height = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_STRIDE_HEIGHT));
             auto stride_width = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_STRIDE_WIDTH));
@@ -591,7 +591,7 @@ namespace ilang
                 sum = sign_ext_input + sum;
             }
 
-            auto avg = Ite(kernel_size > 0, (sum / kernel_size), BvConst(0,PDP_INT_16_WIDTH));
+            auto avg = Ite(kernel_size > BvConst(0,PDP_INT_16_WIDTH) , (sum / kernel_size), BvConst(0,PDP_INT_16_WIDTH));
             instr.SetUpdate(m.state("pdp_output"), avg);
             instr.SetUpdate(m.state("pdp2csb_data_vld"), SIG_TRUE);
 
