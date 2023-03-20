@@ -591,7 +591,7 @@ namespace ilang
                 sum = sign_ext_input + sum;
             }
 
-            auto avg = Ite(kernel_size > 0, sum / kernel_size, 0);
+            auto avg = Ite(kernel_size > 0, (sum / kernel_size), BvConst(0,PDP_INT_16_WIDTH));
             instr.SetUpdate(m.state("pdp_output"), avg);
             instr.SetUpdate(m.state("pdp2csb_data_vld"), SIG_TRUE);
 
