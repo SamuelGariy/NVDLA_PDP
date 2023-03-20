@@ -19,9 +19,11 @@ void pdp::LogInstrSequence(const std::string& instr_name, const long int& exec_t
 }
 static bool g_initialized = false;
 void pdp::compute() {
+  std::cout << "compute_start" << std::endl;
 if (!g_initialized) {
   setup_initial_condition();
   g_initialized = true;
+    std::cout << "initialised" << std::endl;
 }
 pdp_csb2pdp_addr = pdp_csb2pdp_addr_in.read();
 pdp_csb2pdp_data = pdp_csb2pdp_data_in.read();
