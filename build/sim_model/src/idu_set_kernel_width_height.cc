@@ -30,7 +30,7 @@ auto& univ_var_13 = local_var_15;
 
 return univ_var_13;
 }
- std::cout << "decode kernel_width_height 15" << std::endl;
+ //std::cout << "decode kernel_width_height 15" << std::endl;
 void pdp::update_pdp_set_kernel_width_height() {
 auto local_var_1 = pdp_csb2pdp_data.range(11, 8);
 auto local_var_1_nxt_holder = local_var_1;
