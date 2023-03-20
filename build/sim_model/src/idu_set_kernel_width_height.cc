@@ -4,7 +4,7 @@ bool pdp::decode_pdp_set_kernel_width_height() {
 auto local_var_1 = pdp_csb2pdp_addr.range(11, 0);
  std::cout << "decode kernel_width_height 2" << std::endl;
 sc_biguint<12> local_var_2 = 52;
- std::cout << "pdp_csb2pdp_add" << std::endl;
+ std::cout << local_var_1 << std::endl;
 bool local_var_3 = (local_var_1 == local_var_2);
  std::cout << local_var_3 << std::endl;
 sc_biguint<1> local_var_5 = 1;
