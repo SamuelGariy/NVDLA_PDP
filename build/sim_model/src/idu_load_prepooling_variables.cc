@@ -1,9 +1,12 @@
 #include <pdp.h>
 bool pdp::decode_pdp_load_prepooling_variables() {
+    std::cout << "decode load vafiables_1" << std::endl;
 sc_biguint<3> local_var_1 = 1;
+std::cout << "decode load vafiables_2" << std::endl;
 bool local_var_2 = (pdp_pdp_state == local_var_1);
+std::cout << "decode load vafiables_3" << std::endl;
 auto& univ_var_40 = local_var_2;
-std::cout << "decode load vafiables" << std::endl;
+std::cout << "decode load vafiables_4" << std::endl;
 return univ_var_40;
 }
 void pdp::update_pdp_load_prepooling_variables() {
