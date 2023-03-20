@@ -492,6 +492,7 @@ if (valid_pdp() && decode_pdp_set_destination_surface_stride()) {
   LogInstrSequence("set_destination_surface_stride", exec_time);
 #endif
 }
+std::cout << "13" << std::endl;
 if (valid_pdp() && decode_pdp_set_ram_type()) {
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
@@ -528,6 +529,7 @@ if (valid_pdp() && decode_pdp_set_infinity_input_number()) {
   LogInstrSequence("set_infinity_input_number", exec_time);
 #endif
 }
+std::cout << "14" << std::endl;
 if (valid_pdp() && decode_pdp_set_nan_input_number()) {
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
