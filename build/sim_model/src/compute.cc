@@ -593,6 +593,7 @@ if (valid_pdp() && decode_pdp_pdp_start_to_load()) {
 }
 std::cout << "16" << std::endl;
 if (valid_pdp() && decode_pdp_load_prepooling_variables()) {
+  std::cout << "decode_load_pdp_load" << std::endl;
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
 #endif
