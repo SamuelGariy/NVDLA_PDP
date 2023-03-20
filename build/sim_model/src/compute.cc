@@ -97,6 +97,7 @@ pdp_pdp_input_63 = pdp_pdp_input_63_in.read();
 pdp_pdp_last_input_batch = pdp_pdp_last_input_batch_in.read();
  std::cout << "inputs_read" << std::endl;
 if (valid_pdp() && decode_pdp_set_producer()) {
+  std::cout << "decode_pdp_set_producer" << std::endl;
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
 #endif
@@ -109,6 +110,7 @@ if (valid_pdp() && decode_pdp_set_producer()) {
 #endif
 }
 if (valid_pdp() && decode_pdp_set_start_group0()) {
+  std::cout << "decode_pdp_set_start_group0" << std::endl;
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
 #endif
@@ -606,4 +608,5 @@ while (1) {
     break;
   }
 }
+std::cout << "instruction_up" << std::endl;
 }
