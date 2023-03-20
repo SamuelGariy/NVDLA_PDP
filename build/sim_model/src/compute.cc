@@ -241,18 +241,24 @@ if (valid_pdp() && decode_pdp_set_partial_width_out()) {
   auto exec_time = std::chrono::duration_cast<std::chrono::nanoseconds>(stop-start).count();
   LogInstrSequence("set_partial_width_out", exec_time);
 #endif
+  std::cout << "before_kernel_width_height" << std::endl;
 }
 if (valid_pdp() && decode_pdp_set_kernel_width_height()) {
+   std::cout << "decode_pdp_set_kernel_width_height" << std::endl;
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
+   std::cout << "decode_pdp_set_kernel_width_height_clock" << std::endl;
 #endif
+ std::cout << "before update_pdp_set_kernel_width_height" << std::endl;
   update_pdp_set_kernel_width_height();
+  std::cout << "after update_pdp_set_kernel_width_height" << std::endl;
   
 #ifdef ILATOR_PROFILING
   auto stop = std::chrono::high_resolution_clock::now();
   auto exec_time = std::chrono::duration_cast<std::chrono::nanoseconds>(stop-start).count();
   LogInstrSequence("set_kernel_width_height", exec_time);
 #endif
+std::cout << "end kernel height wdth" << std::endl;
 }
 if (valid_pdp() && decode_pdp_set_kernel_width_reciprocal()) {
 #ifdef ILATOR_PROFILING
