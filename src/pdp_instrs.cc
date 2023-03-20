@@ -484,31 +484,29 @@ namespace ilang
             output_width = Ite(mode == PDP_OFF_FLYING_NO_SPLIT, SExt(output_width_first, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH), Ite(mode == PDP_OFF_FLYING_SPLIT, Ite(split_stage == SPLIT_STAGE_1, SExt(output_width_first, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH), Ite(split_stage == SPLIT_STAGE_2, SExt(output_width_mid, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH), SExt(output_width_last, NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH_WIDTH))), output_width));
 
            // auto share_buffer_ptr = MemConst(0, {}, PDP_SHARE_LINE_ADDR_WIDTH, PDP_INT_16_WIDTH).get();
-           auto share_buffer_ptr = MemConst(0, {}, PDP_OUTPUT_ADDR_WIDTH, PDP_INT_16_WIDTH);
+        //   auto share_buffer_ptr = MemConst(0, {}, PDP_OUTPUT_ADDR_WIDTH, PDP_INT_16_WIDTH);
 
-            for (auto output_j = 0; output_j < PDP_OUTPUT_MAX; output_j++)
-            {
-
-                auto max = BvConst(0, PDP_INT_16_WIDTH);
-            for (int segment = 0 ; segment < PDP_KERNEL_SEGMENTS; segment ++){
-                for (int kernel_j = 0; kernel_j < PDP_KERNEL_MAX; kernel_j++)
+       
+             auto max = BvConst(0, PDP_INT_16_WIDTH);
+      
+                for (int kernel_j = 0; kernel_j < PDP_INPUT_MAX; kernel_j++)
                 {
 
                     //    auto input_in_marker = BvConst(kernel_j,NVDLA_PDP_D_KERNEL_WIDTH_WIDTH) < kernel_width ? kernel_j : PDP_KERNEL_MAX - 1;
-                    auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(output_j) +  "_" + std::to_string(segment) +  "_" + std::to_string(kernel_j))));
+                    auto input_in = m.input(GetVarName("pdp_input_", ( std::to_string(kernel_j))));
                     auto sign_ext_input = Ite(data_format == INT8, int8_to_int16(input_in), input_in);
                    auto curr = Ite(BvConst(kernel_j,PDP_INT_16_WIDTH) < SExt(kernel_size,PDP_INT_16_WIDTH),sign_ext_input, BvConst(0,PDP_INT_16_WIDTH));
                  //  auto curr = BvConst(0,PDP_INT_16_WIDTH);
                 
                     max = Ite(sign_ext_input > max, sign_ext_input, max);
                 }
-            }
+            
 
         //         // update memory and increment memory pointer
               //  auto new_share_buffer = ExprRef(share_buffer_ptr).Store(share_buffer_ptr,BvConst(output_j, PDP_SHARE_LINE_ADDR_WIDTH), max);
                // auto new_share_buffer = Store(ExprRef(share_buffer_ptr),BvConst(output_j, PDP_SHARE_LINE_ADDR_WIDTH), max);
                // share_buffer_ptr = new_share_buffer.get();
-                share_buffer_ptr = share_buffer_ptr.Store(BvConst(output_j, PDP_OUTPUT_ADDR_WIDTH), max);
+             //   share_buffer_ptr = share_buffer_ptr.Store(BvConst(output_j, PDP_OUTPUT_ADDR_WIDTH), max);
 
 
             }
@@ -516,7 +514,7 @@ namespace ilang
             // // load to buffer
           //  auto test_buffer = MemConst(0, {}, PDP_SHARE_LINE_ADDR_WIDTH, PDP_INT_16_WIDTH);
 
-       instr.SetUpdate(m.state("pdp_output"), share_buffer_ptr);
+       instr.SetUpdate(m.state("pdp_output"), max);
       //  instr.SetUpdate(m.state("pdp_state_mem"), share_buffer_ptr);
       // instr.SetUpdate(m.state("pdp_output_1"), ExprRef(share_buffer_ptr));
             instr.SetUpdate(m.state("pdp2csb_data_vld"), SIG_TRUE);
