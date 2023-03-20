@@ -3,9 +3,11 @@
 #include <chrono>
 static int instr_cntr = 0;
 int pdp::GetInstrCntr() {
+  std::cout << "GetInstrCntr" << std::endl;
   return instr_cntr;
 }
 void pdp::IncrementInstrCntr() {
+   std::cout << "GetInstrCntr" << std::endl;
   instr_cntr++;
 }
 void pdp::LogInstrSequence(const std::string& instr_name, const long int& exec_time) {
@@ -13,6 +15,7 @@ void pdp::LogInstrSequence(const std::string& instr_name, const long int& exec_t
   instr_log << instr_name << " is activated\t";
   instr_log << "exec_time: " << exec_time * 1e-3 << " us\n";
   IncrementInstrCntr();
+   std::cout << "LogInstrSequence" << std::endl;
 }
 static bool g_initialized = false;
 void pdp::compute() {
