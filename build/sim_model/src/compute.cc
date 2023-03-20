@@ -218,6 +218,7 @@ if (valid_pdp() && decode_pdp_set_split_number()) {
   LogInstrSequence("set_split_number", exec_time);
 #endif
 }
+ std::cout << "8" << std::endl;
 if (valid_pdp() && decode_pdp_set_nan_flush_to_zero()) {
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
@@ -255,6 +256,7 @@ if (valid_pdp() && decode_pdp_set_partial_width_out()) {
 #endif
   std::cout << "before_kernel_width_height" << std::endl;
 }
+ std::cout << "before kernel" << std::endl;
 if (valid_pdp() && decode_pdp_set_kernel_width_height()) {
    std::cout << "decode_pdp_set_kernel_width_height" << std::endl;
 #ifdef ILATOR_PROFILING
