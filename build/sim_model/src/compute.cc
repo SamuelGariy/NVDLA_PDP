@@ -622,6 +622,7 @@ if (valid_pdp() && decode_pdp_min_pool()) {
   LogInstrSequence("min_pool", exec_time);
 #endif
 }
+std::cout << "end of ins sequence" << std::endl;
 while (1) {
   int schedule_counter = 0;
   if (schedule_counter == 0) {
