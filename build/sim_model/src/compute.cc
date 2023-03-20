@@ -274,6 +274,7 @@ if (valid_pdp() && decode_pdp_set_kernel_width_height()) {
 #endif
 std::cout << "end kernel height wdth" << std::endl;
 }
+std::cout << "11" << std::endl;
 if (valid_pdp() && decode_pdp_set_kernel_width_reciprocal()) {
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
@@ -430,6 +431,7 @@ if (valid_pdp() && decode_pdp_set_source_line_stride()) {
   LogInstrSequence("set_source_line_stride", exec_time);
 #endif
 }
+std::cout << "12" << std::endl;
 if (valid_pdp() && decode_pdp_set_source_surface_stride()) {
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
