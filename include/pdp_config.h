@@ -294,7 +294,7 @@ namespace ilang
 #define PDP_INPUT_MAX  16 // 32 // 64// actual max 8191
 
 // Output Data Constants
-#define PDP_KERNEL_MAX 64   // 64 // 2 ^ 4
+#define PDP_KERNEL_MAX 32   // 64 // 2 ^ 4
 #define PDP_OUTPUT_CHANNEL_MAX 16 // actual max 8191
 #define PDP_OUTPUT_ADDR_WIDTH  4   //2 // 4//5 //  6  // actual max 13 
 #define PDP_OUTPUT_MAX   16 //32      //64 // actual max 8191
