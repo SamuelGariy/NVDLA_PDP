@@ -578,6 +578,7 @@ if (valid_pdp() && decode_pdp_set_perf_write_stall()) {
   LogInstrSequence("set_perf_write_stall", exec_time);
 #endif
 }
+std::cout << "15" << std::endl;
 if (valid_pdp() && decode_pdp_pdp_start_to_load()) {
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
@@ -590,6 +591,7 @@ if (valid_pdp() && decode_pdp_pdp_start_to_load()) {
   LogInstrSequence("pdp_start_to_load", exec_time);
 #endif
 }
+std::cout << "16" << std::endl;
 if (valid_pdp() && decode_pdp_load_prepooling_variables()) {
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
@@ -602,6 +604,7 @@ if (valid_pdp() && decode_pdp_load_prepooling_variables()) {
   LogInstrSequence("load_prepooling_variables", exec_time);
 #endif
 }
+std::cout << "17" << std::endl;
 if (valid_pdp() && decode_pdp_max_pool()) {
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
@@ -614,6 +617,7 @@ if (valid_pdp() && decode_pdp_max_pool()) {
   LogInstrSequence("max_pool", exec_time);
 #endif
 }
+std::cout << "18" << std::endl;
 if (valid_pdp() && decode_pdp_min_pool()) {
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
