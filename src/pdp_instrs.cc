@@ -579,7 +579,7 @@ namespace ilang
                    auto curr = Ite(BvConst(kernel_j,PDP_INT_16_WIDTH) < SExt(kernel_size,PDP_INT_16_WIDTH),sign_ext_input, BvConst(0,PDP_INT_16_WIDTH));
                  //  auto curr = BvConst(0,PDP_INT_16_WIDTH);
                 
-                    mim = Ite(sign_ext_input < min, sign_ext_input, min);
+                    min = Ite(sign_ext_input < min, sign_ext_input, min);
                 }
 
         //         // update memory and increment memory pointer
@@ -606,7 +606,7 @@ namespace ilang
 
 
           {
-            // max - pooling instruction
+            // avg - pooling instruction
             auto instr = m.NewInstr("avg_pool");
             instr.SetDecode(pdp_state == AVGPOOL);
             // instr.SetUpdate(m.state("pdp_state"), MAXPOOL);
