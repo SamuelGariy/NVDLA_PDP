@@ -11,11 +11,15 @@ void pdp::IncrementInstrCntr() {
   instr_cntr++;
 }
 void pdp::LogInstrSequence(const std::string& instr_name, const long int& exec_time) {
+  std::cout << "LogInstrSequence1" << std::endl;
   instr_log << "Instr No. " << std::setw(8) << GetInstrCntr() << '\t';
+  std::cout << "LogInstrSequence2" << std::endl;
   instr_log << instr_name << " is activated\t";
+    std::cout << "LogInstrSequence3" << std::endl;
   instr_log << "exec_time: " << exec_time * 1e-3 << " us\n";
+    std::cout << "LogInstrSequence4" << std::endl;
   IncrementInstrCntr();
-   std::cout << "LogInstrSequence" << std::endl;
+   std::cout << "LogInstrSequence_end" << std::endl;
 }
 static bool g_initialized = false;
 void pdp::compute() {
