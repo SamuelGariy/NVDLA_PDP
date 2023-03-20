@@ -590,7 +590,6 @@ SC_MODULE(testbench)
     pdp_inst.instr_log.open("instr_log_conv.txt", ofstream::out | ofstream::trunc);
     pdp_inst.instr_update_log.open("instr_update_log_conv.txt", ios::out | ios::trunc);
 
-    std::cout << "start running" << std::endl;
     std::cout << "*********** simulation start ***********" << std::endl;
     wait(10, SC_NS);
 

@@ -25,6 +25,7 @@ if (!g_initialized) {
   g_initialized = true;
     std::cout << "initialised" << std::endl;
 }
+ std::cout << "inputs_read_start" << std::endl;
 pdp_csb2pdp_addr = pdp_csb2pdp_addr_in.read();
 pdp_csb2pdp_data = pdp_csb2pdp_data_in.read();
 pdp_csb2pdp_write = pdp_csb2pdp_write_in.read();
@@ -94,6 +95,7 @@ pdp_pdp_input_61 = pdp_pdp_input_61_in.read();
 pdp_pdp_input_62 = pdp_pdp_input_62_in.read();
 pdp_pdp_input_63 = pdp_pdp_input_63_in.read();
 pdp_pdp_last_input_batch = pdp_pdp_last_input_batch_in.read();
+ std::cout << "inputs_read" << std::endl;
 if (valid_pdp() && decode_pdp_set_producer()) {
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
