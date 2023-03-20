@@ -537,7 +537,7 @@ namespace ilang
 
                 auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(kernel_j))));
                 auto sign_ext_input = Ite(data_format == INT8, int8_to_int16(input_in), input_in);
-                min = Ite(sign_ext_input < max, sign_ext_input, min);
+                min = Ite(sign_ext_input < min, sign_ext_input, min);
             }
 
             instr.SetUpdate(m.state("pdp_output"), min);
