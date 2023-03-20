@@ -27,7 +27,7 @@ bool local_var_15 = (local_var_11 & local_var_14);
  std::cout << "decode kernel_width_height 13" << std::endl;
 auto& univ_var_13 = local_var_15;
  std::cout << "decode kernel_width_height 14" << std::endl;
-  std::cout << univ_var_13 << std::endl;
+
 return univ_var_13;
 }
  std::cout << "decode kernel_width_height 15" << std::endl;
