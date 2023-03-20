@@ -121,6 +121,7 @@ if (valid_pdp() && decode_pdp_set_start_group0()) {
   auto exec_time = std::chrono::duration_cast<std::chrono::nanoseconds>(stop-start).count();
   LogInstrSequence("set_start_group0", exec_time);
 #endif
+ std::cout << "after_decode_pdp_set_start_group0" << std::endl;
 }
 if (valid_pdp() && decode_pdp_set_cube_in_width()) {
 #ifdef ILATOR_PROFILING
