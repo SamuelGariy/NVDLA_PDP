@@ -1,7 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/nvdla.dir/app/main.cc.o"
-  "nvdla.pdb"
+  "CMakeFiles/nvdla.dir/app/main.cc.o.d"
   "nvdla"
+  "nvdla.pdb"
 )
 
 # Per-language clean rules from dependency scanning.

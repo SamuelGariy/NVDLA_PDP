@@ -1,25 +1,14 @@
+
+# Consider dependencies only in project.
+set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
+
 # The set of languages for which implicit dependencies are needed:
 set(CMAKE_DEPENDS_LANGUAGES
-  "CXX"
-  )
-# The set of files for implicit dependencies of each language:
-set(CMAKE_DEPENDS_CHECK_CXX
-  "/root/ILAng/build/NVDLA_PDP/app/main.cc" "/root/ILAng/build/NVDLA_PDP/build/CMakeFiles/nvdla.dir/app/main.cc.o"
-  )
-set(CMAKE_CXX_COMPILER_ID "GNU")
-
-# Preprocessor definitions for this target.
-set(CMAKE_TARGET_DEFINITIONS_CXX
-  "FMT_LOCALE"
-  "FMT_SHARED"
-  "GOOGLE_GLOG_DLL_DECL="
-  "GOOGLE_GLOG_DLL_DECL_FOR_UNITTESTS="
   )
 
-# The include file search paths:
-set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "../include"
-  "/usr/local/include"
+# The set of dependency files which are needed:
+set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/root/ILAng/build/NVDLA_PDP/app/main.cc" "CMakeFiles/nvdla.dir/app/main.cc.o" "gcc" "CMakeFiles/nvdla.dir/app/main.cc.o.d"
   )
 
 # Targets to which this target links.

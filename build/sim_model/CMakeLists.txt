@@ -16,8 +16,10 @@ add_executable(pdp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/all_valid_funcs_in_hier.cc
   ${CMAKE_CURRENT_SOURCE_DIR}/src/compute.cc
   ${CMAKE_CURRENT_SOURCE_DIR}/src/constant_memory_def.cc
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/idu_avg_pool.cc
   ${CMAKE_CURRENT_SOURCE_DIR}/src/idu_load_prepooling_variables.cc
   ${CMAKE_CURRENT_SOURCE_DIR}/src/idu_max_pool.cc
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/idu_min_pool.cc
   ${CMAKE_CURRENT_SOURCE_DIR}/src/idu_pdp_start_to_load.cc
   ${CMAKE_CURRENT_SOURCE_DIR}/src/idu_set_cube_in_channel.cc
   ${CMAKE_CURRENT_SOURCE_DIR}/src/idu_set_cube_in_height.cc
@@ -58,7 +60,6 @@ add_executable(pdp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/idu_set_split_number.cc
   ${CMAKE_CURRENT_SOURCE_DIR}/src/idu_set_start_group0.cc
   ${CMAKE_CURRENT_SOURCE_DIR}/src/memory_update_functions_0.cc
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/memory_update_functions_1.cc
   ${CMAKE_CURRENT_SOURCE_DIR}/src/setup_initial_condition.cc
 )
 
