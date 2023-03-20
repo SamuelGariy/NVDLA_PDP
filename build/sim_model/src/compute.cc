@@ -127,6 +127,7 @@ if (valid_pdp() && decode_pdp_set_start_group0()) {
 #endif
  std::cout << "after_decode_pdp_set_start_group0" << std::endl;
 }
+ std::cout << "1" << std::endl;
 if (valid_pdp() && decode_pdp_set_cube_in_width()) {
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
@@ -139,6 +140,7 @@ if (valid_pdp() && decode_pdp_set_cube_in_width()) {
   LogInstrSequence("set_cube_in_width", exec_time);
 #endif
 }
+ std::cout << "2" << std::endl;
 if (valid_pdp() && decode_pdp_set_cube_in_height()) {
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
@@ -151,6 +153,7 @@ if (valid_pdp() && decode_pdp_set_cube_in_height()) {
   LogInstrSequence("set_cube_in_height", exec_time);
 #endif
 }
+ std::cout << "3" << std::endl;
 if (valid_pdp() && decode_pdp_set_cube_in_channel()) {
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
@@ -163,6 +166,7 @@ if (valid_pdp() && decode_pdp_set_cube_in_channel()) {
   LogInstrSequence("set_cube_in_channel", exec_time);
 #endif
 }
+ std::cout << "4" << std::endl;
 if (valid_pdp() && decode_pdp_set_cube_out_width()) {
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
@@ -175,6 +179,7 @@ if (valid_pdp() && decode_pdp_set_cube_out_width()) {
   LogInstrSequence("set_cube_out_width", exec_time);
 #endif
 }
+ std::cout << "5" << std::endl;
 if (valid_pdp() && decode_pdp_set_cube_out_height()) {
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
@@ -187,6 +192,7 @@ if (valid_pdp() && decode_pdp_set_cube_out_height()) {
   LogInstrSequence("set_cube_out_height", exec_time);
 #endif
 }
+ std::cout << "6" << std::endl;
 if (valid_pdp() && decode_pdp_set_cube_out_channel()) {
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
@@ -199,6 +205,7 @@ if (valid_pdp() && decode_pdp_set_cube_out_channel()) {
   LogInstrSequence("set_cube_out_channel", exec_time);
 #endif
 }
+ std::cout << "7" << std::endl;
 if (valid_pdp() && decode_pdp_set_split_number()) {
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
