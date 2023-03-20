@@ -26,98 +26,98 @@ SC_MODULE(Source)
   sc_in<bool> clk{"clk"};
 
   // CSB inputs
-  sc_out<sc_biguint<16>> pdp_csb2pdp_addr;
-  sc_out<sc_biguint<32>> pdp_csb2pdp_data;
-  sc_out<sc_biguint<1>> pdp_csb2pdp_write;
-  sc_out<sc_biguint<1>> pdp_csb2pdp_vld;
+  sc_out<sc_biguint<16>> pdp_csb2pdp_addr {"pdp_csb2pdp_addr"};
+  sc_out<sc_biguint<32>> pdp_csb2pdp_data {"pdp_csb2pdp_data"};
+  sc_out<sc_biguint<1>> pdp_csb2pdp_write {"pdp_csb2pdp_write"};
+  sc_out<sc_biguint<1>> pdp_csb2pdp_vld {"pdp_csb2pdp_vld"};
 
   // PDP control signals
-  sc_out<bool> pdp_pdp_last_input_batch;
+  sc_out<bool> pdp_pdp_last_input_batch {"pdp_pdp_last_input_batch"};
 
   // PDP  inputs
 
-  sc_out<sc_biguint<16>> pdp_pdp_input_0;
-  sc_out<sc_biguint<16>> pdp_pdp_input_1;
-  sc_out<sc_biguint<16>> pdp_pdp_input_2;
-  sc_out<sc_biguint<16>> pdp_pdp_input_3;
+  sc_out<sc_biguint<16>> pdp_pdp_input_0 {"pdp_pdp_input_0"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_1 {"pdp_pdp_input_1"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_2 {"pdp_pdp_input_2"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_3 {"pdp_pdp_input_3"};
 
-  sc_out<sc_biguint<16>> pdp_pdp_input_4;
-  sc_out<sc_biguint<16>> pdp_pdp_input_5;
-  sc_out<sc_biguint<16>> pdp_pdp_input_6;
-  sc_out<sc_biguint<16>> pdp_pdp_input_7;
+  sc_out<sc_biguint<16>> pdp_pdp_input_4 {"pdp_pdp_input_4"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_5 {"pdp_pdp_input_5"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_6 {"pdp_pdp_input_6"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_7 {"pdp_pdp_input_7"};
 
-  sc_out<sc_biguint<16>> pdp_pdp_input_8;
-  sc_out<sc_biguint<16>> pdp_pdp_input_9;
-  sc_out<sc_biguint<16>> pdp_pdp_input_10;
-  sc_out<sc_biguint<16>> pdp_pdp_input_11;
+  sc_out<sc_biguint<16>> pdp_pdp_input_8 {"pdp_pdp_input_8"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_9 {"pdp_pdp_input_9"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_10 {"pdp_pdp_input_10"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_11 {"pdp_pdp_input_11"};
 
-  sc_out<sc_biguint<16>> pdp_pdp_input_12;
-  sc_out<sc_biguint<16>> pdp_pdp_input_13;
-  sc_out<sc_biguint<16>> pdp_pdp_input_14;
-  sc_out<sc_biguint<16>> pdp_pdp_input_15;
+  sc_out<sc_biguint<16>> pdp_pdp_input_12 {"pdp_pdp_input_12"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_13 {"pdp_pdp_input_13"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_14 {"pdp_pdp_input_14"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_15 {"pdp_pdp_input_15"};
 
-  sc_out<sc_biguint<16>> pdp_pdp_input_16;
-  sc_out<sc_biguint<16>> pdp_pdp_input_17;
-  sc_out<sc_biguint<16>> pdp_pdp_input_18;
-  sc_out<sc_biguint<16>> pdp_pdp_input_19;
+  sc_out<sc_biguint<16>> pdp_pdp_input_16 {"pdp_pdp_input_16"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_17 {"pdp_pdp_input_17"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_18 {"pdp_pdp_input_18"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_19 {"pdp_pdp_input_19"};
 
-  sc_out<sc_biguint<16>> pdp_pdp_input_20;
-  sc_out<sc_biguint<16>> pdp_pdp_input_21;
-  sc_out<sc_biguint<16>> pdp_pdp_input_22;
-  sc_out<sc_biguint<16>> pdp_pdp_input_23;
+  sc_out<sc_biguint<16>> pdp_pdp_input_20 {"pdp_pdp_input_20"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_21 {"pdp_pdp_input_21"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_22 {"pdp_pdp_input_22"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_23 {"pdp_pdp_input_23"};
 
-  sc_out<sc_biguint<16>> pdp_pdp_input_24;
-  sc_out<sc_biguint<16>> pdp_pdp_input_25;
-  sc_out<sc_biguint<16>> pdp_pdp_input_26;
-  sc_out<sc_biguint<16>> pdp_pdp_input_27;
+  sc_out<sc_biguint<16>> pdp_pdp_input_24 {"pdp_pdp_input_24"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_25 {"pdp_pdp_input_25"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_26 {"pdp_pdp_input_26"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_27 {"pdp_pdp_input_27"};
 
-  sc_out<sc_biguint<16>> pdp_pdp_input_28;
-  sc_out<sc_biguint<16>> pdp_pdp_input_29;
-  sc_out<sc_biguint<16>> pdp_pdp_input_30;
-  sc_out<sc_biguint<16>> pdp_pdp_input_31;
+  sc_out<sc_biguint<16>> pdp_pdp_input_28 {"pdp_pdp_input_28"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_29 {"pdp_pdp_input_29"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_30 {"pdp_pdp_input_30"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_31 {"pdp_pdp_input_31"};
 
-  sc_out<sc_biguint<16>> pdp_pdp_input_32;
-  sc_out<sc_biguint<16>> pdp_pdp_input_33;
-  sc_out<sc_biguint<16>> pdp_pdp_input_34;
-  sc_out<sc_biguint<16>> pdp_pdp_input_35;
+  sc_out<sc_biguint<16>> pdp_pdp_input_32 {"pdp_pdp_input_32"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_33 {"pdp_pdp_input_33"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_34 {"pdp_pdp_input_34"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_35 {"pdp_pdp_input_35"};
 
-  sc_out<sc_biguint<16>> pdp_pdp_input_36;
-  sc_out<sc_biguint<16>> pdp_pdp_input_37;
-  sc_out<sc_biguint<16>> pdp_pdp_input_38;
-  sc_out<sc_biguint<16>> pdp_pdp_input_39;
+  sc_out<sc_biguint<16>> pdp_pdp_input_36 {"pdp_pdp_input_36"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_37 {"pdp_pdp_input_37"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_38 {"pdp_pdp_input_38"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_39 {"pdp_pdp_input_39"};
 
-  sc_out<sc_biguint<16>> pdp_pdp_input_40;
-  sc_out<sc_biguint<16>> pdp_pdp_input_41;
-  sc_out<sc_biguint<16>> pdp_pdp_input_42;
-  sc_out<sc_biguint<16>> pdp_pdp_input_43;
+  sc_out<sc_biguint<16>> pdp_pdp_input_40 {"pdp_pdp_input_40"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_41 {"pdp_pdp_input_41"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_42 {"pdp_pdp_input_42"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_43 {"pdp_pdp_input_43"};
 
-  sc_out<sc_biguint<16>> pdp_pdp_input_44;
-  sc_out<sc_biguint<16>> pdp_pdp_input_45;
-  sc_out<sc_biguint<16>> pdp_pdp_input_46;
-  sc_out<sc_biguint<16>> pdp_pdp_input_47;
+  sc_out<sc_biguint<16>> pdp_pdp_input_44 {"pdp_pdp_input_44"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_45 {"pdp_pdp_input_45"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_46 {"pdp_pdp_input_46"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_47 {"pdp_pdp_input_47"};
 
-  sc_out<sc_biguint<16>> pdp_pdp_input_48;
-  sc_out<sc_biguint<16>> pdp_pdp_input_49;
-  sc_out<sc_biguint<16>> pdp_pdp_input_50;
-  sc_out<sc_biguint<16>> pdp_pdp_input_51;
+  sc_out<sc_biguint<16>> pdp_pdp_input_48 {"pdp_pdp_input_48"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_49 {"pdp_pdp_input_49"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_50 {"pdp_pdp_input_50"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_51 {"pdp_pdp_input_51"};
 
-  sc_out<sc_biguint<16>> pdp_pdp_input_52;
-  sc_out<sc_biguint<16>> pdp_pdp_input_53;
-  sc_out<sc_biguint<16>> pdp_pdp_input_54;
-  sc_out<sc_biguint<16>> pdp_pdp_input_55;
+  sc_out<sc_biguint<16>> pdp_pdp_input_52 {"pdp_pdp_input_52"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_53 {"pdp_pdp_input_53"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_54 {"pdp_pdp_input_54"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_55 {"pdp_pdp_input_55"};
 
-  sc_out<sc_biguint<16>> pdp_pdp_input_56;
-  sc_out<sc_biguint<16>> pdp_pdp_input_57;
-  sc_out<sc_biguint<16>> pdp_pdp_input_58;
-  sc_out<sc_biguint<16>> pdp_pdp_input_59;
+  sc_out<sc_biguint<16>> pdp_pdp_input_56 {"pdp_pdp_input_56"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_57 {"pdp_pdp_input_57"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_58 {"pdp_pdp_input_58"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_59 {"pdp_pdp_input_59"};
 
-  sc_out<sc_biguint<16>> pdp_pdp_input_60;
-  sc_out<sc_biguint<16>> pdp_pdp_input_61;
-  sc_out<sc_biguint<16>> pdp_pdp_input_62;
-  sc_out<sc_biguint<16>> pdp_pdp_input_63;
+  sc_out<sc_biguint<16>> pdp_pdp_input_60 {"pdp_pdp_input_60"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_61 {"pdp_pdp_input_61"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_62 {"pdp_pdp_input_62"};
+  sc_out<sc_biguint<16>> pdp_pdp_input_63 {"pdp_pdp_input_63"};
 
 
-  sc_out<sc_biguint<1>> input_done;
+  sc_out<sc_biguint<1>> input_done {"input_done"};;
 
   SC_CTOR(Source)
   {
