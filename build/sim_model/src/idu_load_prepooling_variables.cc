@@ -3,6 +3,7 @@ bool pdp::decode_pdp_load_prepooling_variables() {
 sc_biguint<3> local_var_1 = 1;
 bool local_var_2 = (pdp_pdp_state == local_var_1);
 auto& univ_var_40 = local_var_2;
+std::cout << "decode load vafiables" << std::endl;
 return univ_var_40;
 }
 void pdp::update_pdp_load_prepooling_variables() {
