@@ -442,29 +442,70 @@ SC_MODULE(testbench)
 
     src.pdp_pdp_last_input_batch(pdp_pdp_last_input_batch_signal);
 
-    for (size_t i = 0; i < PDP_KERNEL_MAX; i++)
-    {
-
-      src.pdp_pdp_input_0[i](pdp_pdp_input_0_signal[i]);
-      src.pdp_pdp_input_1[i](pdp_pdp_input_1_signal[i]);
-      src.pdp_pdp_input_2[i](pdp_pdp_input_2_signal[i]);
-      src.pdp_pdp_input_3[i](pdp_pdp_input_3_signal[i]);
-
-      src.pdp_pdp_input_4[i](pdp_pdp_input_4_signal[i]);
-      src.pdp_pdp_input_5[i](pdp_pdp_input_5_signal[i]);
-      src.pdp_pdp_input_6[i](pdp_pdp_input_6_signal[i]);
-      src.pdp_pdp_input_7[i](pdp_pdp_input_7_signal[i]);
-
-      src.pdp_pdp_input_8[i](pdp_pdp_input_8_signal[i]);
-      src.pdp_pdp_input_9[i](pdp_pdp_input_9_signal[i]);
-      src.pdp_pdp_input_10[i](pdp_pdp_input_10_signal[i]);
-      src.pdp_pdp_input_11[i](pdp_pdp_input_11_signal[i]);
-
-      src.pdp_pdp_input_12[i](pdp_pdp_input_12_signal[i]);
-      src.pdp_pdp_input_13[i](pdp_pdp_input_13_signal[i]);
-      src.pdp_pdp_input_14[i](pdp_pdp_input_14_signal[i]);
-      src.pdp_pdp_input_15[i](pdp_pdp_input_15_signal[i]);
-    }
+    src.pdp_pdp_input_0(pdp_pdp_input_0_signal);
+    src.pdp_pdp_input_1(pdp_pdp_input_1_signal);
+    src.pdp_pdp_input_2(pdp_pdp_input_2_signal);
+    src.pdp_pdp_input_3(pdp_pdp_input_3_signal);
+    src.pdp_pdp_input_4(pdp_pdp_input_4_signal);
+    src.pdp_pdp_input_5(pdp_pdp_input_5_signal);
+    src.pdp_pdp_input_6(pdp_pdp_input_6_signal);
+    src.pdp_pdp_input_7(pdp_pdp_input_7_signal);
+    src.pdp_pdp_input_8(pdp_pdp_input_8_signal);
+    src.pdp_pdp_input_9(pdp_pdp_input_9_signal);
+    src.pdp_pdp_input_10(pdp_pdp_input_10_signal);
+    src.pdp_pdp_input_11(pdp_pdp_input_11_signal);
+    src.pdp_pdp_input_12(pdp_pdp_input_12_signal);
+    src.pdp_pdp_input_13(pdp_pdp_input_13_signal);
+    src.pdp_pdp_input_14(pdp_pdp_input_14_signal);
+    src.pdp_pdp_input_15(pdp_pdp_input_15_signal);
+    src.pdp_pdp_input_16(pdp_pdp_input_16_signal);
+    src.pdp_pdp_input_17(pdp_pdp_input_17_signal);
+    src.pdp_pdp_input_18(pdp_pdp_input_18_signal);
+    src.pdp_pdp_input_19(pdp_pdp_input_19_signal);
+    src.pdp_pdp_input_20(pdp_pdp_input_20_signal);
+    src.pdp_pdp_input_21(pdp_pdp_input_21_signal);
+    src.pdp_pdp_input_22(pdp_pdp_input_22_signal);
+    src.pdp_pdp_input_23(pdp_pdp_input_23_signal);
+    src.pdp_pdp_input_24(pdp_pdp_input_24_signal);
+    src.pdp_pdp_input_25(pdp_pdp_input_25_signal);
+    src.pdp_pdp_input_26(pdp_pdp_input_26_signal);
+    src.pdp_pdp_input_27(pdp_pdp_input_27_signal);
+    src.pdp_pdp_input_28(pdp_pdp_input_28_signal);
+    src.pdp_pdp_input_29(pdp_pdp_input_29_signal);
+    src.pdp_pdp_input_30(pdp_pdp_input_30_signal);
+    src.pdp_pdp_input_31(pdp_pdp_input_31_signal);
+    src.pdp_pdp_input_32(pdp_pdp_input_32_signal);
+    src.pdp_pdp_input_33(pdp_pdp_input_33_signal);
+    src.pdp_pdp_input_34(pdp_pdp_input_34_signal);
+    src.pdp_pdp_input_35(pdp_pdp_input_35_signal);
+    src.pdp_pdp_input_36(pdp_pdp_input_36_signal);
+    src.pdp_pdp_input_37(pdp_pdp_input_37_signal);
+    src.pdp_pdp_input_38(pdp_pdp_input_38_signal);
+    src.pdp_pdp_input_39(pdp_pdp_input_39_signal);
+    src.pdp_pdp_input_40(pdp_pdp_input_40_signal);
+    src.pdp_pdp_input_41(pdp_pdp_input_41_signal);
+    src.pdp_pdp_input_42(pdp_pdp_input_42_signal);
+    src.pdp_pdp_input_43(pdp_pdp_input_43_signal);
+    src.pdp_pdp_input_44(pdp_pdp_input_44_signal);
+    src.pdp_pdp_input_45(pdp_pdp_input_45_signal);
+    src.pdp_pdp_input_46(pdp_pdp_input_46_signal);
+    src.pdp_pdp_input_47(pdp_pdp_input_47_signal);
+    src.pdp_pdp_input_48(pdp_pdp_input_48_signal);
+    src.pdp_pdp_input_49(pdp_pdp_input_49_signal);
+    src.pdp_pdp_input_50(pdp_pdp_input_50_signal);
+    src.pdp_pdp_input_51(pdp_pdp_input_51_signal);
+    src.pdp_pdp_input_52(pdp_pdp_input_52_signal);
+    src.pdp_pdp_input_53(pdp_pdp_input_53_signal);
+    src.pdp_pdp_input_54(pdp_pdp_input_54_signal);
+    src.pdp_pdp_input_55(pdp_pdp_input_55_signal);
+    src.pdp_pdp_input_56(pdp_pdp_input_56_signal);
+    src.pdp_pdp_input_57(pdp_pdp_input_57_signal);
+    src.pdp_pdp_input_58(pdp_pdp_input_58_signal);
+    src.pdp_pdp_input_59(pdp_pdp_input_59_signal);
+    src.pdp_pdp_input_60(pdp_pdp_input_60_signal);
+    src.pdp_pdp_input_61(pdp_pdp_input_61_signal);
+    src.pdp_pdp_input_62(pdp_pdp_input_62_signal);
+    src.pdp_pdp_input_63(pdp_pdp_input_63_signal);
 
     src.input_done(input_done);
 
