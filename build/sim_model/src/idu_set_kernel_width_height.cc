@@ -1,36 +1,20 @@
 #include <pdp.h>
 bool pdp::decode_pdp_set_kernel_width_height() {
- std::cout << "decode kernel_width_height 1" << std::endl;
 auto local_var_1 = pdp_csb2pdp_addr.range(11, 0);
- std::cout << "decode kernel_width_height 2" << std::endl;
 sc_biguint<12> local_var_2 = 52;
- std::cout << local_var_1 << std::endl;
 bool local_var_3 = (local_var_1 == local_var_2);
- std::cout << local_var_3 << std::endl;
 sc_biguint<1> local_var_5 = 1;
- std::cout << "pdp_pdp2csb_rdy" << std::endl;
 bool local_var_6 = (pdp_pdp2csb_rdy == local_var_5);
- std::cout << local_var_6 << std::endl;
 sc_biguint<1> local_var_8 = 1;
- std::cout << "pdp_csb2pdp_vld" << std::endl;
 bool local_var_9 = (pdp_csb2pdp_vld == local_var_8);
- std::cout << local_var_9 << std::endl;
 bool local_var_10 = (local_var_6 & local_var_9);
- std::cout << "decode kernel_width_height 9" << std::endl;
 bool local_var_11 = (local_var_3 & local_var_10);
- std::cout << "decode kernel_width_height 10" << std::endl;
 sc_biguint<1> local_var_13 = 1;
- std::cout << "decode kernel_width_height 11" << std::endl;
 bool local_var_14 = (pdp_csb2pdp_write == local_var_13);
- std::cout << "decode kernel_width_height 12" << std::endl;
 bool local_var_15 = (local_var_11 & local_var_14);
- std::cout << "decode kernel_width_height 13" << std::endl;
 auto& univ_var_13 = local_var_15;
-std::cout << local_var_15 << std::endl;
-
 return univ_var_13;
 }
- //std::cout << "decode kernel_width_height 15" << std::endl;
 void pdp::update_pdp_set_kernel_width_height() {
 auto local_var_1 = pdp_csb2pdp_data.range(11, 8);
 auto local_var_1_nxt_holder = local_var_1;

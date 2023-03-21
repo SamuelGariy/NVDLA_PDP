@@ -3,33 +3,23 @@
 #include <chrono>
 static int instr_cntr = 0;
 int pdp::GetInstrCntr() {
-  std::cout << "GetInstrCntr" << std::endl;
   return instr_cntr;
 }
 void pdp::IncrementInstrCntr() {
-   std::cout << "GetInstrCntr" << std::endl;
   instr_cntr++;
 }
 void pdp::LogInstrSequence(const std::string& instr_name, const long int& exec_time) {
-  std::cout << "LogInstrSequence1" << std::endl;
   instr_log << "Instr No. " << std::setw(8) << GetInstrCntr() << '\t';
-  std::cout << "LogInstrSequence2" << std::endl;
   instr_log << instr_name << " is activated\t";
-    std::cout << "LogInstrSequence3" << std::endl;
   instr_log << "exec_time: " << exec_time * 1e-3 << " us\n";
-    std::cout << "LogInstrSequence4" << std::endl;
   IncrementInstrCntr();
-   std::cout << "LogInstrSequence_end" << std::endl;
 }
 static bool g_initialized = false;
 void pdp::compute() {
-  std::cout << "compute_start" << std::endl;
 if (!g_initialized) {
   setup_initial_condition();
   g_initialized = true;
-    std::cout << "initialised" << std::endl;
 }
- std::cout << "inputs_read_start" << std::endl;
 pdp_csb2pdp_addr = pdp_csb2pdp_addr_in.read();
 pdp_csb2pdp_data = pdp_csb2pdp_data_in.read();
 pdp_csb2pdp_write = pdp_csb2pdp_write_in.read();
@@ -99,9 +89,7 @@ pdp_pdp_input_61 = pdp_pdp_input_61_in.read();
 pdp_pdp_input_62 = pdp_pdp_input_62_in.read();
 pdp_pdp_input_63 = pdp_pdp_input_63_in.read();
 pdp_pdp_last_input_batch = pdp_pdp_last_input_batch_in.read();
- std::cout << "inputs_read" << std::endl;
 if (valid_pdp() && decode_pdp_set_producer()) {
-  std::cout << "decode_pdp_set_producer" << std::endl;
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
 #endif
@@ -114,7 +102,6 @@ if (valid_pdp() && decode_pdp_set_producer()) {
 #endif
 }
 if (valid_pdp() && decode_pdp_set_start_group0()) {
-  std::cout << "decode_pdp_set_start_group0" << std::endl;
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
 #endif
@@ -125,9 +112,7 @@ if (valid_pdp() && decode_pdp_set_start_group0()) {
   auto exec_time = std::chrono::duration_cast<std::chrono::nanoseconds>(stop-start).count();
   LogInstrSequence("set_start_group0", exec_time);
 #endif
- std::cout << "after_decode_pdp_set_start_group0" << std::endl;
 }
- std::cout << "1" << std::endl;
 if (valid_pdp() && decode_pdp_set_cube_in_width()) {
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
@@ -140,7 +125,6 @@ if (valid_pdp() && decode_pdp_set_cube_in_width()) {
   LogInstrSequence("set_cube_in_width", exec_time);
 #endif
 }
- std::cout << "2" << std::endl;
 if (valid_pdp() && decode_pdp_set_cube_in_height()) {
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
@@ -153,7 +137,6 @@ if (valid_pdp() && decode_pdp_set_cube_in_height()) {
   LogInstrSequence("set_cube_in_height", exec_time);
 #endif
 }
- std::cout << "3" << std::endl;
 if (valid_pdp() && decode_pdp_set_cube_in_channel()) {
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
@@ -166,7 +149,6 @@ if (valid_pdp() && decode_pdp_set_cube_in_channel()) {
   LogInstrSequence("set_cube_in_channel", exec_time);
 #endif
 }
- std::cout << "4" << std::endl;
 if (valid_pdp() && decode_pdp_set_cube_out_width()) {
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
@@ -179,7 +161,6 @@ if (valid_pdp() && decode_pdp_set_cube_out_width()) {
   LogInstrSequence("set_cube_out_width", exec_time);
 #endif
 }
- std::cout << "5" << std::endl;
 if (valid_pdp() && decode_pdp_set_cube_out_height()) {
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
@@ -192,7 +173,6 @@ if (valid_pdp() && decode_pdp_set_cube_out_height()) {
   LogInstrSequence("set_cube_out_height", exec_time);
 #endif
 }
- std::cout << "6" << std::endl;
 if (valid_pdp() && decode_pdp_set_cube_out_channel()) {
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
@@ -205,7 +185,6 @@ if (valid_pdp() && decode_pdp_set_cube_out_channel()) {
   LogInstrSequence("set_cube_out_channel", exec_time);
 #endif
 }
- std::cout << "7" << std::endl;
 if (valid_pdp() && decode_pdp_set_split_number()) {
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
@@ -218,7 +197,6 @@ if (valid_pdp() && decode_pdp_set_split_number()) {
   LogInstrSequence("set_split_number", exec_time);
 #endif
 }
- std::cout << "8" << std::endl;
 if (valid_pdp() && decode_pdp_set_nan_flush_to_zero()) {
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
@@ -254,27 +232,19 @@ if (valid_pdp() && decode_pdp_set_partial_width_out()) {
   auto exec_time = std::chrono::duration_cast<std::chrono::nanoseconds>(stop-start).count();
   LogInstrSequence("set_partial_width_out", exec_time);
 #endif
-  std::cout << "before_kernel_width_height" << std::endl;
 }
- std::cout << "before kernel" << std::endl;
 if (valid_pdp() && decode_pdp_set_kernel_width_height()) {
-   std::cout << "decode_pdp_set_kernel_width_height" << std::endl;
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
-   std::cout << "decode_pdp_set_kernel_width_height_clock" << std::endl;
 #endif
- std::cout << "before update_pdp_set_kernel_width_height" << std::endl;
   update_pdp_set_kernel_width_height();
-  std::cout << "after update_pdp_set_kernel_width_height" << std::endl;
   
 #ifdef ILATOR_PROFILING
   auto stop = std::chrono::high_resolution_clock::now();
   auto exec_time = std::chrono::duration_cast<std::chrono::nanoseconds>(stop-start).count();
   LogInstrSequence("set_kernel_width_height", exec_time);
 #endif
-std::cout << "end kernel height wdth" << std::endl;
 }
-std::cout << "11" << std::endl;
 if (valid_pdp() && decode_pdp_set_kernel_width_reciprocal()) {
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
@@ -431,7 +401,6 @@ if (valid_pdp() && decode_pdp_set_source_line_stride()) {
   LogInstrSequence("set_source_line_stride", exec_time);
 #endif
 }
-std::cout << "12" << std::endl;
 if (valid_pdp() && decode_pdp_set_source_surface_stride()) {
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
@@ -492,7 +461,6 @@ if (valid_pdp() && decode_pdp_set_destination_surface_stride()) {
   LogInstrSequence("set_destination_surface_stride", exec_time);
 #endif
 }
-std::cout << "13" << std::endl;
 if (valid_pdp() && decode_pdp_set_ram_type()) {
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
@@ -529,7 +497,6 @@ if (valid_pdp() && decode_pdp_set_infinity_input_number()) {
   LogInstrSequence("set_infinity_input_number", exec_time);
 #endif
 }
-std::cout << "14" << std::endl;
 if (valid_pdp() && decode_pdp_set_nan_input_number()) {
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
@@ -578,7 +545,6 @@ if (valid_pdp() && decode_pdp_set_perf_write_stall()) {
   LogInstrSequence("set_perf_write_stall", exec_time);
 #endif
 }
-std::cout << "15" << std::endl;
 if (valid_pdp() && decode_pdp_pdp_start_to_load()) {
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
@@ -591,9 +557,7 @@ if (valid_pdp() && decode_pdp_pdp_start_to_load()) {
   LogInstrSequence("pdp_start_to_load", exec_time);
 #endif
 }
-std::cout << "16" << std::endl;
 if (valid_pdp() && decode_pdp_load_prepooling_variables()) {
-  std::cout << "decode_load_pdp_load" << std::endl;
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
 #endif
@@ -605,7 +569,6 @@ if (valid_pdp() && decode_pdp_load_prepooling_variables()) {
   LogInstrSequence("load_prepooling_variables", exec_time);
 #endif
 }
-std::cout << "17" << std::endl;
 if (valid_pdp() && decode_pdp_max_pool()) {
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
@@ -618,7 +581,6 @@ if (valid_pdp() && decode_pdp_max_pool()) {
   LogInstrSequence("max_pool", exec_time);
 #endif
 }
-std::cout << "18" << std::endl;
 if (valid_pdp() && decode_pdp_min_pool()) {
 #ifdef ILATOR_PROFILING
   auto start = std::chrono::high_resolution_clock::now();
@@ -631,12 +593,10 @@ if (valid_pdp() && decode_pdp_min_pool()) {
   LogInstrSequence("min_pool", exec_time);
 #endif
 }
-std::cout << "end of ins sequence" << std::endl;
 while (1) {
   int schedule_counter = 0;
   if (schedule_counter == 0) {
     break;
   }
 }
-std::cout << "instruction_up" << std::endl;
 }
