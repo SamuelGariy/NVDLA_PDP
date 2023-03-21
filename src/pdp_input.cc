@@ -47,6 +47,7 @@ namespace ilang
 
         // single kernel input
 
+
         for (auto i = 0; i < PDP_INPUT_MAX; i++)
         {
 
@@ -54,6 +55,7 @@ namespace ilang
         }
 
         // Control Signals
+        m.NewBoolInput("pdp_input_valid");
         m.NewBoolInput("pdp_last_input_batch"); // is it last pdp input
     }
 
