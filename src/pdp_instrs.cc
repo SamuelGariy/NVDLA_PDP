@@ -77,6 +77,8 @@ namespace ilang
         m.AddInit(m.state(NVDLA_PDP_S_STATUS_0) == BvConst(0, NVDLA_PDP_S_STATUS_WIDTH));
         m.AddInit(m.state(NVDLA_PDP_S_STATUS_1) == BvConst(0, NVDLA_PDP_S_STATUS_WIDTH));
 
+        m.AddInit(m.state("pdp_state") == START);
+
         m.AddInit(m.state(GetVarName("group0_", NVDLA_PDP_D_OP_ENABLE)) == BvConst(0, NVDLA_PDP_D_OP_ENABLE_WIDTH));
 
         // Initialize output signals
@@ -116,7 +118,7 @@ namespace ilang
             instr.SetDecode(pdp_csb_addr == 0x008 & pdp_csb_valid & pdp_csb_write & pdp_producer == BvConst(0, 1) & pdp_group0_unset);
 
             instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_OP_ENABLE)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_OP_ENABLE_WIDTH - 1, 0));
-            instr.SetUpdate(pdp_state, START);
+           
         }
 
         { // PDP set input data cube's width - addr = 0x00c
@@ -376,7 +378,7 @@ namespace ilang
             instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_PERF_ENABLE)), Extract(m.input("csb2pdp_data"), NVDLA_PDP_D_PERF_ENABLE_WIDTH - 1, 0));
         }
 
-        { // PDP set counting stalls of write requests - addr = 0x098
+        { // PDP read counting stalls of write requests - addr = 0x098
             auto instr = m.NewInstr("set_perf_write_stall");
             instr.SetDecode(pdp_csb_addr == 0x098 & pdp_csb_valid & pdp_csb_write);
 
