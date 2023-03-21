@@ -463,7 +463,8 @@ namespace ilang
 
                 auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(kernel_j))));
                 auto sign_ext_input = Ite(data_format == INT8, int8_to_int16(input_in), input_in);
-                max = Ite(sign_ext_input > max, sign_ext_input, max);
+                auto curr = Ite(BvConst(kernel_j,PDP_INT_16_WIDTH) < SExt(kernel_size,PDP_INT_16_WIDTH),sign_ext_input, BvConst(0,PDP_INT_16_WIDTH));
+                max = Ite(curr > max, curr, max);
             }
 
             instr.SetUpdate(m.state("pdp_output"), max);
@@ -492,7 +493,8 @@ namespace ilang
 
                 auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(kernel_j))));
                 auto sign_ext_input = Ite(data_format == INT8, int8_to_int16(input_in), input_in);
-                min = Ite(sign_ext_input < min, sign_ext_input, min);
+                auto curr = Ite(BvConst(kernel_j,PDP_INT_16_WIDTH) < SExt(kernel_size,PDP_INT_16_WIDTH),sign_ext_input, BvConst(0,PDP_INT_16_WIDTH));
+                min = Ite(curr < min,curr, min);
             }
 
             instr.SetUpdate(m.state("pdp_output"), min);
@@ -519,7 +521,8 @@ namespace ilang
 
                 auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(kernel_j))));
                 auto sign_ext_input = Ite(data_format == INT8, int8_to_int16(input_in), input_in);
-                sum = sign_ext_input + sum;
+                auto curr = Ite(BvConst(kernel_j,PDP_INT_16_WIDTH) < SExt(kernel_size,PDP_INT_16_WIDTH),sign_ext_input, BvConst(0,PDP_INT_16_WIDTH));
+                sum = curr + sum;
             }
 
             auto avg = Ite(kernel_size > BvConst(0,PDP_INT_16_WIDTH) , (sum / kernel_size), BvConst(0,PDP_INT_16_WIDTH));

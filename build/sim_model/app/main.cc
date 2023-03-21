@@ -642,7 +642,7 @@ SC_MODULE(testbench)
   //   fout << "    NVDLA_PDP_D_PARTIAL_WIDTH_OUT_MID => " << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
   //   fout << "    NVDLA_PDP_D_PARTIAL_WIDTH_OUT_LAST => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
 
-  //    fout << "    NVDLA_PDP_D_KERNEL_WIDTH => " << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+     fout << "    NVDLA_PDP_D_KERNEL_WIDTH => " << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_group0_pdp_d_kernel_width << std::endl; 
   //   fout << "    NVDLA_PDP_D_KERNEL_HEIGHT => " << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
   //   fout << "    NVDLA_PDP_D_KERNEL_STRIDE_HEIGHT => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl;     
   //   fout << "    NVDLA_PDP_D_KERNEL_STRIDE_WIDTH => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
