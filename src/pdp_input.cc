@@ -55,7 +55,7 @@ namespace ilang
         }
 
         // Control Signals
-        m.NewBoolInput("pdp_input_valid");
+        m.NewBoolInput("pdp_input_vld");
         m.NewBoolInput("pdp_last_input_batch"); // is it last pdp input
     }
 

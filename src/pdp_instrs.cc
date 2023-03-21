@@ -98,7 +98,7 @@ namespace ilang
 
         // sdp - pdp involved variables
         // TODO : Fill with other valid states inputs
-        auto pdp_input_valid =  m.input("pdp_input_valid");
+        auto pdp_input_vld =  m.input("pdp_input_vld");
 
         // /****************************************************************************/
         // // ***************** REGISTER CONFIGURATION INSTRUCTIONS ********************//
@@ -390,7 +390,7 @@ namespace ilang
             // start to load
             auto instr = m.NewInstr("pdp_start_to_load");
             auto group0_ready = pdp_consumer == BvConst(0, 1) & m.state(GetVarName("group0_", NVDLA_PDP_D_OP_ENABLE)) == SIG_TRUE;
-            instr.SetDecode(pdp_state == START & group0_ready & pdp_input_valid);
+            instr.SetDecode(pdp_state == START & group0_ready & pdp_input_vld);
 
             instr.SetUpdate(m.state("pdp_state"), LOAD);
         }

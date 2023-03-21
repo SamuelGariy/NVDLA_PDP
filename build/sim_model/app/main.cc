@@ -33,7 +33,7 @@ SC_MODULE(Source)
 
   // PDP control signals
   sc_out<bool> pdp_pdp_last_input_batch {"pdp_pdp_last_input_batch"};
-
+  sc_out<bool> pdp_pdp_last_input_batch {"pdp_pdp_last_input_batch"};
   // PDP  inputs
 
   sc_out<sc_biguint<16>> pdp_pdp_input_0 {"pdp_pdp_input_0"};
