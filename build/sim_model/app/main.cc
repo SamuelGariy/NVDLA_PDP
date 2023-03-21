@@ -615,8 +615,8 @@ SC_MODULE(testbench)
     fout << "    NVDLA_PDP_S_STATUS_0 => " << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp_s_status0 << std::endl; 
      fout << "    NVDLA_PDP_S_STATUS_1 => " << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp_s_status1 << std::endl; 
 
-     fout << "    NVDLA_PDP_S_PRODUCER => " << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_s_producer << std::endl; 
-    fout << "    NVDLA_PDP_S_CONSUMER => " << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_s_consumer << std::endl; 
+     fout << "    NVDLA_PDP_S_PRODUCER => " << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp_s_producer << std::endl; 
+    fout << "    NVDLA_PDP_S_CONSUMER => " << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp_s_consumer << std::endl; 
 
      fout << "    NVDLA_PDP_D_OP_ENABLE => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_group0_pdp_d_op_en_trigger << std::endl;  
     
