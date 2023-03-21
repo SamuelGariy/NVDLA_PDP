@@ -33,7 +33,7 @@ SC_MODULE(Source)
 
   // PDP control signals
   sc_out<bool> pdp_pdp_last_input_batch {"pdp_pdp_last_input_batch"};
-  sc_out<bool> pdp_pdp_last_input_batch {"pdp_pdp_last_input_batch"};
+  sc_out<bool> pdp_pdp_input_vld {"pdp_pdp_input_vld"};
   // PDP  inputs
 
   sc_out<sc_biguint<16>> pdp_pdp_input_0 {"pdp_pdp_input_0"};
@@ -137,6 +137,7 @@ SC_MODULE(Source)
 
     // PDP control signals
     pdp_pdp_last_input_batch = false;
+    pdp_pdp_input_vld = false;
 
   pdp_pdp_input_0 = 0;
   pdp_pdp_input_1 = 0;
@@ -236,7 +237,7 @@ SC_MODULE(Source)
       pdp_csb2pdp_vld = GET_JSON_INT(cmd_seq["program fragment"][i]["pdp_csb2pdp_vld"], 0);
 
       pdp_pdp_last_input_batch = GET_JSON_BOOL(cmd_seq["program fragment"][i]["pdp_pdp_last_input_batch"], false);
-
+       pdp_pdp_input_vld = GET_JSON_BOOL(cmd_seq["program fragment"][i]["pdp_pdp_input_vld"], false);
      
         // read in input
 
@@ -343,7 +344,8 @@ SC_MODULE(testbench)
   sc_signal<sc_biguint<1>> pdp_csb2pdp_vld_signal {"pdp_csb2pdp_vld_signal"};
 
   sc_signal<bool> pdp_pdp_last_input_batch_signal {"pdp_pdp_last_input_batch_signal"};
-
+  sc_signal<bool> pdp_pdp_input_vld_signal {"pdp_pdp_input_vld_signal"};
+ 
   sc_signal<sc_biguint<16>> pdp_pdp_input_0_signal {"pdp_pdp_input_0_signal"};
   sc_signal<sc_biguint<16>> pdp_pdp_input_1_signal {"pdp_pdp_input_1_signal"};
   sc_signal<sc_biguint<16>> pdp_pdp_input_2_signal {"pdp_pdp_input_2_signal"};
@@ -439,6 +441,8 @@ SC_MODULE(testbench)
     src.pdp_csb2pdp_vld(pdp_csb2pdp_vld_signal);
 
     src.pdp_pdp_last_input_batch(pdp_pdp_last_input_batch_signal);
+    src.pdp_pdp_input_vld(pdp_pdp_input_vld_signal);
+    
 
     src.pdp_pdp_input_0(pdp_pdp_input_0_signal);
     src.pdp_pdp_input_1(pdp_pdp_input_1_signal);
@@ -515,6 +519,7 @@ SC_MODULE(testbench)
     pdp_inst.pdp_csb2pdp_vld_in(pdp_csb2pdp_vld_signal);
 
     pdp_inst.pdp_pdp_last_input_batch_in(pdp_pdp_last_input_batch_signal);
+    pdp_inst.pdp_pdp_input_vld_in(pdp_pdp_input_vld_signal);
 
     pdp_inst.pdp_pdp_input_0_in(pdp_pdp_input_0_signal);
     pdp_inst.pdp_pdp_input_1_in(pdp_pdp_input_1_signal);
