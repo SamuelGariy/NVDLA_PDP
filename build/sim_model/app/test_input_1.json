@@ -13,13 +13,6 @@
         "pdp_csb2pdp_data": 1,
         "pdp_csb2pdp_write": 1,
         "pdp_csb2pdp_vld": 1
-      },
-      {
-        "instr No.": 2,
-        "pdp_csb2pdp_addr": "0x008",
-        "pdp_csb2pdp_data": 1,
-        "pdp_csb2pdp_write": 1,
-        "pdp_csb2pdp_vld": 1
       }
    
     ]
