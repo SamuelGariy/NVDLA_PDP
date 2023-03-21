@@ -607,7 +607,7 @@ SC_MODULE(testbench)
     while (input_done == 0)
     {
     
-      fout << std::dec << instr_no++ << " ";
+      fout  << "Instruction number "<< std::dec << instr_no++ << std::endl;
       // output
     //  for (int i = 0; i < 16; i++)
     //  {
@@ -704,9 +704,9 @@ SC_MODULE(testbench)
 
 
 
-    fout << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << " ";
-    fout << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_data_vld << " ";
-    fout << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp_output << " ";
+    // fout << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << " ";
+    // fout << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_data_vld << " ";
+    // fout << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp_output << " ";
 
    //   }
       fout << std::endl;
