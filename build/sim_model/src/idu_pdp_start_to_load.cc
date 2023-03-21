@@ -8,7 +8,8 @@ sc_biguint<1> local_var_7 = 1;
 bool local_var_8 = (pdp_group0_pdp_d_op_en_trigger == local_var_7);
 bool local_var_9 = (local_var_5 & local_var_8);
 bool local_var_10 = (local_var_2 & local_var_9);
-auto& univ_var_39 = local_var_10;
+bool local_var_12 = (local_var_10 & pdp_pdp_input_vld);
+auto& univ_var_39 = local_var_12;
 return univ_var_39;
 }
 void pdp::update_pdp_pdp_start_to_load() {

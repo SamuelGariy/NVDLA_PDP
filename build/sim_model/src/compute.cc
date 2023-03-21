@@ -88,6 +88,7 @@ pdp_pdp_input_60 = pdp_pdp_input_60_in.read();
 pdp_pdp_input_61 = pdp_pdp_input_61_in.read();
 pdp_pdp_input_62 = pdp_pdp_input_62_in.read();
 pdp_pdp_input_63 = pdp_pdp_input_63_in.read();
+pdp_pdp_input_vld = pdp_pdp_input_vld_in.read();
 pdp_pdp_last_input_batch = pdp_pdp_last_input_batch_in.read();
 if (valid_pdp() && decode_pdp_set_producer()) {
 #ifdef ILATOR_PROFILING
