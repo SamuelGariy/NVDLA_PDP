@@ -612,13 +612,101 @@ SC_MODULE(testbench)
     //  for (int i = 0; i < 16; i++)
     //  {
 
-        
-        
-      
-        
-        fout << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << " ";
-         fout << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_data_vld << " ";
-        fout << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp_output << " ";
+    fout << "    NVDLA_PDP_S_STATUS_0 => " << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp_s_status0 << std::endl; 
+  //   fout << "    NVDLA_PDP_S_STATUS_1 => " << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+
+  //   fout << "    NVDLA_PDP_S_PRODUCER => " << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+  //   fout << "    NVDLA_PDP_S_CONSUMER => " << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+
+  //   fout << "    NVDLA_PDP_D_OP_ENABLE => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl;  
+    
+  //   fout << "    NVDLA_PDP_D_DATA_CUBE_IN_WIDTH => " << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+  //   fout << "    NVDLA_PDP_D_DATA_CUBE_IN_CHANNEL => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+   
+  //   fout << "    NVDLA_PDP_D_DATA_CUBE_OUT_WIDTH => " << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+   
+  //   fout << "    NVDLA_PDP_D_DATA_CUBE_OUT_HEIGHT => " << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+  //   fout << "    NVDLA_PDP_D_DATA_CUBE_OUT_CHANNEL => " << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl;
+   
+  //   fout << "    NVDLA_PDP_POOLING_METHOD => " << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+  //   fout << "    NVDLA_PDP_FLYING_MODE => " << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+  //   fout << "    NVDLA_PDP_SPLIT_NUM => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+   
+  //   fout << "    NVDLA_PDP_D_NAN_FLUSH_TO_ZERO => " << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+
+  //   fout << "    NVDLA_PDP_D_PARTIAL_WIDTH_IN_FIRST => " << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+  //   fout << "    NVDLA_PDP_D_PARTIAL_WIDTH_IN_MID => " << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+  //   fout << "    NVDLA_PDP_D_PARTIAL_WIDTH_IN_LAST => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+
+  //    fout << "    NVDLA_PDP_D_PARTIAL_WIDTH_OUT_FIRST => " << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+  //   fout << "    NVDLA_PDP_D_PARTIAL_WIDTH_OUT_MID => " << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+  //   fout << "    NVDLA_PDP_D_PARTIAL_WIDTH_OUT_LAST => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+
+  //    fout << "    NVDLA_PDP_D_KERNEL_WIDTH => " << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+  //   fout << "    NVDLA_PDP_D_KERNEL_HEIGHT => " << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+  //   fout << "    NVDLA_PDP_D_KERNEL_STRIDE_HEIGHT => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl;     
+  //   fout << "    NVDLA_PDP_D_KERNEL_STRIDE_WIDTH => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+
+  //   fout << "    NVDLA_PDP_D_RECIP_KERNEL_WIDTH => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+
+  //   fout << "    NVDLA_PDP_D_RECIP_KERNEL_HEIGHT => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+
+  // fout << "    NVDLA_PDP_D_PAD_LEFT => " << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+  //   fout << "    NVDLA_PDP_D_PAD_TOP => " << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+  //   fout << "    NVDLA_PDP_D_PAD_RIGHT => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl;     
+  //   fout << "    NVDLA_PDP_D_PAD_BOTTOM => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+
+  //       fout << "    NVDLA_PDP_D_POOLING_PADDING_VALUE_1_CFG => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+  
+  //   fout << "    NVDLA_PDP_D_POOLING_PADDING_VALUE_2_CFG => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+
+  //   fout << "    NVDLA_PDP_D_POOLING_PADDING_VALUE_3_CFG => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+
+  //   fout << "    NVDLA_PDP_D_POOLING_PADDING_VALUE_4_CFG => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+
+  //   fout << "    NVDLA_PDP_D_POOLING_PADDING_VALUE_5_CFG => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+
+  //   fout << "    NVDLA_PDP_D_POOLING_PADDING_VALUE_6_CFG => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+
+  //   fout << "    NVDLA_PDP_D_POOLING_PADDING_VALUE_7_CFG => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+
+  //   fout << "    NVDLA_PDP_D_SRC_BASE_ADDR_LOW => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+
+  //       fout << "    NVDLA_PDP_D_SRC_BASE_ADDR_HIGH => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+
+  //       fout << "    NVDLA_PDP_D_SRC_LINE_STRIDE => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+
+  //       fout << "    NVDLA_PDP_D_SRC_SURFACE_STRIDE => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+
+  //       fout << "    NVDLA_PDP_D_DST_BASE_ADDR_LOW => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+
+  //       fout << "    NVDLA_PDP_D_DST_BASE_ADDR_HIGH => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+
+  //       fout << "    NVDLA_PDP_D_DST_LINE_STRIDE => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+
+  //       fout << "    NVDLA_PDP_D_DST_SURFACE_STRIDE => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+
+  //       fout << "    NVDLA_PDP_D_DST_RAM_CFG => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+
+  //       fout << "    NVDLA_PDP_D_DATA_FORMAT => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+
+  //       fout << "    NVDLA_PDP_D_INF_INPUT_NUM => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+
+  //       fout << "    NVDLA_PDP_D_NAN_INPUT_NUM => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+
+  //       fout << "    NVDLA_PDP_D_NAN_OUTPUT_NUM => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+
+  //       fout << "    NVDLA_PDP_D_PERF_ENABLE => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+
+  //       fout << "    NVDLA_PDP_D_PERF_WRITE_STALL => "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << std::endl; 
+
+
+
+
+
+    fout << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_rdy << " ";
+    fout << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp2csb_data_vld << " ";
+    fout << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp_output << " ";
 
    //   }
       fout << std::endl;
