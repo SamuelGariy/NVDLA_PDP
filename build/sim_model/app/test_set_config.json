@@ -168,8 +168,8 @@
     "pdp_csb2pdp_data": 300,
     "pdp_csb2pdp_write": 1,
     "pdp_csb2pdp_vld": 1,
-    "pdp_pdp_last_input_batch": 0,
-    "pdp_pdp_input_vld":0
+    "pdp_pdp_last_input_batch": false,
+    "pdp_pdp_input_vld":false
     },
     {
         "instr No.": 19,
