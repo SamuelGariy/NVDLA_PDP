@@ -54,8 +54,8 @@ namespace ilang
 
         // 0xd010 Input data cube’s height
         m.NewBvState(GetVarName("group0_", NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT), NVDLA_PDP_D_DATA_CUBE_IN_HEIGHT_WIDTH);
-
-        // 0xd014 Input data cube’s channel
+a cube’s chann
+        // 0xd014 Input datel
         m.NewBvState(GetVarName("group0_", NVDLA_PDP_D_DATA_CUBE_IN_CHANNEL), NVDLA_PDP_D_DATA_CUBE_IN_CHANNEL_WIDTH);
 
         // 0xd018 Output data cube’s width
