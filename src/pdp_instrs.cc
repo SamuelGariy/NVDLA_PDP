@@ -38,13 +38,6 @@ namespace ilang
         auto bv = Ite(SelectBit(num, 7) == 0, bv7_unsigned, bv7_unsigned | BvConst(0xFF80, PDP_INT_16_WIDTH));
         return bv;
     }
-     // Return 16-bit representation of int8
-    ExprRef int8_to_int16_edit(ExprRef num)
-    {
-        auto bv7_unsigned = num & BvConst(0x7F, PDP_INT_16_WIDTH);
-        auto bv = Ite(SelectBit(num, 7) == 0, bv7_unsigned, bv7_unsigned | BvConst(0x8080, PDP_INT_16_WIDTH));
-        return bv;
-    }
 
     // Define PDP instructions relevant to configuration registers
     void DefinePDPInstrs(Ila &m)
@@ -411,11 +404,10 @@ namespace ilang
             {
 
                 auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(kernel_j))));
-                //auto sign_ext_input = Ite(data_format == INT8, int8_to_int16(input_in), input_in);
-                //auto sign_ext_input = SExt(input_in,PDP_INT_16_WIDTH);
-                auto sign_ext_input = Ite(data_format == INT8, int8_to_int16_edit(input_in), input_in);
+                auto sign_ext_input = SExt(input_in,PDP_INT_16_WIDTH);
                 auto curr = Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < SExt(kernel_size, PDP_INT_16_WIDTH), sign_ext_input, BvConst(0, PDP_INT_16_WIDTH));
-                max = Ite(Sgt(curr, max), curr, max);
+                
+                max = Ite(curr == BvConst(0, PDP_INT_16_WIDTH),max,Ite(SelectBit(curr, 15) == 0,Ite(curr > max, curr, max),Ite(curr < max, curr, max)));
             }
 
             instr.SetUpdate(m.state("pdp_output"), max);
@@ -441,9 +433,9 @@ namespace ilang
             {
 
                 auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(kernel_j))));
-                auto sign_ext_input = Ite(data_format == INT8, int8_to_int16(input_in), input_in);
+                auto sign_ext_input = SExt(input_in,PDP_INT_16_WIDTH);
                 auto curr = Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < SExt(kernel_size, PDP_INT_16_WIDTH), sign_ext_input, BvConst(0, PDP_INT_16_WIDTH));
-                min = Ite(curr < min, curr, min);
+                min = Ite(curr == BvConst(0, PDP_INT_16_WIDTH),min,Ite(SelectBit(curr, 15) == 0,Ite(curr < min, curr, min),Ite(curr > min, curr, min)));
             }
 
             instr.SetUpdate(m.state("pdp_output"), min);
@@ -469,7 +461,7 @@ namespace ilang
             {
 
                 auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(kernel_j))));
-                auto sign_ext_input = Ite(data_format == INT8, int8_to_int16(input_in), input_in);
+                auto sign_ext_input = SExt(input_in,PDP_INT_16_WIDTH);
                 auto curr = Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < SExt(kernel_size, PDP_INT_16_WIDTH), sign_ext_input, BvConst(0, PDP_INT_16_WIDTH));
                 sum = curr + sum;
             }
