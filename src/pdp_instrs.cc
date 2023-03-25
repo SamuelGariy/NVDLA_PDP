@@ -442,7 +442,7 @@ namespace ilang
 
             // update next state
             instr.SetUpdate(m.state("pdp_state"), Ite(m.state(GetVarName("group0_", NVDLA_PDP_POOLING_METHOD)) == PDP_MAXPOOL, MAXPOOL,
-                                                      Ite(m.state(GetVarName("group0_", NVDLA_PDP_POOLING_METHOD)) == PDP_MINPOOL, MINPOOL, AVGPOOL)));
+                                                      Ite(m.state(GetVarName("group0_", NVDLA_PDP_POOLING_METHOD)) == PDP_MINPOOL, MINPOOL, MEANPOOL)));
 
             // // update_pooling_stage (for split_width)
             instr.SetUpdate(m.state("pdp_pooling_stage_split_width"), SPLIT_STAGE_1);
@@ -507,9 +507,9 @@ namespace ilang
         }
 
         {
-            // avg - pooling instruction
-            auto instr = m.NewInstr("avg_pool");
-            instr.SetDecode(pdp_state == AVGPOOL);
+            // mean - pooling instruction
+            auto instr = m.NewInstr("mean_pool");
+            instr.SetDecode(pdp_state == MEANPOOL);
 
           
             auto kernel_height = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_HEIGHT));
@@ -527,11 +527,11 @@ namespace ilang
                 sum = curr + sum;
             }
 
-            auto avg = Ite(kernel_size > BvConst(0,PDP_INT_16_WIDTH) , (sum / kernel_size), BvConst(0,PDP_INT_16_WIDTH));
-            instr.SetUpdate(m.state("pdp_output"), avg);
+            auto mean = Ite(kernel_size > BvConst(0,PDP_INT_16_WIDTH) , (sum / kernel_size), BvConst(0,PDP_INT_16_WIDTH));
+            instr.SetUpdate(m.state("pdp_output"), mean );
             instr.SetUpdate(m.state("pdp2csb_data_vld"), SIG_TRUE);
 
-            instr.SetUpdate(m.state("pdp_state"), Ite(m.input("pdp_last_input_batch") == BoolConst(true), START, AVGPOOL));
+            instr.SetUpdate(m.state("pdp_state"), Ite(m.input("pdp_last_input_batch") == BoolConst(true), START, MEANPOOL));
             instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_OP_ENABLE)), Ite(m.input("pdp_last_input_batch") == BoolConst(true), SIG_FALSE, SIG_TRUE));
         }
     }

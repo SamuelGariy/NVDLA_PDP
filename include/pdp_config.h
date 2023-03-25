@@ -269,11 +269,11 @@ namespace ilang
 #define LOAD BvConst(1, 3)
 #define MAXPOOL BvConst(2, 3)
 #define MINPOOL BvConst(3, 3)
-#define AVGPOOL BvConst(4, 3)
+#define MEANPOOL BvConst(4, 3)
 #define STORE BvConst(5, 3)
 
 // PDP_OPERATIONS
-#define PDP_AVGPOOL BvConst(0, 2)
+#define PDP_MEANPOOL BvConst(0, 2)
 #define PDP_MAXPOOL BvConst(1, 2)
 #define PDP_MINPOOL BvConst(2, 2)
 
