@@ -47,7 +47,6 @@ namespace ilang
 
         // single kernel input
 
-
         for (auto i = 0; i < PDP_INPUT_MAX; i++)
         {
 
