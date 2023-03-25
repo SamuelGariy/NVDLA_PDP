@@ -594,6 +594,18 @@ if (valid_pdp() && decode_pdp_min_pool()) {
   LogInstrSequence("min_pool", exec_time);
 #endif
 }
+if (valid_pdp() && decode_pdp_mean_pool()) {
+#ifdef ILATOR_PROFILING
+  auto start = std::chrono::high_resolution_clock::now();
+#endif
+  update_pdp_mean_pool();
+  
+#ifdef ILATOR_PROFILING
+  auto stop = std::chrono::high_resolution_clock::now();
+  auto exec_time = std::chrono::duration_cast<std::chrono::nanoseconds>(stop-start).count();
+  LogInstrSequence("mean_pool", exec_time);
+#endif
+}
 while (1) {
   int schedule_counter = 0;
   if (schedule_counter == 0) {

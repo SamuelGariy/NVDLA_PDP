@@ -24,14 +24,10 @@ return univ_var_2;
 void pdp::update_pdp_set_start_group0() {
 auto local_var_1 = pdp_csb2pdp_data.range(0, 0);
 auto local_var_1_nxt_holder = local_var_1;
-sc_biguint<3> local_var_2 = 0;
-auto local_var_2_nxt_holder = local_var_2;
 pdp_group0_pdp_d_op_en_trigger = local_var_1_nxt_holder;
-pdp_pdp_state = local_var_2_nxt_holder;
 #ifdef ILATOR_VERBOSE
 instr_update_log << "No." << std::dec << GetInstrCntr() << '\t' << "set_start_group0 state updates:" << std::endl;
 instr_update_log << "    pdp_group0_pdp_d_op_en_trigger => " << std::hex << "0x" << pdp_group0_pdp_d_op_en_trigger << std::endl; 
-instr_update_log << "    pdp_pdp_state => " << std::hex << "0x" << pdp_pdp_state << std::endl; 
 instr_update_log << std::endl;
 #endif
 }

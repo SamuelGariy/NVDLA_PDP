@@ -18,6 +18,7 @@ add_executable(pdp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/constant_memory_def.cc
   ${CMAKE_CURRENT_SOURCE_DIR}/src/idu_load_prepooling_variables.cc
   ${CMAKE_CURRENT_SOURCE_DIR}/src/idu_max_pool.cc
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/idu_mean_pool.cc
   ${CMAKE_CURRENT_SOURCE_DIR}/src/idu_min_pool.cc
   ${CMAKE_CURRENT_SOURCE_DIR}/src/idu_pdp_start_to_load.cc
   ${CMAKE_CURRENT_SOURCE_DIR}/src/idu_set_cube_in_channel.cc

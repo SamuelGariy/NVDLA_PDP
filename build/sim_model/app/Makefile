@@ -273,6 +273,30 @@ src/idu_max_pool.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdp.dir/build.make CMakeFiles/pdp.dir/src/idu_max_pool.cc.s
 .PHONY : src/idu_max_pool.cc.s
 
+src/idu_mean_pool.o: src/idu_mean_pool.cc.o
+.PHONY : src/idu_mean_pool.o
+
+# target to build an object file
+src/idu_mean_pool.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdp.dir/build.make CMakeFiles/pdp.dir/src/idu_mean_pool.cc.o
+.PHONY : src/idu_mean_pool.cc.o
+
+src/idu_mean_pool.i: src/idu_mean_pool.cc.i
+.PHONY : src/idu_mean_pool.i
+
+# target to preprocess a source file
+src/idu_mean_pool.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdp.dir/build.make CMakeFiles/pdp.dir/src/idu_mean_pool.cc.i
+.PHONY : src/idu_mean_pool.cc.i
+
+src/idu_mean_pool.s: src/idu_mean_pool.cc.s
+.PHONY : src/idu_mean_pool.s
+
+# target to generate assembly for a file
+src/idu_mean_pool.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdp.dir/build.make CMakeFiles/pdp.dir/src/idu_mean_pool.cc.s
+.PHONY : src/idu_mean_pool.cc.s
+
 src/idu_min_pool.o: src/idu_min_pool.cc.o
 .PHONY : src/idu_min_pool.o
 
@@ -1308,6 +1332,9 @@ help:
 	@echo "... src/idu_max_pool.o"
 	@echo "... src/idu_max_pool.i"
 	@echo "... src/idu_max_pool.s"
+	@echo "... src/idu_mean_pool.o"
+	@echo "... src/idu_mean_pool.i"
+	@echo "... src/idu_mean_pool.s"
 	@echo "... src/idu_min_pool.o"
 	@echo "... src/idu_min_pool.i"
 	@echo "... src/idu_min_pool.s"

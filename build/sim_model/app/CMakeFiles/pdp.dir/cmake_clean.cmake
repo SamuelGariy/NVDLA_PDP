@@ -11,6 +11,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/pdp.dir/src/idu_load_prepooling_variables.cc.o.d"
   "CMakeFiles/pdp.dir/src/idu_max_pool.cc.o"
   "CMakeFiles/pdp.dir/src/idu_max_pool.cc.o.d"
+  "CMakeFiles/pdp.dir/src/idu_mean_pool.cc.o"
+  "CMakeFiles/pdp.dir/src/idu_mean_pool.cc.o.d"
   "CMakeFiles/pdp.dir/src/idu_min_pool.cc.o"
   "CMakeFiles/pdp.dir/src/idu_min_pool.cc.o.d"
   "CMakeFiles/pdp.dir/src/idu_pdp_start_to_load.cc.o"
