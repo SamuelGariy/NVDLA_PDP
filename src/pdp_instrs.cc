@@ -404,9 +404,10 @@ namespace ilang
             {
 
                 auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(kernel_j))));
-                auto sign_ext_input = Ite(data_format == INT8, int8_to_int16(input_in), input_in);
+                //auto sign_ext_input = Ite(data_format == INT8, int8_to_int16(input_in), input_in);
+                auto sign_ext_input = SExt(input_in,PDP_INT_16_WIDTH);
                 auto curr = Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < SExt(kernel_size, PDP_INT_16_WIDTH), sign_ext_input, BvConst(0, PDP_INT_16_WIDTH));
-                max = Ite(Sgt(max, curr), curr, max);
+                max = Ite(Sgt(curr, max), curr, max);
             }
 
             instr.SetUpdate(m.state("pdp_output"), max);
