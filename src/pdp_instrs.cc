@@ -406,7 +406,7 @@ namespace ilang
                 auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(kernel_j))));
                 auto sign_ext_input = SExt(input_in,PDP_INT_16_WIDTH);
                 auto curr = Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < SExt(kernel_size, PDP_INT_16_WIDTH), sign_ext_input, BvConst(0, PDP_INT_16_WIDTH));
-                auto max_changed = Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < SExt(kernel_size, PDP_INT_16_WIDTH) & curr = 0,true,false)
+                auto max_changed = Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < SExt(kernel_size, PDP_INT_16_WIDTH) & curr = 0,BoolConst(true),BoolConst(false));
                 max = Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < SExt(kernel_size, PDP_INT_16_WIDTH),max,Ite(SelectBit(curr, 15) == 0,Ite(curr > max, curr, max),Ite(max == 0 & max_changed,Ite(curr > max, curr, max) ,Ite(curr < max, curr, max))));
             }
 
