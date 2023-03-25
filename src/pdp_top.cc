@@ -31,7 +31,7 @@ namespace ilang {
 Ila GetPDPIla(const std::string& model_name) {
     auto m = Ila(model_name);
 
-    SetUnsignedComparison(true);
+    SetUnsignedComparison(false);
     
     //
     // Interface Signals
