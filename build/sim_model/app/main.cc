@@ -606,7 +606,7 @@ SC_MODULE(testbench)
       fout << "instr " << std::dec << instr_no++ << ": ";
       fout << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp_output << std::endl;
       fout  << (sc_dt::sc_biguint<16>)pdp_inst.pdp_pdp_output << std::endl;
-      fout  << std::bin <<(sc_dt::sc_biguint<16>)pdp_inst.pdp_pdp_output << std::endl;
+      fout   << std::bitset<16>{(sc_dt::sc_biguint<16>)pdp_inst.pdp_pdp_output} << std::endl;
 
       wait(10, SC_NS);
     }
