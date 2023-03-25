@@ -1,4 +1,0 @@
-[  2%] Building CXX object CMakeFiles/pdp.dir/main.cc.o
-CMakeFiles/pdp.dir/build.make:75: recipe for target 'CMakeFiles/pdp.dir/main.cc.o' failed
-CMakeFiles/Makefile2:82: recipe for target 'CMakeFiles/pdp.dir/all' failed
-Makefile:90: recipe for target 'all' failed
