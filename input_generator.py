@@ -116,10 +116,10 @@ def generate_input_and_solutions(Op, n_arrays, dtype, kernel_height, kernel_widt
 
     # write solutions
     with open(solution_file, "w") as file1:
-        file1.write("instr 0: 0 \n")
-        file1.write("instr 1: 0 \n")
-        file1.write("instr 2: 0 \n")
-        file1.write("instr 3: 0 \n")
+        file1.write("instr 0: 0\n")
+        file1.write("instr 1: 0\n")
+        file1.write("instr 2: 0\n")
+        file1.write("instr 3: 0\n")
         for i in range(len(solutions)):
             file1.write("instr " + str(i+4) + ": ")
             file1.write(str(solutions[i]))
