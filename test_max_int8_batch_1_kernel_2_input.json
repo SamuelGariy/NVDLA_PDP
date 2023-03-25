@@ -41,10 +41,10 @@
 			"instr No.": 4, 
 			"pdp_pdp_last_input_batch": true, 
 			"pdp_pdp_input_vld": true, 
-			"pdp_pdp_input_0": 7, 
-			"pdp_pdp_input_1": 108, 
-			"pdp_pdp_input_2": -19, 
-			"pdp_pdp_input_3": 75 
+			"pdp_pdp_input_0": -73, 
+			"pdp_pdp_input_1": -44, 
+			"pdp_pdp_input_2": -71, 
+			"pdp_pdp_input_3": 61 
 		}
 
       ]
