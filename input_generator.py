@@ -23,11 +23,11 @@ def generate_input_and_solutions(Op, n_arrays, dtype, kernel_height, kernel_widt
 
         # Create an array of 64 elements with the chosen data type
         if dtype == "int8":
-            max = 2**8
+            max = 2**4
             arr = np.random.randint(max, size=kernel_size).astype(np.int8)
             data_format = 1
         if dtype == "int16":
-            max = 2**16
+            max = 2**8
             arr = np.random.randint(max, size=kernel_size).astype(np.int16)
             data_format = 0
 
