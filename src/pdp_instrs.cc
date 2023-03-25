@@ -408,7 +408,8 @@ namespace ilang
                 auto sign_ext_input = SExt(input_in,PDP_INT_16_WIDTH);
                 //auto sign_ext_input = Ite(data_format == INT8, int8_to_int16_edit(input_in), input_in);
                 auto curr = Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < SExt(kernel_size, PDP_INT_16_WIDTH), sign_ext_input, BvConst(0, PDP_INT_16_WIDTH));
-                max = Ite(curr < max, curr, max);
+                
+                max = Ite(curr = BvConst(0, PDP_INT_16_WIDTH),max,Ite(curr < max, curr, max));
             }
 
             instr.SetUpdate(m.state("pdp_output"), max);
