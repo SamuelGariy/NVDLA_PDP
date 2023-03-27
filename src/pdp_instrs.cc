@@ -397,7 +397,7 @@ namespace ilang
             auto kernel_width = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_WIDTH));
             auto data_format = m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_FORMAT));
             auto kernel_size = BvConst(0,PDP_INT_16_WIDTH);
-            kernel_size = ZExt(kernel_height,PDP_INT_16_WIDTH) * (kernel_width,PDP_INT_16_WIDTH);
+            kernel_size = ZExt(kernel_height,PDP_INT_16_WIDTH) * ZExt(kernel_width,PDP_INT_16_WIDTH);
 
             auto max = BvConst(0, PDP_INT_16_WIDTH);
             auto max_changed = BoolConst(false);
