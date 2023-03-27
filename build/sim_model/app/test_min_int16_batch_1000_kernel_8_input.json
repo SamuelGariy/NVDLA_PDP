@@ -99,8 +99,8 @@
 			"pdp_pdp_input_55": 112, 
 			"pdp_pdp_input_56": 25, 
 			"pdp_pdp_input_57": 73, 
-			"pdp_pdp_input_58": 5, 
-			"pdp_pdp_input_59": 231, 
+			"pdp_pdp_input_58": -5, 
+			"pdp_pdp_input_59": -230, 
 			"pdp_pdp_input_60": 183, 
 			"pdp_pdp_input_61": 150, 
 			"pdp_pdp_input_62": 232, 
@@ -173,7 +173,7 @@
 			"pdp_pdp_input_60": 250, 
 			"pdp_pdp_input_61": 174, 
 			"pdp_pdp_input_62": 40, 
-			"pdp_pdp_input_63": 26 
+			"pdp_pdp_input_63": -26 
 		}
 		,{
 			"instr No.": 6, 
