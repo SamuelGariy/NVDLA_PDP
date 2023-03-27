@@ -428,7 +428,7 @@ namespace ilang
             auto kernel_height = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_HEIGHT));
             auto kernel_width = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_WIDTH));
             auto data_format = m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_FORMAT));
-            auto kernel_size = kernel_height * kernel_width;
+            auto kernel_size = ZExt(kernel_height,PDP_INT_16_WIDTH) * ZExt(kernel_width,PDP_INT_16_WIDTH);
 
             auto min = BvConst(600, PDP_INT_16_WIDTH);
 
@@ -440,7 +440,7 @@ namespace ilang
                 auto less_than =  Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < ZExt(kernel_size,PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
                 auto curr = Ite(less_than, sign_ext_input, BvConst(0, PDP_INT_16_WIDTH));
 
-                min = Ite(less_than,Ite(curr < min,curr,min),min);
+                min = Ite(less_than,Ite(Slt(curr,min),curr,min),min);
                // min = Ite((SelectBit(curr, 15) == 1) & max_changed, BvConst(0, PDP_INT_16_WIDTH), max);
 
             }
