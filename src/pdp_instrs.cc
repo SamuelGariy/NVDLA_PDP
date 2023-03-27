@@ -406,9 +406,9 @@ namespace ilang
 
                 auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(kernel_j))));
                 auto sign_ext_input = SExt(input_in,PDP_INT_16_WIDTH);
-                auto curr = Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < SExt(kernel_size, PDP_INT_16_WIDTH), sign_ext_input, BvConst(0, PDP_INT_16_WIDTH));
-                max_changed = Ite((BvConst(kernel_j, PDP_INT_16_WIDTH) < SExt(kernel_size,PDP_INT_16_WIDTH)) & curr == 0,BoolConst(true),max_changed);
-                max = Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < SExt(kernel_size, PDP_INT_16_WIDTH),Ite(Sgt(curr,max),curr,max),max);
+                auto curr = Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < ZExt(kernel_size, PDP_INT_16_WIDTH), sign_ext_input, BvConst(0, PDP_INT_16_WIDTH));
+                max_changed = Ite((BvConst(kernel_j, PDP_INT_16_WIDTH) <ZExt(kernel_size,PDP_INT_16_WIDTH)) & curr == 0,BoolConst(true),max_changed);
+                max = Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < ZExt(kernel_size, PDP_INT_16_WIDTH),Ite(Sgt(curr,max),curr,max),max);
                 max = Ite((SelectBit(curr, 15) == 1) & max_changed,BvConst(0, PDP_INT_16_WIDTH),max);
 
             }
