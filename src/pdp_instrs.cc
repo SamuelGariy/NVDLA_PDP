@@ -403,11 +403,10 @@ namespace ilang
 
             for (auto kernel_j = 0; kernel_j < PDP_INPUT_MAX; kernel_j++)
             {
-                auto kernel_j_in = BvConst(kernel_j,7);
                 auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(kernel_j))));
                 auto sign_ext_input = SExt(input_in, PDP_INT_16_WIDTH);
                 auto less_than =  Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < ZExt(kernel_size,PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
-                
+
                 max_changed = Ite(less_than & curr == 0,BoolConst(true),max_changed);
                 max = Ite(less_than,Ite(Sgt(curr,max),curr,max),max);
                 max = Ite((SelectBit(curr, 15) == 1) & max_changed, BvConst(0, PDP_INT_16_WIDTH), max);
@@ -437,8 +436,11 @@ namespace ilang
 
                 auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(kernel_j))));
                 auto sign_ext_input = SExt(input_in, PDP_INT_16_WIDTH);
-                auto curr = Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < SExt(kernel_size, PDP_INT_16_WIDTH), sign_ext_input, BvConst(0, PDP_INT_16_WIDTH));
-                min = Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < SExt(kernel_size, PDP_INT_16_WIDTH), min, Ite(SelectBit(curr, 15) == 0, Ite(curr < min, curr, min), Ite(min == 0, Ite(curr < min, curr, min), Ite(curr > min, curr, min))));
+                auto less_than =  Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < ZExt(kernel_size,PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
+
+                min = Ite(less_than,Ite(Slt(curr,min),curr,min),min);
+               // min = Ite((SelectBit(curr, 15) == 1) & max_changed, BvConst(0, PDP_INT_16_WIDTH), max);
+
             }
 
             instr.SetUpdate(m.state("pdp_output"), min);
