@@ -437,7 +437,7 @@ namespace ilang
                 auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(kernel_j))));
                 auto sign_ext_input = SExt(input_in, PDP_INT_16_WIDTH);
                 auto less_than =  Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < ZExt(kernel_size,PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
-                auto curr = Ite(less_than, sign_ext_input, BvConst(0, PDP_INT_16_WIDTH));
+                auto curr = Ite(less_than, sign_ext_input, BvConst(512, PDP_INT_16_WIDTH));
 
                 min = Ite(less_than,Ite(Slt(curr,min),curr,min),min);
                // min = Ite((SelectBit(curr, 15) == 1) & max_changed, BvConst(0, PDP_INT_16_WIDTH), max);
