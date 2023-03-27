@@ -403,10 +403,10 @@ namespace ilang
 
             for (int kernel_j = 0; kernel_j < PDP_INPUT_MAX; kernel_j++)
             {
-                auto kernel_j_in = BvConst(kernel_j,6);
+                auto kernel_j_in = BvConst(kernel_j,7);
                 auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(kernel_j))));
                 auto sign_ext_input = SExt(input_in, PDP_INT_16_WIDTH);
-                auto less_than =  Ite(SExt(kernel_j_in, PDP_INT_16_WIDTH) < SExt(kernel_size, PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
+                auto less_than =  Ite(SExt(kernel_j_in, PDP_INT_16_WIDTH) < ZExt(kernel_size, PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
                 // auto curr = Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < ZExt(kernel_size, PDP_INT_16_WIDTH), sign_ext_input, BvConst(0, PDP_INT_16_WIDTH));
                 // max_changed = Ite((BvConst(kernel_j, PDP_INT_16_WIDTH) <ZExt(kernel_size,PDP_INT_16_WIDTH)) & curr == 0,BoolConst(true),max_changed);
                 // max = Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < ZExt(kernel_size, PDP_INT_16_WIDTH),Ite(Sgt(curr,max),curr,max),max);
