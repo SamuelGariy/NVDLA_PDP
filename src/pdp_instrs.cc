@@ -429,7 +429,7 @@ namespace ilang
             auto data_format = m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_FORMAT));
             auto kernel_size = kernel_height * kernel_width;
 
-            auto min = BvConst(0, PDP_INT_16_WIDTH);
+            auto min = BvConst(512, PDP_INT_16_WIDTH);
 
             for (int kernel_j = 0; kernel_j < PDP_INPUT_MAX; kernel_j++)
             {
