@@ -401,7 +401,7 @@ namespace ilang
             auto max = BvConst(0, PDP_INT_16_WIDTH);
             auto max_changed = BoolConst(false);
 
-            for (uint64_t kernel_j = 0; kernel_j < PDP_INPUT_MAX; kernel_j++)
+            for (int kernel_j = 0; kernel_j < PDP_INPUT_MAX; kernel_j++)
             {
 
                 auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(kernel_j))));
