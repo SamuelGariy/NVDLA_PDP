@@ -40,7 +40,7 @@ namespace ilang
         for (int i = 0; i < PDP_INT_16_WIDTH; i++) {
             
             //auto new_bit = Ite(SelectBit(num,i) == 0 & carry,BvConst(1,1),Ite(SelectBit(num,i) == 1 & carry,BvConst(0,1),SelectBit(num,i)));
-            new_bit = Ite(SelectBit(num,i) == 0,BvConst(1,1) ,BvConst(0,1))
+            auto new_bit = Ite(SelectBit(num,i) == 0,BvConst(1,1) ,BvConst(0,1))
             bv = bv.Append(new_bit);
             
              //SelectBit(bv,i) = Ite(SelectBit(num,i) == 0 & carry,BvConst(1,1),Ite(SelectBit(num,i) == 1 & carry,BvConst(0,1),SelectBit(num,i)));
