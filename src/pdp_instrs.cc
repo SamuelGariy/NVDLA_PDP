@@ -400,7 +400,6 @@ namespace ilang
             auto kernel_size = ZExt(kernel_height,PDP_INT_16_WIDTH) * ZExt(kernel_width,PDP_INT_16_WIDTH);
 
             auto max = BvConst(0, PDP_INT_16_WIDTH);
-            auto max_changed = BoolConst(false);
 
             for (auto kernel_j = 0; kernel_j < PDP_INPUT_MAX; kernel_j++)
             {
@@ -408,9 +407,8 @@ namespace ilang
                 auto sign_ext_input = SExt(input_in, PDP_INT_16_WIDTH);
                 auto less_than =  Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < ZExt(kernel_size,PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
                 auto curr = Ite(less_than, sign_ext_input, BvConst(0, PDP_INT_16_WIDTH));
-                max_changed = Ite(less_than & curr == 0,BoolConst(true),max_changed);
-                max = Ite(less_than,Ite(Sgt(curr,max),curr,max),max);
-                max = Ite((SelectBit(curr, 15) == 1) & max_changed, BvConst(0, PDP_INT_16_WIDTH), max);
+                auto diff = max - curr;
+                min = Ite(less_than,Ite(SelectBit(diff, 15) == 0,max,curr),max);
             }
 
             instr.SetUpdate(m.state("pdp_output"), max);
@@ -439,12 +437,9 @@ namespace ilang
                 auto sign_ext_input = SExt(input_in, PDP_INT_16_WIDTH);
                 auto less_than =  Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < ZExt(kernel_size,PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
                 auto curr = Ite(less_than, sign_ext_input, BvConst(512, PDP_INT_16_WIDTH));
-               // min = Ite(less_than,,min)
+                
                 auto diff = min - curr;
                 min = Ite(less_than,Ite(SelectBit(diff, 15) == 0,curr,min),min);
-               // min = Ite(less_than,Ite((SelectBit(curr, 15) == 1),Ite(SelectBit(min, 15) == 1),
-                //Ite(Sgt(min,curr),curr,min),min);
-                // min = Ite((SelectBit(curr, 15) == 1) & max_changed, BvConst(0, PDP_INT_16_WIDTH), max);
 
             }
 

@@ -13,7 +13,7 @@
         ,{
 			"instr No.": 1, 
 			"pdp_csb2pdp_addr": "0x024", 
-			"pdp_csb2pdp_data": 2, 
+			"pdp_csb2pdp_data": 1, 
 			"pdp_csb2pdp_write": 1, 
 			"pdp_csb2pdp_vld": 1, 
 			"pdp_pdp_last_input_batch": false, 
@@ -55,15 +55,15 @@
 			"instr No.": 5, 
 			"pdp_pdp_last_input_batch": false, 
 			"pdp_pdp_input_vld": true, 
-			"pdp_pdp_input_0": 0, 
-			"pdp_pdp_input_1": 157, 
+			"pdp_pdp_input_0": 45, 
+			"pdp_pdp_input_1": -157, 
 			"pdp_pdp_input_2": -89, 
-			"pdp_pdp_input_3": 255, 
-			"pdp_pdp_input_4": 93, 
-			"pdp_pdp_input_5": 247, 
-			"pdp_pdp_input_6": 207, 
-			"pdp_pdp_input_7": 178, 
-			"pdp_pdp_input_8": 177 
+			"pdp_pdp_input_3": -255, 
+			"pdp_pdp_input_4": -93, 
+			"pdp_pdp_input_5": -247, 
+			"pdp_pdp_input_6": -207, 
+			"pdp_pdp_input_7": 0, 
+			"pdp_pdp_input_8": -177 
 		}
 		,{
 			"instr No.": 6, 
