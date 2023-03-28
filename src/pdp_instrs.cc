@@ -441,7 +441,7 @@ namespace ilang
                 auto curr = Ite(less_than, sign_ext_input, BvConst(0, PDP_INT_16_WIDTH));
 
                 min = Ite(less_than,Ite(Slt(curr,min),curr,min),min);
-               // min = Ite((SelectBit(curr, 15) == 1) & max_changed, BvConst(0, PDP_INT_16_WIDTH), max);
+                // min = Ite((SelectBit(curr, 15) == 1) & max_changed, BvConst(0, PDP_INT_16_WIDTH), max);
 
             }
 
