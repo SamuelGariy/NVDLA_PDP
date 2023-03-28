@@ -408,7 +408,7 @@ namespace ilang
                 auto less_than =  Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < ZExt(kernel_size,PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
                 auto curr = Ite(less_than, sign_ext_input, BvConst(0, PDP_INT_16_WIDTH));
                 auto diff = max - curr;
-                min = Ite(less_than,Ite(SelectBit(diff, 15) == 0,max,curr),max);
+                max = Ite(less_than,Ite(SelectBit(diff, 15) == 0,max,curr),max);
             }
 
             instr.SetUpdate(m.state("pdp_output"), max);
@@ -437,7 +437,7 @@ namespace ilang
                 auto sign_ext_input = SExt(input_in, PDP_INT_16_WIDTH);
                 auto less_than =  Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < ZExt(kernel_size,PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
                 auto curr = Ite(less_than, sign_ext_input, BvConst(512, PDP_INT_16_WIDTH));
-                
+
                 auto diff = min - curr;
                 min = Ite(less_than,Ite(SelectBit(diff, 15) == 0,curr,min),min);
 
