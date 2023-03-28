@@ -458,20 +458,21 @@ namespace ilang
             auto kernel_height = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_HEIGHT));
             auto kernel_width = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_WIDTH));
             auto data_format = m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_FORMAT));
-            auto kernel_size = SExt(kernel_height * kernel_width, PDP_INT_16_WIDTH);
+            auto kernel_size = ZExt(kernel_height,PDP_INT_16_WIDTH) * ZExt(kernel_width,PDP_INT_16_WIDTH);
 
             auto sum = BvConst(0, PDP_INT_16_WIDTH);
 
             for (int kernel_j = 0; kernel_j < PDP_INPUT_MAX; kernel_j++)
             {
-
                 auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(kernel_j))));
                 auto sign_ext_input = SExt(input_in, PDP_INT_16_WIDTH);
-                auto curr = Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < SExt(kernel_size, PDP_INT_16_WIDTH), sign_ext_input, BvConst(0, PDP_INT_16_WIDTH));
+                auto less_than =  Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < ZExt(kernel_size,PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
+
+                auto curr = Ite(less_than, sign_ext_input, BvConst(0, PDP_INT_16_WIDTH));
                 sum = curr + sum;
             }
 
-            auto mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (sum / kernel_size), BvConst(0, PDP_INT_16_WIDTH));
+            auto mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (sum / kernel_size), BvConst(512, PDP_INT_16_WIDTH));
             instr.SetUpdate(m.state("pdp_output"), mean);
             instr.SetUpdate(m.state("pdp2csb_data_vld"), SIG_TRUE);
 
