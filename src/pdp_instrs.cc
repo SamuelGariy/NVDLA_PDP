@@ -483,7 +483,7 @@ namespace ilang
                 sum = curr + sum;
             }
             auto push = neg_to_pos(sum);
-            auto bv_2 = Extract(push,3,0);
+            auto bv_2 = Extract(push,15,1);
             
             //sum = Ite(SelectBit(sum,15) == 1, neg_to_pos(sum),sum);
             auto mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (sum / ZExt(kernel_size,PDP_INT_16_WIDTH)), BvConst(512, PDP_INT_16_WIDTH));
