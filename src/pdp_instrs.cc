@@ -484,9 +484,6 @@ namespace ilang
                 auto curr = Ite(less_than, sign_ext_input, BvConst(0, PDP_INT_16_WIDTH));
                 sum = curr + sum;
             }
-            int dividend_int = (dividend[15] == 1) ? -1 * (int)(dividend.flip().to_ulong() + 1) : (int)dividend.to_ulong();
-            int divisor_int = (divisor[7] == 1) ? -1 * (int)(divisor.flip().to_ulong() + 1) : (int)divisor.to_ulong();
-
 
             auto mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (sum / ZExt(kernel_size,PDP_INT_16_WIDTH)), BvConst(512, PDP_INT_16_WIDTH));
             instr.SetUpdate(m.state("pdp_output"), mean);
