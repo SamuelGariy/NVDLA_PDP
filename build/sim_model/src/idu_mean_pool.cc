@@ -1,13 +1,8 @@
 #include <pdp.h>
 bool pdp::decode_pdp_mean_pool() {
-bool local_var_1 = true;
-bool local_var_2 = (pdp_pdp_last_input_batch == local_var_1);
-sc_biguint<3> local_var_3 = 0;
-sc_biguint<3> local_var_4 = 3;
-auto local_var_5 = (local_var_2) ? local_var_3 : local_var_4;
-sc_biguint<3> local_var_6 = 4;
-bool local_var_7 = (local_var_5 == local_var_6);
-auto& univ_var_43 = local_var_7;
+sc_biguint<3> local_var_1 = 4;
+bool local_var_2 = (pdp_pdp_state == local_var_1);
+auto& univ_var_43 = local_var_2;
 return univ_var_43;
 }
 void pdp::update_pdp_mean_pool() {
