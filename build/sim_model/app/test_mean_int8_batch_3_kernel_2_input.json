@@ -50,19 +50,19 @@
 			"instr No.": 5, 
 			"pdp_pdp_last_input_batch": false, 
 			"pdp_pdp_input_vld": true, 
-			"pdp_pdp_input_0": 5, 
+			"pdp_pdp_input_0": -5, 
 			"pdp_pdp_input_1": 11, 
 			"pdp_pdp_input_2": 1, 
-			"pdp_pdp_input_3": 1 
+			"pdp_pdp_input_3": -1 
 		}
 		,{
 			"instr No.": 6, 
 			"pdp_pdp_last_input_batch": true, 
 			"pdp_pdp_input_vld": true, 
-			"pdp_pdp_input_0": 2, 
-			"pdp_pdp_input_1": 5, 
-			"pdp_pdp_input_2": 4, 
-			"pdp_pdp_input_3": 7 
+			"pdp_pdp_input_0": -2, 
+			"pdp_pdp_input_1": -5, 
+			"pdp_pdp_input_2": -4, 
+			"pdp_pdp_input_3": -7 
 		}
 
       ]
