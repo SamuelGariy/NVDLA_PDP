@@ -611,7 +611,7 @@ SC_MODULE(testbench)
       fout << "    NVDLA_PDP_D_KERNEL_HEIGHT => " << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_group0_pdp_d_kernel_height << std::endl;
       fout << "    NVDLA_PDP_D_DATA_FORMAT => " << std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_group0_pdp_d_input_data << std::endl;
 
-      fout << "state "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_state << std::endl;
+      fout << "state "<< std::dec << (sc_dt::sc_bigint<16>)pdp_inst.pdp_pdp_state << std::endl;
 
       wait(10, SC_NS);
     }
