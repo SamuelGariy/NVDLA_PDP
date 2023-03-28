@@ -476,7 +476,7 @@ namespace ilang
                 auto curr = Ite(less_than, sign_ext_input, BvConst(0, PDP_INT_16_WIDTH));
                 sum = curr + sum;
             }
-            sum = Ite(SelectBit(15) == 1, neg_to_pos(sum),sum);
+            sum = Ite(SelectBit(sum,15) == 1, neg_to_pos(sum),sum);
             auto mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (sum / ZExt(kernel_size,PDP_INT_16_WIDTH)), BvConst(512, PDP_INT_16_WIDTH));
             instr.SetUpdate(m.state("pdp_output"), mean);
             instr.SetUpdate(m.state("pdp2csb_data_vld"), SIG_TRUE);
