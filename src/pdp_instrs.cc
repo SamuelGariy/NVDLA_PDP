@@ -36,18 +36,20 @@ namespace ilang
     {
         auto bv = BvConst(0,1);
         
-        auto carry = BoolConst(true);
+        //auto carry = BoolConst(true);
         for (int i = 0; i < PDP_INT_16_WIDTH; i++) {
             
-            auto new_bit = Ite(SelectBit(num,i) == 0 & carry,BvConst(1,1),Ite(SelectBit(num,i) == 1 & carry,BvConst(0,1),SelectBit(num,i)));
+            //auto new_bit = Ite(SelectBit(num,i) == 0 & carry,BvConst(1,1),Ite(SelectBit(num,i) == 1 & carry,BvConst(0,1),SelectBit(num,i)));
+            new_bit = Ite(SelectBit(num,i) == 0,BvConst(1,1) ,BvConst(0,1))
             bv = bv.Append(new_bit);
             
              //SelectBit(bv,i) = Ite(SelectBit(num,i) == 0 & carry,BvConst(1,1),Ite(SelectBit(num,i) == 1 & carry,BvConst(0,1),SelectBit(num,i)));
             carry = Ite(SelectBit(num,i) == 0 & carry,BoolConst(false),carry);
         }
        // auto bv_16= Extract(bv,bv.bit_width(),1);
-        //return Extract(bv,16,1);
-        return bv;
+        auto bv_16 = Extract(bv,16,1);
+        bv_16 = bv_16 + 1;
+        return bv_16;
     }
 
 
@@ -484,11 +486,11 @@ namespace ilang
                 sum = curr + sum;
             }
             auto pos_sum = neg_to_pos(sum);
-            auto bv_2 = Extract(pos_sum,16,1);
+           
             
          //   sum = Ite(SelectBit(sum,15) == 1, bv_2,sum);
             auto mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (sum / ZExt(kernel_size,PDP_INT_16_WIDTH)), BvConst(512, PDP_INT_16_WIDTH));
-            instr.SetUpdate(m.state("pdp_output"), bv_2);
+            instr.SetUpdate(m.state("pdp_output"), pos_sum);
             instr.SetUpdate(m.state("pdp2csb_data_vld"), SIG_TRUE);
 
             instr.SetUpdate(m.state("pdp_state"), Ite(m.input("pdp_last_input_batch") == BoolConst(true), START, MEANPOOL));
