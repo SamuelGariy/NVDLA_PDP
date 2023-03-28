@@ -497,7 +497,7 @@ namespace ilang
 
             auto mean = Ite(SelectBit(sum,15) == 1, neg_mean,pos_mean);
 
-            instr.SetUpdate(m.state("pdp_output"), pos_sum);
+            instr.SetUpdate(m.state("pdp_output"), mean);
             instr.SetUpdate(m.state("pdp2csb_data_vld"), SIG_TRUE);
 
             instr.SetUpdate(m.state("pdp_state"), Ite(m.input("pdp_last_input_batch") == BoolConst(true), START, MEANPOOL));
