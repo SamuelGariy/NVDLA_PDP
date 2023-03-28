@@ -34,17 +34,17 @@ namespace ilang
     // Return positive representation of int16
     ExprRef neg_to_pos(ExprRef num)
     {
-        auto bv = BvConst(1,PDP_INT_16_WIDTH).get();
+        auto bv_ptr = BvConst(1,PDP_INT_16_WIDTH).get();
      
         auto carry = BoolConst(true);
         for (int i = 0; i < PDP_INT_16_WIDTH; i++) {
            
-            SelectBit(ExprRef(bv),i)  = Ite(SelectBit(num,i) == 0 & carry,BvConst(1,1),Ite(SelectBit(num,i) == 1 & carry,BvConst(0,1),SelectBit(num,i)));
-  
+            SelectBit(ExprRef(bv_ptr),i)  = Ite(SelectBit(num,i) == 0 & carry,BvConst(1,1),Ite(SelectBit(num,i) == 1 & carry,BvConst(0,1),SelectBit(num,i)));
+            bv_ptr = bv_ptr.get();
              //SelectBit(bv,i) = Ite(SelectBit(num,i) == 0 & carry,BvConst(1,1),Ite(SelectBit(num,i) == 1 & carry,BvConst(0,1),SelectBit(num,i)));
             carry = Ite(SelectBit(num,i) == 0 & carry,BoolConst(false),carry);
-    }
-        return ExprRef(bv);
+        }
+        return ExprRef(bv_ptr);
     }
 
 
