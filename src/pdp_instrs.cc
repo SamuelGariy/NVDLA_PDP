@@ -485,7 +485,7 @@ namespace ilang
             auto pos_sum = neg_to_pos(sum);
             auto bv_2 = Extract(pos_sum,16,1);
             
-            sum = Ite(SelectBit(sum,15) == 1, Extract(pos_sum,16,1),sum);
+            sum = Ite(SelectBit(sum,15) == 1, bv_2,sum);
             auto mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (sum / ZExt(kernel_size,PDP_INT_16_WIDTH)), BvConst(512, PDP_INT_16_WIDTH));
             instr.SetUpdate(m.state("pdp_output"), mean);
             instr.SetUpdate(m.state("pdp2csb_data_vld"), SIG_TRUE);
