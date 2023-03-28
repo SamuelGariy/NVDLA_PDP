@@ -34,19 +34,26 @@ namespace ilang
     // Return positive representation of int16
     ExprRef neg_to_pos(ExprRef num)
     {
-        auto bv = BvConst(0,1);
-        
-        //auto carry = BoolConst(true);
-        //for (int i = 0; i < PDP_INT_16_WIDTH; i++) {
+       auto bv = BvConst(0,1);
         for (int i = PDP_INT_16_WIDTH - 1; i >= 0 ; i--) {    
-            //auto new_bit = Ite(SelectBit(num,i) == 0 & carry,BvConst(1,1),Ite(SelectBit(num,i) == 1 & carry,BvConst(0,1),SelectBit(num,i)));
             auto new_bit = Ite(SelectBit(num,i) == 0,BvConst(1,1) ,BvConst(0,1));
             bv = bv.Append(new_bit);
-            
-             //SelectBit(bv,i) = Ite(SelectBit(num,i) == 0 & carry,BvConst(1,1),Ite(SelectBit(num,i) == 1 & carry,BvConst(0,1),SelectBit(num,i)));
-            //carry = Ite(SelectBit(num,i) == 0 & carry,BoolConst(false),carry);
         }
-       // auto bv_16= Extract(bv,bv.bit_width(),1);
+
+        auto bv_16 = Extract(bv,15,0);
+        bv_16 = bv_16 + 1;
+        return bv_16;;
+    }
+
+    // Return negative representation of int16
+     ExprRef pos_to_neg(ExprRef num)
+    {
+        auto bv = BvConst(0,1);
+        for (int i = PDP_INT_16_WIDTH - 1; i >= 0 ; i--) {    
+            auto new_bit = Ite(SelectBit(num,i) == 0,BvConst(1,1) ,BvConst(0,1));
+            bv = bv.Append(new_bit);
+        }
+
         auto bv_16 = Extract(bv,15,0);
         bv_16 = bv_16 + 1;
         return bv_16;
@@ -485,11 +492,11 @@ namespace ilang
                 auto curr = Ite(less_than, sign_ext_input, BvConst(0, PDP_INT_16_WIDTH));
                 sum = curr + sum;
             }
-            auto pos_sum = neg_to_pos(sum);
-           
-            
-         //   sum = Ite(SelectBit(sum,15) == 1, bv_2,sum);
-            auto mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (sum / ZExt(kernel_size,PDP_INT_16_WIDTH)), BvConst(512, PDP_INT_16_WIDTH));
+            auto neg_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), ((pos_to_neg(neg_to_pos(sum) / ZExt(kernel_size,PDP_INT_16_WIDTH))), BvConst(512, PDP_INT_16_WIDTH));
+            auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (sum / ZExt(kernel_size,PDP_INT_16_WIDTH)), BvConst(512, PDP_INT_16_WIDTH));
+
+            auto mean = Ite(SelectBit(sum,15) == 1, neg_mean,pos_mean);
+
             instr.SetUpdate(m.state("pdp_output"), pos_sum);
             instr.SetUpdate(m.state("pdp2csb_data_vld"), SIG_TRUE);
 
