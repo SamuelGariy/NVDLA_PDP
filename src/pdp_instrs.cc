@@ -440,7 +440,7 @@ namespace ilang
                 auto less_than =  Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < ZExt(kernel_size,PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
                 auto curr = Ite(less_than, sign_ext_input, BvConst(512, PDP_INT_16_WIDTH));
 
-                min = Ite(less_than,Ite(Slt(curr,min),curr,min),min);
+                min = Ite(less_than,Ite(Sgt(min,curr),curr,min),min);
                 // min = Ite((SelectBit(curr, 15) == 1) & max_changed, BvConst(0, PDP_INT_16_WIDTH), max);
 
             }
