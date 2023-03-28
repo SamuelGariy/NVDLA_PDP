@@ -37,8 +37,8 @@ namespace ilang
         auto bv = BvConst(0,1);
         
         //auto carry = BoolConst(true);
-        for (int i = 0; i < PDP_INT_16_WIDTH; i++) {
-            
+        //for (int i = 0; i < PDP_INT_16_WIDTH; i++) {
+        for (int i = PDP_INT_16_WIDTH - 1; i >= 0 ; i--) {    
             //auto new_bit = Ite(SelectBit(num,i) == 0 & carry,BvConst(1,1),Ite(SelectBit(num,i) == 1 & carry,BvConst(0,1),SelectBit(num,i)));
             auto new_bit = Ite(SelectBit(num,i) == 0,BvConst(1,1) ,BvConst(0,1));
             bv = bv.Append(new_bit);
@@ -47,7 +47,7 @@ namespace ilang
             //carry = Ite(SelectBit(num,i) == 0 & carry,BoolConst(false),carry);
         }
        // auto bv_16= Extract(bv,bv.bit_width(),1);
-        auto bv_16 = Extract(bv,16,1);
+        auto bv_16 = Extract(bv,15,0);
         bv_16 = bv_16 + 1;
         return bv_16;
     }
