@@ -34,10 +34,14 @@ namespace ilang
     // Return positive representation of int16
     ExprRef neg_to_pos(ExprRef num)
     {
-        auto bv = BvConst(0,PDP_INT_16_WIDTH);
+        auto bv;
+     
         auto carry = BoolConst(true);
         for (int i = 0; i < PDP_INT_16_WIDTH; i++) {
-             SelectBit(bv,i) = Ite(SelectBit(num,i) == 0 & carry,BvConst(1,1),Ite(SelectBit(num,i) == 1 & carry,BvConst(0,1),SelectBit(num,i)));
+           
+            auto new_bit  = Ite(SelectBit(num,i) == 0 & carry,BvConst(1,1),Ite(SelectBit(num,i) == 1 & carry,BvConst(0,1),SelectBit(num,i)));
+            bv = Concat(bv,new_bit);
+             //SelectBit(bv,i) = Ite(SelectBit(num,i) == 0 & carry,BvConst(1,1),Ite(SelectBit(num,i) == 1 & carry,BvConst(0,1),SelectBit(num,i)));
              carry = Ite(SelectBit(num,i) == 0 & carry,BoolConst(false),carry);
     }
         return bv;
