@@ -37,16 +37,8 @@ namespace ilang
         auto bv = BvConst(0,PDP_INT_16_WIDTH);
         auto carry = BoolConst(true);
         for (int i = 0; i < PDP_INT_16_WIDTH; i++) {
-            if (SelectBit(num,i) == 0 & carry) {
-                SelectBit(bv,i) = 1;
-                carry = BoolConst(false);
-            }
-            else if (SelectBit(num,i) == 1 & carry) {
-                SelectBit(bv,i) = 0;
-            }
-            else {
-                SelectBit(bv,i) = SelectBit(num,i);
-            }
+             SelectBit(bv,i) = Ite(SelectBit(num,i) == 0 & carry,BvConst(1,1),Ite(SelectBit(num,i) == 1 & carry,BvConst(0,1),SelectBit(num,i)));
+             carry = Ite(SelectBit(num,i) == 0 & carry,false,carry);
     }
         return bv;
     }
