@@ -31,13 +31,26 @@
 namespace ilang
 {
 
-    // Return 16-bit representation of int8
-    ExprRef int8_to_int16(ExprRef num)
+    // Return positive representation of int16
+    ExprRef neg_to_pos(ExprRef num)
     {
-        auto bv7_unsigned = num & BvConst(0x7F, PDP_INT_16_WIDTH);
-        auto bv = Ite(SelectBit(num, 7) == 0, bv7_unsigned, bv7_unsigned | BvConst(0xFF80, PDP_INT_16_WIDTH));
+        auto bv = BvConst(0,PDP_INT_16_WIDTH);
+        auto carry = BoolConst(true);
+        for (int i = 0; i < PDP_INT_16_WIDTH; i++) {
+            if (SelectBit(num,i) == 0 & carry) {
+                SelectBit(bv,i) = 1;
+                carry = BoolConst(false);
+            }
+            else if (SelectBit(num,i) == 1 & carry) {
+                SelectBit(bv,i) = 0;
+            }
+            else {
+                SelectBit(bv,i) = SelectBit(num,i);
+            }
+    }
         return bv;
     }
+
 
     // Define PDP instructions relevant to configuration registers
     void DefinePDPInstrs(Ila &m)
@@ -471,6 +484,9 @@ namespace ilang
                 auto curr = Ite(less_than, sign_ext_input, BvConst(0, PDP_INT_16_WIDTH));
                 sum = curr + sum;
             }
+            int dividend_int = (dividend[15] == 1) ? -1 * (int)(dividend.flip().to_ulong() + 1) : (int)dividend.to_ulong();
+            int divisor_int = (divisor[7] == 1) ? -1 * (int)(divisor.flip().to_ulong() + 1) : (int)divisor.to_ulong();
+
 
             auto mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (sum / ZExt(kernel_size,PDP_INT_16_WIDTH)), BvConst(512, PDP_INT_16_WIDTH));
             instr.SetUpdate(m.state("pdp_output"), mean);
