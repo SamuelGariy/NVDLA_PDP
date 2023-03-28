@@ -44,9 +44,9 @@ namespace ilang
              //SelectBit(bv,i) = Ite(SelectBit(num,i) == 0 & carry,BvConst(1,1),Ite(SelectBit(num,i) == 1 & carry,BvConst(0,1),SelectBit(num,i)));
             carry = Ite(SelectBit(num,i) == 0 & carry,BoolConst(false),carry);
         }
-        auto bv_16= Extract(bv,bv.bit_width(),1);
+       // auto bv_16= Extract(bv,bv.bit_width(),1);
         //return Extract(bv,16,1);
-        return bv_16;
+        return bv;
     }
 
 
