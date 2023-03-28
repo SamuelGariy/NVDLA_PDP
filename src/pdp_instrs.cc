@@ -492,7 +492,7 @@ namespace ilang
                 auto curr = Ite(less_than, sign_ext_input, BvConst(0, PDP_INT_16_WIDTH));
                 sum = curr + sum;
             }
-            auto neg_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), ((pos_to_neg(neg_to_pos(sum) / ZExt(kernel_size,PDP_INT_16_WIDTH))), BvConst(512, PDP_INT_16_WIDTH));
+            auto neg_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (pos_to_neg(neg_to_pos(sum) / ZExt(kernel_size,PDP_INT_16_WIDTH))), BvConst(512, PDP_INT_16_WIDTH));
             auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (sum / ZExt(kernel_size,PDP_INT_16_WIDTH)), BvConst(512, PDP_INT_16_WIDTH));
 
             auto mean = Ite(SelectBit(sum,15) == 1, neg_mean,pos_mean);
