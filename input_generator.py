@@ -1,3 +1,4 @@
+import math
 import random
 import json
 import sys
@@ -39,7 +40,7 @@ def generate_input_and_solutions(Op, n_arrays, dtype, kernel_height, kernel_widt
             solutions.append(np.min(arr))
             pooling_method = 2
         elif Op == "mean":
-            solutions.append(np.mean(arr))
+            solutions.append(math.floor(sum(arr) / len(arr)))
             pooling_method = 0
 
     prologue = '''
