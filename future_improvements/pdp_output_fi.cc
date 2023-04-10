@@ -22,7 +22,7 @@
 // SOFTWARE.
 // =============================================================================
 
-// File: pdp_input.cc
+// File: pdp_output.cc
 
 #include <ilang/ilang++.h>
 
@@ -31,31 +31,19 @@
 namespace ilang
 {
 
-    void DefinePDPInput(Ila &m)
-    {
-        // /****************************************************************************/
-        // // ********************** FROM CSB ******************************************//
-        // /***************************************************************************/
-        m.NewBvInput("csb2pdp_addr", 16);
-        m.NewBvInput("csb2pdp_data", 32);
-        m.NewBvInput("csb2pdp_write", 1); // 0 - read request; 1  write request
-        m.NewBvInput("csb2pdp_vld", 1);
+  // Define PDP outputs
+  void DefinePDPOutput(Ila &m)
+  {
 
-        // /****************************************************************************/
-        // // ********************* INPUT DATA FROM SDP or PDMA*************************//
-        // /***************************************************************************/
+    // /****************************************************************************/
+    // // ********************** TO CSB ******************************************//
+    // /***************************************************************************/
 
-        // single kernel input
+    m.NewBvState("pdp2csb_rdy", 1);
+    m.NewBvState("pdp2csb_data_vld", 1); // true when output is valid
 
-        for (auto i = 0; i < PDP_INPUT_MAX; i++)
-        {
-
-            m.NewBvInput(GetVarName("pdp_input_", (std::to_string(i))), PDP_INT_16_WIDTH);
-        }
-
-        // Control Signals
-        m.NewBoolInput("pdp_input_vld"); // is the input valid
-        m.NewBoolInput("pdp_last_input_batch"); // is it last pdp input
-    }
+    // to RAM
+    m.NewMemState("pdp_output", PDP_OUTPUT_ADDR_WIDTH, PDP_INT_16_WIDTH); // 2^13- holds 8191 output
+  }
 
 } // namespace ilang

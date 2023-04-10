@@ -1,7 +1,7 @@
 // =============================================================================
 // MIT License
 //
-// Copyright (c) 2022 Princeton University
+// Copyright (c) 2019 Princeton University
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,28 +22,35 @@
 // SOFTWARE.
 // =============================================================================
 
-// File: pdp_output.cc
+// File: pdp_top.cc
 
-#include <ilang/ilang++.h>
+#include <pdp.h>
 
-#include <pdp_config.h>
+namespace ilang {
 
-namespace ilang
-{
+Ila GetPDPIla(const std::string& model_name) {
+    auto m = Ila(model_name);
 
-  // Define PDP outputs
-  void DefinePDPOutput(Ila &m)
-  {
+    SetUnsignedComparison(true);
+    
+    //
+    // Interface Signals
+    //
+    DefinePDPInput(m);
+    DefinePDPOutput(m);
 
-    // /****************************************************************************/
-    // // ********************** TO CSB ******************************************//
-    // /***************************************************************************/
+    //
+    // Arch States
+    //
+    DefinePDPState(m);
 
-    m.NewBvState("pdp2csb_rdy", 1);
-    m.NewBvState("pdp2csb_data_vld", 1); // true when output is valid
+    //
+    // Instructions
+    //
+    // Config Instructions
+    DefinePDPInstrs(m);
 
-    // to RAM
-    m.NewBvState("pdp_output", PDP_INT_16_WIDTH);
-  }
+    return m;
+}
 
 } // namespace ilang

@@ -143,8 +143,7 @@ def main():
     print("done")
 
 
-# generate random inputs and store in user specified file along with results - dtype feature_no. instr.out
-# take in input file and generate output - dtype feature_no
+# generate random inputs and store in user specified file along with results 
 
 if __name__ == "__main__":
     main()

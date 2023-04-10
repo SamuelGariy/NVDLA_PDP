@@ -26,7 +26,7 @@
 
 #include <ilang/ilang++.h>
 
-#include <pdp_config.h>
+#include <pdp_config_fi.h>
 
 namespace ilang
 {
@@ -45,11 +45,9 @@ namespace ilang
         // // ********************* INPUT DATA FROM SDP or PDMA*************************//
         // /***************************************************************************/
 
-        // single kernel input
-
+        // input one row along cubes width
         for (auto i = 0; i < PDP_INPUT_MAX; i++)
         {
-
             m.NewBvInput(GetVarName("pdp_input_", (std::to_string(i))), PDP_INT_16_WIDTH);
         }
 
