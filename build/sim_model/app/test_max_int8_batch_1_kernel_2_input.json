@@ -41,9 +41,9 @@
 			"instr No.": 4, 
 			"pdp_pdp_last_input_batch": true, 
 			"pdp_pdp_input_vld": true, 
-			"pdp_pdp_input_0": 27, 
-			"pdp_pdp_input_1": 118, 
-			"pdp_pdp_input_2": 124, 
+			"pdp_pdp_input_0": -27, 
+			"pdp_pdp_input_1": -118, 
+			"pdp_pdp_input_2": -124, 
 			"pdp_pdp_input_3": -95 
 		}
 
