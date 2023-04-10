@@ -467,7 +467,7 @@ bool local_var_392 = (local_var_390 < local_var_391);
 bool local_var_393 = true;
 bool local_var_394 = false;
 auto local_var_395 = (local_var_392) ? local_var_393 : local_var_394;
-sc_biguint<16> local_var_396 = 0;
+sc_biguint<16> local_var_396 = 65280;
 auto local_var_398 = (pdp_pdp_input_0[15] == 1) ? (~pdp_pdp_input_0) : pdp_pdp_input_0;
 local_var_398 = (pdp_pdp_input_0[15] == 1) ? (~local_var_398) : local_var_398;
 sc_biguint<16> local_var_399 = 0;
