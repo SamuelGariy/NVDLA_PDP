@@ -26,7 +26,7 @@
 
 #include <ilang/ilang++.h>
 
-#include <pdp_config_fi.h>
+#include <pdp_config.h>
 
 namespace ilang
 {
