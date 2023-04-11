@@ -295,6 +295,9 @@ namespace ilang
 #define SIG_FALSE BvConst(0,1)
 #define SIG_TRUE BvConst(1,1)
 
+// INT16 
+#define MAX_INT16 32767
+#define MIN_INT16 32768
 
 } // namespace ilang
 
