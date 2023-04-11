@@ -498,12 +498,12 @@ namespace ilang
             }
             
            //auto neg_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), pos_to_neg((neg_to_pos(sum) / ZExt(kernel_size,32))), BvConst(0, 32));
-        auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (sum / ZExt(kernel_size,32)), BvConst(0, 32));
+        auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (sum * (1/ZExt(kernel_size,32))), BvConst(0, 32));
         auto neg_mean = sum;
        // auto pos_mean = sum;
 
 
-           auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,31,PDP_INT_16_WIDTH),Extract(pos_mean,31,PDP_INT_16_WIDTH));
+           auto mean = Ite(SelectBit(sum,31) == 1, Extract(neg_mean,PDP_INT_16_WIDTH-1,0),Extract(pos_mean,PDP_INT_16_WIDTH-1,0));
 
            instr.SetUpdate(m.state("pdp_output"), mean);
             instr.SetUpdate(m.state("pdp2csb_data_vld"), SIG_TRUE);
