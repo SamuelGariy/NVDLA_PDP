@@ -503,7 +503,7 @@ namespace ilang
        // auto pos_mean = sum;
 
 
-           auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,PDP_INT_16_WIDTH-1,0),Extract(pos_mean,PDP_INT_16_WIDTH-1,0));
+           auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,32,PDP_INT_16_WIDTH-1),Extract(pos_mean,32,PDP_INT_16_WIDTH-1));
 
            instr.SetUpdate(m.state("pdp_output"), mean);
             instr.SetUpdate(m.state("pdp2csb_data_vld"), SIG_TRUE);
