@@ -419,14 +419,14 @@ namespace ilang
             auto data_format = m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_FORMAT));
             auto kernel_size = ZExt(kernel_height,PDP_INT_16_WIDTH) * ZExt(kernel_width,PDP_INT_16_WIDTH);
 
-            auto max = BvConst(65280, PDP_INT_16_WIDTH);
+            auto max = BvConst(MIN_INT16, PDP_INT_16_WIDTH);
 
             for (auto kernel_j = 0; kernel_j < PDP_INPUT_MAX; kernel_j++)
             {
                 auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(kernel_j))));
                 auto sign_ext_input = SExt(input_in, PDP_INT_16_WIDTH);
                 auto less_than =  Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < ZExt(kernel_size,PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
-                auto curr = Ite(less_than, sign_ext_input, BvConst(0, PDP_INT_16_WIDTH));
+                auto curr = Ite(less_than, sign_ext_input, BvConst(MIN_INT16, PDP_INT_16_WIDTH));
                 auto diff = max - curr;
                 max = Ite(less_than,Ite(SelectBit(diff, 15) == 0,max,curr),max);
             }
@@ -448,7 +448,7 @@ namespace ilang
             auto data_format = m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_FORMAT));
             auto kernel_size = ZExt(kernel_height,PDP_INT_16_WIDTH) * ZExt(kernel_width,PDP_INT_16_WIDTH);
 
-            auto min = BvConst(255, PDP_INT_16_WIDTH);
+            auto min = BvConst(MAX_INT16, PDP_INT_16_WIDTH);
 
             for (auto kernel_j = 0; kernel_j < PDP_INPUT_MAX; kernel_j++)
             {
@@ -456,7 +456,7 @@ namespace ilang
                 auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(kernel_j))));
                 auto sign_ext_input = SExt(input_in, PDP_INT_16_WIDTH);
                 auto less_than =  Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < ZExt(kernel_size,PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
-                auto curr = Ite(less_than, sign_ext_input, BvConst(512, PDP_INT_16_WIDTH));
+                auto curr = Ite(less_than, sign_ext_input, BvConst(MAX_INT16, PDP_INT_16_WIDTH));
 
                 auto diff = min - curr;
                 min = Ite(less_than,Ite(SelectBit(diff, 15) == 0,curr,min),min);
