@@ -464,7 +464,7 @@ namespace ilang
                 auto min_pos = Ite(SelectBit(min, 15) == 0, BoolConst(true), BoolConst(false));
                 auto curr_pos = Ite(SelectBit(curr, 15) == 0, BoolConst(true), BoolConst(false));
 
-                max = Ite(less_than,Ite(min_pos & !curr_pos,curr,Ite(curr_pos & !min_pos,min, Ite(SelectBit(diff, 15) == 0,curr,min))),min);
+                min = Ite(less_than,Ite(min_pos & !curr_pos,curr,Ite(curr_pos & !min_pos,min, Ite(SelectBit(diff, 15) == 0,curr,min))),min);
 
             }
 
