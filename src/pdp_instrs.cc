@@ -490,17 +490,17 @@ namespace ilang
             for (int kernel_j = 0; kernel_j < PDP_INPUT_MAX; kernel_j++)
             {
                 auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(kernel_j))));
-              auto sign_ext_input = SExt(input_in, 32);
+                auto sign_ext_input = SExt(input_in, 32);
                 auto less_than =  Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < ZExt(kernel_size,PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
 
-               auto curr = Ite(less_than, sign_ext_input, BvConst(0, 32));
+                 auto curr = Ite(less_than, sign_ext_input, BvConst(0, 32));
                 sum = curr + sum;
             }
             
            auto neg_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), pos_to_neg((neg_to_pos(sum) / ZExt(kernel_size,32))), BvConst(0, 32));
            auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (sum / ZExt(kernel_size,32)), BvConst(0, 32));
 
-           auto mean = Ite(SelectBit(sum,15) == 1, Extract(neg_mean,PDP_INT_16_WIDTH-1,0),Extract(pos_mean,PDP_INT_16_WIDTH-1,0));
+           auto mean = Ite(SelectBit(sum,31) == 1, Extract(neg_mean,PDP_INT_16_WIDTH-1,0),Extract(pos_mean,PDP_INT_16_WIDTH-1,0));
 
            instr.SetUpdate(m.state("pdp_output"), mean);
             instr.SetUpdate(m.state("pdp2csb_data_vld"), SIG_TRUE);
