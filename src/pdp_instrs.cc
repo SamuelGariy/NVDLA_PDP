@@ -504,7 +504,7 @@ namespace ilang
         auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (sum * (BvConst(1,32)/kernel_size_32)), BvConst(0, 32));
 
 
-           auto mean = Ite(SelectBit(sum,31) == 1, Extract(neg_mean,PDP_INT_16_WIDTH-1,0),Extract(pos_mean,PDP_INT_16_WIDTH-1,0));
+           auto mean = Ite(SelectBit(sum,31) == 1, Extract(kernel_size_32,PDP_INT_16_WIDTH-1,0),Extract(kernel_size_32,PDP_INT_16_WIDTH-1,0));
 
            instr.SetUpdate(m.state("pdp_output"), mean);
             instr.SetUpdate(m.state("pdp2csb_data_vld"), SIG_TRUE);
