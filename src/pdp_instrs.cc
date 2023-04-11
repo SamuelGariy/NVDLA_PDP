@@ -40,7 +40,7 @@ namespace ilang
             bv = bv.Append(new_bit);
         }
 
-        auto bv_16 = Extract(bv,32,0);
+        auto bv_16 = Extract(bv,31,0);
         bv_16 = bv_16 + 1;
         return bv_16;;
     }
@@ -497,11 +497,11 @@ namespace ilang
                 sum = curr + sum;
             }
             auto neg_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), pos_to_neg(Extract((neg_to_pos(sum) / ZExt(kernel_size,32)),PDP_INT_16_WIDTH-1,0)), BvConst(0, PDP_INT_16_WIDTH));
-          //  auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), Extract((sum / ZExt(kernel_size,32)),PDP_INT_16_WIDTH -1, 0), BvConst(0, PDP_INT_16_WIDTH));
+           auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), Extract((sum / ZExt(kernel_size,32)),PDP_INT_16_WIDTH -1, 0), BvConst(0, PDP_INT_16_WIDTH));
 
-          //  auto mean = Ite(SelectBit(sum,15) == 1, neg_mean,pos_mean);
+           auto mean = Ite(SelectBit(sum,15) == 1, neg_mean,pos_mean);
 
-         //   instr.SetUpdate(m.state("pdp_output"), mean);
+           instr.SetUpdate(m.state("pdp_output"), mean);
             instr.SetUpdate(m.state("pdp2csb_data_vld"), SIG_TRUE);
 
             
