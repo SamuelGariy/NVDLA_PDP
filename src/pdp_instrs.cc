@@ -60,34 +60,30 @@ namespace ilang
     // }
 
 
-//     ExprRef divide(ExprRef dividend, ExprRef divisor)
-// {
-//     auto quotient = BvConst(0,32);
-//     auto i = BvConst(0,32);
-//     int k = 0;
-//     // Determine the most significant bit of the divisor
-//     for (k = 6; k >= 0; k--) // kernel is at max 7 bits wide = 64
-//     {
-//         i = Ite(SelectBit(divisor,k) == 1,BvConst(k,32),i);
-//     }
+ExprRef divide(ExprRef dividend, ExprRef divisor)
+{
+    // Get the two's complement of the number
+    auto twos_complement = twos_complement(divisor);
 
-//     // Convert negative dividend to positive
-//     dividend = Ite(SelectBit(dividend,31) == 1,2s_complement(dividend,32),dividend);
+    // Start off the quotient with the dividend
+    auto quotient = dividend;
+    auto remainder = 0;
 
-//     // Perform binary division
-//     for (int j = 31; j >= i; j--)
-//     {
-//         quotient = quotient << BvConst(1,32);
-//         auto rshift_dividend = Lshr(dividend,BvConst(j,32));
-//         quotient = Ite(SelectBit(dividend,j) == 1, quotient | BvConst(1,32), quotient);
-//         quotient = Ite((quotient & (BvConst(1,32) << i)) != BvConst(0,32),quotient^divisor,quotient);
-//     }
+    // Loop through the number of bits in the number (32)
+    for (int i = 0; i < 32; i++)
+    {
+        auto carry = Lshr(quotient,BvConst(31,32));
+        quotient = quotient << BvConst(1,32);
+        remainder = remainder << BvConst(1,32);
+        remainder = remainder | carry;
 
-//     // If  the dividend  is negative, the quotient must be negated
-//     quotient =  Ite((SelectBit(dividend,31) == 1),2s_complement(quotient),quotient);
+        auto test = (remainder) + twos_complement;
 
-//     return quotient;
-// }
+        remainder = Ite((test & BvConst(0x80000000,32)) == BvConst(0,32),test,remainder);
+        quotient = Ite((test & BvConst(0x80000000,32)) == BvConst(0,32), quotient | BvConst(1,32),quotient);
+    }
+    return quotient;
+}
 
 
     // Define PDP instructions relevant to configuration registers
@@ -534,7 +530,9 @@ namespace ilang
      //   auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), pos_to_neg((neg_to_pos(sum) / ZExt(kernel_size,32))), BvConst(0, 32));
       //  auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), pos_to_neg((neg_to_pos(sum) / BvConst(2,32))), BvConst(0, 32));
        // auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (divide(sum,BvConst(2, 32))), BvConst(0, 32));
-        auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (twos_complement(sum,32)/kernel_size_32), BvConst(0, 32));
+       // auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (twos_complement(sum,32)/kernel_size_32), BvConst(0, 32));
+     auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), divide(sum,kernel_size_32), BvConst(0, 32));
+
           //  pos_mean =  pos_mean << BvConst(16, 32);
          //  auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,PDP_INT_16_WIDTH-1,0),Extract(pos_mean,PDP_INT_16_WIDTH-1,0));
          //  auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,31,16),Extract(pos_mean,31,16));
@@ -549,4 +547,4 @@ namespace ilang
         }
     }
 
-} // namespace ilang 2147483648
+} // namespace ilang 
