@@ -60,34 +60,34 @@ namespace ilang
     // }
 
 
-    ExprRef divide(ExprRef dividend, ExprRef divisor)
-{
-    auto quotient = BvConst(0,32);
-    auto i = BvConst(0,32);
+//     ExprRef divide(ExprRef dividend, ExprRef divisor)
+// {
+//     auto quotient = BvConst(0,32);
+//     auto i = BvConst(0,32);
+//     int k = 0;
+//     // Determine the most significant bit of the divisor
+//     for (k = 6; k >= 0; k--) // kernel is at max 7 bits wide = 64
+//     {
+//         i = Ite(SelectBit(divisor,k) == 1,BvConst(k,32),i);
+//     }
 
-    // Determine the most significant bit of the divisor
-    for (int k = 6; k >= 0; k--) // kernel is at max 7 bits wide = 64
-    {
-        i = Ite(SelectBit(divisor,i) == 1,BvConst(i,32),i);
-    }
+//     // Convert negative dividend to positive
+//     dividend = Ite(SelectBit(dividend,31) == 1,2s_complement(dividend,32),dividend);
 
-    // Convert negative dividend to positive
-    dividend = Ite(SelectBit(dividend,31) == 1,2s_complement(dividend,32),dividend);
+//     // Perform binary division
+//     for (int j = 31; j >= i; j--)
+//     {
+//         quotient = quotient << BvConst(1,32);
+//         auto rshift_dividend = Lshr(dividend,BvConst(j,32));
+//         quotient = Ite(SelectBit(dividend,j) == 1, quotient | BvConst(1,32), quotient);
+//         quotient = Ite((quotient & (BvConst(1,32) << i)) != BvConst(0,32),quotient^divisor,quotient);
+//     }
 
-    // Perform binary division
-    for (int j = 31; j >= i; j--)
-    {
-        quotient = quotient << BvConst(1,32);
-        auto rshift_dividend = Lshr(dividend,BvConst(j,32));
-        quotient = Ite(SelectBit(dividend,j) == 1, quotient | BvConst(1,32), quotient);
-        quotient = Ite((quotient & (BvConst(1,32) << i)) != BvConst(0,32),quotient^divisor,quotient);
-    }
+//     // If  the dividend  is negative, the quotient must be negated
+//     quotient =  Ite((SelectBit(dividend,31) == 1),2s_complement(quotient),quotient);
 
-    // If  the dividend  is negative, the quotient must be negated
-    quotient =  Ite((SelectBit(dividend,31) == 1),2s_complement(quotient),quotient);
-
-    return quotient;
-}
+//     return quotient;
+// }
 
 
     // Define PDP instructions relevant to configuration registers
