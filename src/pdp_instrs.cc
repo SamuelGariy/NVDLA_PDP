@@ -622,7 +622,7 @@ ExprRef add(ExprRef a, ExprRef b)
          //  auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,PDP_INT_16_WIDTH-1,0),Extract(pos_mean,PDP_INT_16_WIDTH-1,0));
          //  auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,31,16),Extract(pos_mean,31,16));
          //auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,PDP_INT_16_WIDTH-1,0),Extract(pos_mean,PDP_INT_16_WIDTH-1,0));
-         auto mean = Extract(sum,21,16);
+         auto mean = Extract(sum,21,6);
          //auto mean = pos_mean;
 
            instr.SetUpdate(m.state("pdp_output"), mean);
