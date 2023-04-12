@@ -33,35 +33,38 @@ namespace ilang
 
 
 
-ExprRef add(ExprRef a, ExprRef b)
- {
- auto result = BvConst(0,33);
-  result = ZExt(a,33) + ZExt(b,33);
-  auto final_result = BvConst(0,32);
-  final_result = Extract(result,31,0);
- 
-   return final_result;
-}
-
-
-//     // Sum of 2s complement
 // ExprRef add(ExprRef a, ExprRef b)
 //  {
-//     auto carry = BvConst(0,2);
-//     auto result = BvConst(0,32);
-//     //result[32] = '\0';
-//         auto bv = BvConst(0,1);
-//     for (int i = 31; i >= 0 ; i--) {
-//         auto bit_a = SelectBit(a,i); 
-//         auto bit_b = SelectBit(b,i); 
-//         auto bits_xor = ZExt(bit_a,2) ^ ZExt(bit_b,2);
-//         auto bits_and = ZExt(bit_a,2) & ZExt(bit_b,2);
-//         auto sum = bits_xor ^ carry;
+//  auto result = BvConst(0,33);
+//   result = ZExt(a,33) + ZExt(b,33);
+//   auto final_result = BvConst(0,32);
+//   final_result = Extract(result,31,0);
+ 
+//    return final_result;
+// }
 
-//         auto new_bit = Ite(sum == BvConst(0,2) | sum == BvConst(2,2) ,BvConst(0,1),BvConst(1,1));
-//         carry = bits_and | (bits_xor & carry);
-//         bv = bv.Append(new_bit);
-//         }
+
+    // Sum of 2s complement
+ExprRef add(ExprRef a, ExprRef b)
+ {
+    auto carry = BvConst(0,2);
+    auto result = BvConst(0,32);
+    //result[32] = '\0';
+        auto bv = BvConst(0,1);
+    for (int i = 0; i < 32 ; i++) {
+        auto bit_a = SelectBit(a,i); 
+        auto bit_b = SelectBit(b,i); 
+        auto bits_xor = ZExt(bit_a,2) ^ ZExt(bit_b,2);
+        auto bits_and = ZExt(bit_a,2) & ZExt(bit_b,2);
+        auto sum = bits_xor ^ carry;
+
+        auto new_bit = Ite(sum == BvConst(0,2) | sum == BvConst(2,2) ,BvConst(0,1),BvConst(1,1));
+        carry = bits_and | (bits_xor & carry);
+        bv = bv.Append(new_bit);
+        }
+        auto bv_32 = Extract(bv,31,0);
+        return bv_32;
+ }
 //     for (int i = 31; i >= 0; i--) {
 //         int bit_a = (a[i] == '1') ? 1 : 0;
 //         int bit_b = (b[i] == '1') ? 1 : 0;
@@ -598,6 +601,7 @@ ExprRef add(ExprRef a, ExprRef b)
                 auto curr = Ite(less_than, sign_ext_input_32, BvConst(0, 32));
                // auto curr_twos = twos_complement_conv(curr,32);
                 sum = sum + curr;  // add(curr,sum);
+                sum = add(sum,curr);
             }
             
            //auto neg_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), pos_to_neg((neg_to_pos(sum) / ZExt(kernel_size,32))), BvConst(0, 32));
@@ -617,7 +621,7 @@ ExprRef add(ExprRef a, ExprRef b)
          //  auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,PDP_INT_16_WIDTH-1,0),Extract(pos_mean,PDP_INT_16_WIDTH-1,0));
          //  auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,31,16),Extract(pos_mean,31,16));
          //auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,PDP_INT_16_WIDTH-1,0),Extract(pos_mean,PDP_INT_16_WIDTH-1,0));
-         auto mean = Extract(sum,31,16);
+         auto mean = Extract(sum,15,0);
          //auto mean = pos_mean;
 
            instr.SetUpdate(m.state("pdp_output"), mean);
