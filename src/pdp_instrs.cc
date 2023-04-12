@@ -32,7 +32,7 @@ namespace ilang
 {
 
     // Return positive representation of int16
-    ExprRef 2s_complement(ExprRef num, int bit_width)
+    ExprRef  twos_complement(ExprRef num, int bit_width)
     {
        auto bv = BvConst(0,1);
         for (int i = bit_width - 1; i >= 0 ; i--) {    
