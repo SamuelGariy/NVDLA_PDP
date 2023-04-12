@@ -35,8 +35,8 @@ namespace ilang
 
 ExprRef add(ExprRef a, ExprRef b)
  {
-   result = BvConst(0,33)
-  auto result = ZExt(a,33) + ZExt(b,33);
+auto result = BvConst(0,33)
+  result = ZExt(a,33) + ZExt(b,33);
   auto final_result =BvConst(0,32);
   final_result = Extract(result,31,0);
  
