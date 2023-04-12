@@ -586,9 +586,9 @@ ExprRef add(ExprRef a, ExprRef b)
             auto kernel_width = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_WIDTH));
             auto data_format = m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_FORMAT));
             auto kernel_size = ZExt(kernel_height,PDP_INT_16_WIDTH) * ZExt(kernel_width,PDP_INT_16_WIDTH);
-            auto kernel_size_32 = ZExt(kernel_height,32) * ZExt(kernel_width,32);
+            auto kernel_size_22 = ZExt(kernel_height,22) * ZExt(kernel_width,22);
 
-            auto sum = BvConst(0, 32);// 32 bits to keep accuracy
+            auto sum = BvConst(0, 22);// 32 bits to keep accuracy
 
             for (int kernel_j = 0; kernel_j < PDP_INPUT_MAX; kernel_j++)
             {
@@ -598,7 +598,7 @@ ExprRef add(ExprRef a, ExprRef b)
                auto sign_ext_input_32 = SExt(input_in,32);
                 auto less_than =  Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < ZExt(kernel_size,PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
 
-                auto curr = Ite(less_than, sign_ext_input_32, BvConst(0, 32));
+                auto curr = Ite(less_than, sign_ext_input_22, BvConst(0, 22));
                // auto curr_twos = twos_complement_conv(curr,32);
                 sum = sum + curr;  // add(curr,sum);
                 //sum = add(sum,curr);
@@ -621,7 +621,7 @@ ExprRef add(ExprRef a, ExprRef b)
          //  auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,PDP_INT_16_WIDTH-1,0),Extract(pos_mean,PDP_INT_16_WIDTH-1,0));
          //  auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,31,16),Extract(pos_mean,31,16));
          //auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,PDP_INT_16_WIDTH-1,0),Extract(pos_mean,PDP_INT_16_WIDTH-1,0));
-         auto mean = Extract(sum,31,16);
+         auto mean = Extract(sum,22,16);
          //auto mean = pos_mean;
 
            instr.SetUpdate(m.state("pdp_output"), mean);
