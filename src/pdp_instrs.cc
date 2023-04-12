@@ -31,19 +31,88 @@
 namespace ilang
 {
 
-    // Return positive representation of int16
-    ExprRef  twos_complement_conv(ExprRef num, int bit_width)
-    {
-       auto bv = BvConst(0,1);
-        for (int i = bit_width - 1; i >= 0 ; i--) {    
-            auto new_bit = Ite(SelectBit(num,i) == 0,BvConst(1,1) ,BvConst(0,1));
-            bv = bv.Append(new_bit);
-        }
 
-        auto bv_16 = Extract(bv,31,0);
-        bv_16 = bv_16 + 1;
-        return bv_16;;
-    }
+
+xprRef add(ExprRef a, ExprRef b)
+ {
+  auto result = ZExt(a,33) + ZExt(b,33);
+  auto final_result = Extract(result,31,0);
+   return final_result
+}
+
+
+//     // Sum of 2s complement
+// ExprRef add(ExprRef a, ExprRef b)
+//  {
+//     auto carry = BvConst(0,2);
+//     auto result = BvConst(0,32);
+//     //result[32] = '\0';
+//         auto bv = BvConst(0,1);
+//     for (int i = 31; i >= 0 ; i--) {
+//         auto bit_a = SelectBit(a,i); 
+//         auto bit_b = SelectBit(b,i); 
+//         auto bits_xor = ZExt(bit_a,2) ^ ZExt(bit_b,2);
+//         auto bits_and = ZExt(bit_a,2) & ZExt(bit_b,2);
+//         auto sum = bits_xor ^ carry;
+
+//         auto new_bit = Ite(sum == BvConst(0,2) | sum == BvConst(2,2) ,BvConst(0,1),BvConst(1,1));
+//         carry = bits_and | (bits_xor & carry);
+//         bv = bv.Append(new_bit);
+//         }
+//     for (int i = 31; i >= 0; i--) {
+//         int bit_a = (a[i] == '1') ? 1 : 0;
+//         int bit_b = (b[i] == '1') ? 1 : 0;
+//         int sum = bit_a + bit_b + carry;
+
+//         if (sum == 0 || sum == 2) {
+//             result[i] = '0';
+//         } else {
+//             result[i] = '1';
+//         }
+
+//         carry = (sum >= 2) ? 1 : 0;
+//     }
+// ExprRef divide(ExprRef dividend, ExprRef divisor)
+// {
+//     // Get the two's complement of the number
+//     auto twos_complement = BvConst(0,32);
+//     twos_complement = twos_complement_conv(divisor,32);
+
+//     // Start off the quotient with the dividend
+//     auto quotient = dividend;
+//     auto remainder = BvConst(0,32);
+
+//     // Loop through the number of bits in the number (32)
+//     for (int i = 0; i < 32; i++)
+//     {
+//         auto carry = Lshr(quotient,BvConst(31,32));
+//         quotient = quotient << BvConst(1,32);
+//         remainder = remainder << BvConst(1,32);
+//         remainder = remainder | carry;
+
+//         auto test = (remainder) + twos_complement;
+
+//         remainder = Ite((test & BvConst(0x80000000,32)) == BvConst(0,32),test,remainder);
+//         quotient = Ite((test & BvConst(0x80000000,32)) == BvConst(0,32), quotient | BvConst(1,32),quotient);
+//     }
+//     return quotient;
+// }
+
+
+
+    // Return positive representation of int16
+    // ExprRef  twos_complement_conv(ExprRef num, int bit_width)
+    // {
+    //    auto bv = BvConst(0,1);
+    //     for (int i = bit_width - 1; i >= 0 ; i--) {    
+    //         auto new_bit = Ite(SelectBit(num,i) == 0,BvConst(1,1) ,BvConst(0,1));
+    //         bv = bv.Append(new_bit);
+    //     }
+
+    //     auto bv_16 = Extract(bv,31,0);
+    //     bv_16 = bv_16 + 1;
+    //     return bv_16;;
+    // }
 
     // // Return negative representation of int16
     //  ExprRef pos_to_neg(ExprRef num)
@@ -60,31 +129,31 @@ namespace ilang
     // }
 
 
-ExprRef divide(ExprRef dividend, ExprRef divisor)
-{
-    // Get the two's complement of the number
-    auto twos_complement = BvConst(0,32);
-    twos_complement = twos_complement_conv(divisor,32);
+// ExprRef divide(ExprRef dividend, ExprRef divisor)
+// {
+//     // Get the two's complement of the number
+//     auto twos_complement = BvConst(0,32);
+//     twos_complement = twos_complement_conv(divisor,32);
 
-    // Start off the quotient with the dividend
-    auto quotient = dividend;
-    auto remainder = BvConst(0,32);
+//     // Start off the quotient with the dividend
+//     auto quotient = dividend;
+//     auto remainder = BvConst(0,32);
 
-    // Loop through the number of bits in the number (32)
-    for (int i = 0; i < 32; i++)
-    {
-        auto carry = Lshr(quotient,BvConst(31,32));
-        quotient = quotient << BvConst(1,32);
-        remainder = remainder << BvConst(1,32);
-        remainder = remainder | carry;
+//     // Loop through the number of bits in the number (32)
+//     for (int i = 0; i < 32; i++)
+//     {
+//         auto carry = Lshr(quotient,BvConst(31,32));
+//         quotient = quotient << BvConst(1,32);
+//         remainder = remainder << BvConst(1,32);
+//         remainder = remainder | carry;
 
-        auto test = (remainder) + twos_complement;
+//         auto test = (remainder) + twos_complement;
 
-        remainder = Ite((test & BvConst(0x80000000,32)) == BvConst(0,32),test,remainder);
-        quotient = Ite((test & BvConst(0x80000000,32)) == BvConst(0,32), quotient | BvConst(1,32),quotient);
-    }
-    return quotient;
-}
+//         remainder = Ite((test & BvConst(0x80000000,32)) == BvConst(0,32),test,remainder);
+//         quotient = Ite((test & BvConst(0x80000000,32)) == BvConst(0,32), quotient | BvConst(1,32),quotient);
+//     }
+//     return quotient;
+// }
 
 
     // Define PDP instructions relevant to configuration registers
@@ -524,8 +593,8 @@ ExprRef divide(ExprRef dividend, ExprRef divisor)
                 auto less_than =  Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < ZExt(kernel_size,PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
 
                 auto curr = Ite(less_than, sign_ext_input_32, BvConst(0, 32));
-                auto curr_twos = twos_complement_conv(curr,32);
-                sum = curr_twos + sum;
+               // auto curr_twos = twos_complement_conv(curr,32);
+                sum = add(curr,sum);
             }
             
            //auto neg_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), pos_to_neg((neg_to_pos(sum) / ZExt(kernel_size,32))), BvConst(0, 32));
