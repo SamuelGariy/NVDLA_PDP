@@ -33,7 +33,7 @@ namespace ilang
 
 
 
-xprRef add(ExprRef a, ExprRef b)
+ExprRef add(ExprRef a, ExprRef b)
  {
   auto result = ZExt(a,33) + ZExt(b,33);
   auto final_result = Extract(result,31,0);
