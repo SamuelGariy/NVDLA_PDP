@@ -524,7 +524,8 @@ ExprRef divide(ExprRef dividend, ExprRef divisor)
                 auto less_than =  Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < ZExt(kernel_size,PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
 
                 auto curr = Ite(less_than, sign_ext_input_32, BvConst(0, 32));
-                sum = twos_complement_conv(curr,32) + sum;
+                auto curr_twos = twos_complement_conv(curr,32);
+                sum = curr_twos + sum;
             }
             
            //auto neg_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), pos_to_neg((neg_to_pos(sum) / ZExt(kernel_size,32))), BvConst(0, 32));
