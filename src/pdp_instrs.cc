@@ -534,13 +534,13 @@ ExprRef divide(ExprRef dividend, ExprRef divisor)
        // auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (divide(sum,BvConst(2, 32))), BvConst(0, 32));
        // auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (twos_complement(sum,32)/kernel_size_32), BvConst(0, 32));
     // auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), divide(sum,kernel_size_32), BvConst(0, 32));
-     auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), sum/kernel_size_32, BvConst(0, 32));
+     auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), sum, BvConst(0, 32));
 
           //  pos_mean =  pos_mean << BvConst(16, 32);
          //  auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,PDP_INT_16_WIDTH-1,0),Extract(pos_mean,PDP_INT_16_WIDTH-1,0));
          //  auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,31,16),Extract(pos_mean,31,16));
          //auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,PDP_INT_16_WIDTH-1,0),Extract(pos_mean,PDP_INT_16_WIDTH-1,0));
-         auto mean = Extract(pos_mean,15,0);
+         auto mean = Extract(pos_mean,31,16);
            instr.SetUpdate(m.state("pdp_output"), mean);
             instr.SetUpdate(m.state("pdp2csb_data_vld"), SIG_TRUE);
 
