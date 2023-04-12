@@ -588,7 +588,7 @@ ExprRef add(ExprRef a, ExprRef b)
             auto kernel_size = ZExt(kernel_height,PDP_INT_16_WIDTH) * ZExt(kernel_width,PDP_INT_16_WIDTH);
             auto kernel_size_32 = ZExt(kernel_height,32) * ZExt(kernel_width,32);
 
-            auto sum = BvConst(0, 32);// 32 bits to keep accuracy
+            auto sum = BvConst(0, 16);// 32 bits to keep accuracy
 
             for (int kernel_j = 0; kernel_j < PDP_INPUT_MAX; kernel_j++)
             {
