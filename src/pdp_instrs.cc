@@ -67,7 +67,7 @@ ExprRef divide(ExprRef dividend, ExprRef divisor)
 
     // Start off the quotient with the dividend
     auto quotient = dividend;
-    auto remainder = 0;
+    auto remainder = BvConst(0,32);
 
     // Loop through the number of bits in the number (32)
     for (int i = 0; i < 32; i++)
