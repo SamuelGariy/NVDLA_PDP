@@ -64,7 +64,7 @@ ExprRef divide(ExprRef dividend, ExprRef divisor)
 {
     // Get the two's complement of the number
     auto twos_complement = BvConst(0,32);
-    twos_complement = twos_complement_conv(divisor);
+    twos_complement = twos_complement_conv(divisor,32);
 
     // Start off the quotient with the dividend
     auto quotient = dividend;
