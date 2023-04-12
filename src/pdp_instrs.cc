@@ -538,7 +538,8 @@ namespace ilang
           //  pos_mean =  pos_mean << BvConst(16, 32);
          //  auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,PDP_INT_16_WIDTH-1,0),Extract(pos_mean,PDP_INT_16_WIDTH-1,0));
          //  auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,31,16),Extract(pos_mean,31,16));
-         auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,PDP_INT_16_WIDTH-1,0),Extract(pos_mean,PDP_INT_16_WIDTH-1,0));
+         //auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,PDP_INT_16_WIDTH-1,0),Extract(pos_mean,PDP_INT_16_WIDTH-1,0));
+         auto mean = Extract(pos_mean,31,16);
            instr.SetUpdate(m.state("pdp_output"), mean);
             instr.SetUpdate(m.state("pdp2csb_data_vld"), SIG_TRUE);
 
