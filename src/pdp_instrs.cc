@@ -588,17 +588,17 @@ ExprRef add(ExprRef a, ExprRef b)
             auto kernel_size = ZExt(kernel_height,PDP_INT_16_WIDTH) * ZExt(kernel_width,PDP_INT_16_WIDTH);
             auto kernel_size_32 = ZExt(kernel_height,32) * ZExt(kernel_width,32);
 
-            auto sum = BvConst(0, 16);// 32 bits to keep accuracy
+            auto sum = BvConst(0, 32);// 32 bits to keep accuracy
 
             for (int kernel_j = 0; kernel_j < PDP_INPUT_MAX; kernel_j++)
             {
                 auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(kernel_j))));
-                auto sign_ext_input = SExt(input_in, 16);
-              //  auto sign_ext_input_32 = ZExt(sign_ext_input,32);
-               // auto sign_ext_input_32 = SExt(input_in,32);
+              //  auto sign_ext_input = SExt(input_in, 16);
+              // auto sign_ext_input_32 = ZExt(sign_ext_input,32);
+               auto sign_ext_input_32 = SExt(input_in,32);
                 auto less_than =  Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < ZExt(kernel_size,PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
 
-                auto curr = Ite(less_than, sign_ext_input, BvConst(0, 16));
+                auto curr = Ite(less_than, sign_ext_input_32, BvConst(0, 32));
                // auto curr_twos = twos_complement_conv(curr,32);
                 sum = sum + curr;  // add(curr,sum);
                 //sum = add(sum,curr);
