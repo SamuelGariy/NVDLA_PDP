@@ -535,7 +535,7 @@ namespace ilang
       //  auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), pos_to_neg((neg_to_pos(sum) / BvConst(2,32))), BvConst(0, 32));
        // auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (divide(sum,BvConst(2, 32))), BvConst(0, 32));
         auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (sum), BvConst(0, 32));
-            pos_mean = pos_mean >> BvConst(PDP_INT_16_WIDTH,32);
+            pos_mean = BvConst(PDP_INT_16_WIDTH,32) >> pos_mean;
            auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,PDP_INT_16_WIDTH-1,0),Extract(pos_mean,PDP_INT_16_WIDTH-1,0));
 
            instr.SetUpdate(m.state("pdp_output"), mean);
@@ -547,4 +547,4 @@ namespace ilang
         }
     }
 
-} // namespace ilang
+} // namespace ilang 2147483648
