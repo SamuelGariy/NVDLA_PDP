@@ -534,7 +534,7 @@ namespace ilang
      //   auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), pos_to_neg((neg_to_pos(sum) / ZExt(kernel_size,32))), BvConst(0, 32));
       //  auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), pos_to_neg((neg_to_pos(sum) / BvConst(2,32))), BvConst(0, 32));
        // auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (divide(sum,BvConst(2, 32))), BvConst(0, 32));
-        auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (twos_complement(sum,32) / BvConst(2,32))), BvConst(0, 32);
+        auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (twos_complement(sum,32) / BvConst(2,32)), BvConst(0, 32));
             pos_mean = pos_mean >> BvConst(PDP_INT_16_WIDTH,32);
            auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,PDP_INT_16_WIDTH-1,0),Extract(pos_mean,PDP_INT_16_WIDTH-1,0));
 
