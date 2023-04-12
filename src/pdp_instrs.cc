@@ -592,7 +592,7 @@ ExprRef add(ExprRef a, ExprRef b)
                 auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(kernel_j))));
                 auto sign_ext_input = SExt(input_in, 16);
                 auto sign_ext_input_32 = ZExt(sign_ext_input,32);
-                auto sign_ext_input_32 = SExt(input_in,32);
+               // auto sign_ext_input_32 = SExt(input_in,32);
                 auto less_than =  Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < ZExt(kernel_size,PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
 
                 auto curr = Ite(less_than, sign_ext_input_32, BvConst(0, 32));
