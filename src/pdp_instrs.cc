@@ -600,7 +600,8 @@ ExprRef add(ExprRef a, ExprRef b)
 
                 auto curr = Ite(less_than, sign_ext_input_22, BvConst(0, 22));
                // auto curr_twos = twos_complement_conv(curr,32);
-                sum = input_in;  // add(curr,sum);
+               sum  = Ite(less_than, sign_ext_input_22, sum);
+              //  sum = sign_ext_input_22;  // add(curr,sum);
                 //sum = add(sum,curr);
             }
             
