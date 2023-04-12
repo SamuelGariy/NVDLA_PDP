@@ -524,7 +524,7 @@ ExprRef divide(ExprRef dividend, ExprRef divisor)
                 auto less_than =  Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < ZExt(kernel_size,PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
 
                 auto curr = Ite(less_than, sign_ext_input_32, BvConst(0, 32));
-                sum = curr + sum;
+                sum = twos_complement(curr) + sum;
             }
             
            //auto neg_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), pos_to_neg((neg_to_pos(sum) / ZExt(kernel_size,32))), BvConst(0, 32));
@@ -535,17 +535,17 @@ ExprRef divide(ExprRef dividend, ExprRef divisor)
        // auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (divide(sum,BvConst(2, 32))), BvConst(0, 32));
        // auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (twos_complement(sum,32)/kernel_size_32), BvConst(0, 32));
     // auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), divide(sum,kernel_size_32), BvConst(0, 32));
-     auto sum_16 = Extract(sum,15,0);
-     auto sum32 = ZExt(sum_16,32);
+    // auto sum_16 = Extract(sum,15,0);
+    // auto sum32 = ZExt(sum_16,32);
     // auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), sum32/kernel_size_32, BvConst(0, 32));
-     auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), sum_16/kernel_size, BvConst(0, PDP_INT_16_WIDTH));
+    // auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), sum_16/kernel_size, BvConst(0, PDP_INT_16_WIDTH));
 
           //  pos_mean =  pos_mean << BvConst(16, 32);
          //  auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,PDP_INT_16_WIDTH-1,0),Extract(pos_mean,PDP_INT_16_WIDTH-1,0));
          //  auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,31,16),Extract(pos_mean,31,16));
          //auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,PDP_INT_16_WIDTH-1,0),Extract(pos_mean,PDP_INT_16_WIDTH-1,0));
-         //auto mean = Extract(pos_mean,15,0);
-         auto mean = pos_mean;
+         //auto mean = Extract(pos_mean,31,16);
+         //auto mean = pos_mean;
 
            instr.SetUpdate(m.state("pdp_output"), mean);
             instr.SetUpdate(m.state("pdp2csb_data_vld"), SIG_TRUE);
