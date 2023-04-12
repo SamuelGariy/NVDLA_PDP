@@ -32,10 +32,10 @@ namespace ilang
 {
 
     // Return positive representation of int16
-    ExprRef neg_to_pos(ExprRef num)
+    ExprRef 2s_complement(ExprRef num, int bit_width)
     {
        auto bv = BvConst(0,1);
-        for (int i = 32 - 1; i >= 0 ; i--) {    
+        for (int i = bit_width - 1; i >= 0 ; i--) {    
             auto new_bit = Ite(SelectBit(num,i) == 0,BvConst(1,1) ,BvConst(0,1));
             bv = bv.Append(new_bit);
         }
@@ -45,19 +45,49 @@ namespace ilang
         return bv_16;;
     }
 
-    // Return negative representation of int16
-     ExprRef pos_to_neg(ExprRef num)
-    {
-        auto bv = BvConst(0,1);
-        for (int i = 32 - 1; i >= 0 ; i--) {    
-            auto new_bit = Ite(SelectBit(num,i) == 0,BvConst(1,1) ,BvConst(0,1));
-            bv = bv.Append(new_bit);
-        }
+    // // Return negative representation of int16
+    //  ExprRef pos_to_neg(ExprRef num)
+    // {
+    //     auto bv = BvConst(0,1);
+    //     for (int i = 32 - 1; i >= 0 ; i--) {    
+    //         auto new_bit = Ite(SelectBit(num,i) == 0,BvConst(1,1) ,BvConst(0,1));
+    //         bv = bv.Append(new_bit);
+    //     }
 
-        auto bv_16 = Extract(bv,31,0);
-        bv_16 = bv_16 + 1;
-        return bv_16;
+    //     auto bv_16 = Extract(bv,31,0);
+    //     bv_16 = bv_16 + 1;
+    //     return bv_16;
+    // }
+
+
+    ExprRef divide(ExprRef dividend, ExprRef divisor)
+{
+    auto quotient = BvConst(0,32);
+    auto i = BvConst(0,32);
+
+    // Determine the most significant bit of the divisor
+    for (int k = 6; k >= 0; k--) // kernel is at max 7 bits wide = 64
+    {
+        i = Ite(SelectBit(divisor,i) == 1,BvConst(i,32),i);
     }
+
+    // Convert negative dividend to positive
+    dividend = Ite(SelectBit(dividend,31) == 1,2s_complement(dividend,32),dividend);
+
+    // Perform binary division
+    for (int j = 31; j >= i; j--)
+    {
+        quotient = quotient << BvConst(1,32);
+        auto rshift_dividend = Lshr(dividend,BvConst(j,32));
+        quotient = Ite(SelectBit(dividend,j) == 1, quotient | BvConst(1,32), quotient);
+        quotient = Ite((quotient & (BvConst(1,32) << i)) != BvConst(0,32),quotient^divisor,quotient);
+    }
+
+    // If  the dividend  is negative, the quotient must be negated
+    quotient =  Ite((SelectBit(dividend,31) == 1),2s_complement(quotient),quotient);
+
+    return quotient;
+}
 
 
     // Define PDP instructions relevant to configuration registers
@@ -501,11 +531,11 @@ namespace ilang
            //auto neg_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), pos_to_neg((neg_to_pos(sum) / ZExt(kernel_size,32))), BvConst(0, 32));
       //  auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (sum / ZExt(kernel_size,32)), BvConst(0, 32));
         auto neg_mean = sum;
-        auto sum22 = Extract(sum,21,0);
-        //auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), pos_to_neg((neg_to_pos(sum) / ZExt(kernel_size,32))), BvConst(0, 32));
-        auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), pos_to_neg((neg_to_pos(sum) / BvConst(2,32))), BvConst(0, 32));
-
-
+     //   auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), pos_to_neg((neg_to_pos(sum) / ZExt(kernel_size,32))), BvConst(0, 32));
+      //  auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), pos_to_neg((neg_to_pos(sum) / BvConst(2,32))), BvConst(0, 32));
+       // auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (divide(sum,BvConst(2, 32))), BvConst(0, 32));
+        auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (2s_complement(sum) / BvConst(2,32))), BvConst(0, 32);
+            pos_mean = pos_mean >> BvConst(PDP_INT_16_WIDTH,32);
            auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,PDP_INT_16_WIDTH-1,0),Extract(pos_mean,PDP_INT_16_WIDTH-1,0));
 
            instr.SetUpdate(m.state("pdp_output"), mean);
