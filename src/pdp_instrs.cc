@@ -620,7 +620,8 @@ return result;
                // auto neg_status = Ite(sum_pos & !curr_pos & (curr_2comp > sum),BvConst(0,2),Ite(!sum_pos & curr_pos & (sum_2comp > curr),BvConst(1,2),Ite(!sum_pos & !curr_pos,BvConst(2,2),BvConst(3,2))));
                   
 
-               sum = Ite(!sum_pos & !curr_pos,two_comp_32(sum + curr),sum + curr); 
+              // sum = Ite(!sum_pos & !curr_pos,two_comp_32(sum + curr),sum + curr); 
+               sum = sum + curr;
                // test = Ite(BvConst(kernel_j,32) == 0,curr, test);
               //sum = sign_ext_input_32;
             }
