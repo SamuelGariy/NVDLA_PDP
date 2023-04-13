@@ -617,7 +617,7 @@ return result;
                   
 
                // sum = Ite(!sum_pos & !curr_pos,two_comp_32(sum + curr),sum + curr); 
-               sum = sign_ext_input_32;
+               sum = curr;
             }
             
            //auto neg_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), pos_to_neg((neg_to_pos(sum) / ZExt(kernel_size,32))), BvConst(0, 32));
