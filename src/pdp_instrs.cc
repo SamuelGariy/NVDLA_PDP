@@ -49,10 +49,10 @@ return result;
        auto bv_zero = BvConst(0,16);
         //auto bv15_unsigned = ZExt(num,32);
         auto bv15_unsigned = Concat(bv_zero,num);
-        auto bv = Ite(SelectBit(num, 15) == 0, bv15_unsigned, bv15_unsigned | BvConst(0xFFFF80, 32));
+       // auto bv = Ite(SelectBit(num, 15) == 0, bv15_unsigned, bv15_unsigned | BvConst(0xFFFF80, 32));
        // auto bv = Ite(SelectBit(num, 15) == 0, bv15_unsigned | BvConst(0xFFFF80, 32), bv15_unsigned | BvConst(0xFFFF80, 32));
 
-        return bv;
+        return bv15_unsigned;
     }
 
 
@@ -602,7 +602,7 @@ return result;
 
             auto sum = BvConst(0,32);// 32 bits to keep accuracy
             auto curr = BvConst(0,32);
-            auto test = BvConst(0,16);
+            auto test = BvConst(0,32);
             for (int kernel_j = 0; kernel_j < PDP_INPUT_MAX; kernel_j++)
             {
                 auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(kernel_j))));
@@ -624,8 +624,8 @@ return result;
 
               // sum = Ite(!sum_pos & !curr_pos,two_comp_32(sum + curr),sum + curr); 
               sum = sum + curr;
-              test = Ite(BvConst(kernel_j,32) == 0,input_in, test);
-            //  test = input_in
+              test = Ite(BvConst(kernel_j,32) == 0,sign_ext_input_32, test);
+            // test = input_in
               //sum = sign_ext_input_32;
             }
             
@@ -646,8 +646,8 @@ return result;
          //  auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,PDP_INT_16_WIDTH-1,0),Extract(pos_mean,PDP_INT_16_WIDTH-1,0));
          //  auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,31,16),Extract(pos_mean,31,16));
          //auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,PDP_INT_16_WIDTH-1,0),Extract(pos_mean,PDP_INT_16_WIDTH-1,0));
-        //  auto mean = Extract(test,15,0);
-        auto mean = test;
+         auto mean = Extract(test,15,0);
+       // auto mean = test;
          //auto mean = pos_mean;
 
            instr.SetUpdate(m.state("pdp_output"), mean);
