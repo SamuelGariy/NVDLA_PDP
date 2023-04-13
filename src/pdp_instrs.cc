@@ -46,7 +46,7 @@ return result;
 //     }
     // Return 32-bit representation of int16
     ExprRef int16_to_int32(ExprRef num){
-        auto bv15_unsigned = ZExt(num,32) & BvConst(0x7FFF, 32);
+        auto bv15_unsigned = ZExt(num,32);
         auto bv = Ite(SelectBit(num, 15) == 0, bv15_unsigned, bv15_unsigned | BvConst(0xFFFF80, 32));
        // auto bv = Ite(SelectBit(num, 15) == 0, bv15_unsigned | BvConst(0xFFFF80, 32), bv15_unsigned | BvConst(0xFFFF80, 32));
 
