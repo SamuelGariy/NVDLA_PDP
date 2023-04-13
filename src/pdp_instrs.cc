@@ -600,6 +600,7 @@ return result;
 
             auto sum = BvConst(0,32);// 32 bits to keep accuracy
             auto curr = BvConst(0,32);
+            auto test = BvConst(0,32);
             for (int kernel_j = 0; kernel_j < PDP_INPUT_MAX; kernel_j++)
             {
                 auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(kernel_j))));
@@ -619,7 +620,8 @@ return result;
                // auto neg_status = Ite(sum_pos & !curr_pos & (curr_2comp > sum),BvConst(0,2),Ite(!sum_pos & curr_pos & (sum_2comp > curr),BvConst(1,2),Ite(!sum_pos & !curr_pos,BvConst(2,2),BvConst(3,2))));
                   
 
-               sum = Ite(!sum_pos & !curr_pos,two_comp_32(sum + curr),sum + curr); 
+               sum = Ite(!sum_pos & !curr_pos,BvConst(sum + curr),sum + curr); 
+                test = Ite(BvConst(kernel_j,32) == 0, sum, test);
               //sum = sign_ext_input_32;
             }
             
