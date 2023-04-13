@@ -35,7 +35,7 @@ namespace ilang
 
 ExprRef two_comp_32(ExprRef a)
  {
- auto result = ~(a) + BvConst(1,32)
+ auto result = ~(a) + BvConst(1,32);
 return result;
 }
 // // Return 16-bit representation of int8
