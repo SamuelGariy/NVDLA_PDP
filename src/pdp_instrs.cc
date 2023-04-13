@@ -621,8 +621,8 @@ return result;
                   
 
               // sum = Ite(!sum_pos & !curr_pos,two_comp_32(sum + curr),sum + curr); 
-               sum = sum + curr;
-               // test = Ite(BvConst(kernel_j,32) == 0,curr, test);
+              sum = sum + curr;
+                test = Ite(BvConst(kernel_j,32) == 0,curr, test);
               //sum = sign_ext_input_32;
             }
             
@@ -643,7 +643,7 @@ return result;
          //  auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,PDP_INT_16_WIDTH-1,0),Extract(pos_mean,PDP_INT_16_WIDTH-1,0));
          //  auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,31,16),Extract(pos_mean,31,16));
          //auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,PDP_INT_16_WIDTH-1,0),Extract(pos_mean,PDP_INT_16_WIDTH-1,0));
-          auto mean = Extract(pos_mean,15,0);
+          auto mean = Extract(test,31,16);
          //auto mean = pos_mean;
 
            instr.SetUpdate(m.state("pdp_output"), mean);
