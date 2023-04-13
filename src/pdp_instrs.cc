@@ -600,7 +600,7 @@ return result;
             auto curr = BvConst(0,32);
             for (int kernel_j = 0; kernel_j < PDP_INPUT_MAX; kernel_j++)
             {
-                auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(7))));
+                auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(0))));
               //  auto sign_ext_input = SExt(input_in, 16);
               // auto sign_ext_input_32 = ZExt(sign_ext_input,32);
              //  auto sign_ext_input_32 = SExt(input_in,32);
