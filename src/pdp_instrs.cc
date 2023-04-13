@@ -31,148 +31,20 @@
 namespace ilang
 {
 
-
-
-ExprRef two_comp_32(ExprRef a)
- {
- auto result = ~(a) + BvConst(1,32);
-return result;
-}
-// // Return 16-bit representation of int8
-//     ExprRef int8_to_int16(ExprRef num){
-//         auto bv7_unsigned = num & BvConst(0x7F, PDP_INT_16_WIDTH);
-//         auto bv = Ite(SelectBit(num, 7) == 0, bv7_unsigned, bv7_unsigned | BvConst(0xFF80, PDP_INT_16_WIDTH));
-//         return bv;
-//     }
-    // Return 32-bit representation of int16
-    ExprRef int16_to_int32(const ExprRef &num){
-       auto bv_zero = BvConst(0,16);
-        //auto bv15_unsigned = ZExt(num,32);
-        auto bv15_unsigned = Concat(bv_zero,num);
-        auto bv = Ite(SelectBit(num, 15) == 0, bv15_unsigned, bv15_unsigned | BvConst(0xFFFF8000, 32));
-       // auto bv = Ite(SelectBit(num, 15) == 0, bv15_unsigned | BvConst(0xFFFF80, 32), bv15_unsigned | BvConst(0xFFFF80, 32));
-
-        return bv;
+    ExprRef two_comp_32(ExprRef a)
+    {
+        auto result = ~(a) + BvConst(1, 32);
+        return result;
     }
 
-
-//     // Sum of 2s complement
-// ExprRef add(ExprRef a, ExprRef b)
-//  {
-//     auto carry = BvConst(0,2);
-//     auto result = BvConst(0,32);
-//     //result[32] = '\0';
-//         auto bv = BvConst(0,1);
-//     for (int i = 0; i < 32 ; i++) {
-//         auto bit_a = SelectBit(a,i); 
-//         auto bit_b = SelectBit(b,i); 
-//         auto bits_xor = ZExt(bit_a,2) ^ ZExt(bit_b,2);
-//         auto bits_and = ZExt(bit_a,2) & ZExt(bit_b,2);
-//         auto sum = bits_xor ^ carry;
-
-//         auto new_bit = Ite(sum == BvConst(0,2) | sum == BvConst(2,2) ,BvConst(0,1),BvConst(1,1));
-//         carry = bits_and | (bits_xor & carry);
-//         bv = bv.Append(new_bit);
-//         }
-//         auto bv_32 = Extract(bv,31,0);
-//         return bv_32;
-//  }
-//     for (int i = 31; i >= 0; i--) {
-//         int bit_a = (a[i] == '1') ? 1 : 0;
-//         int bit_b = (b[i] == '1') ? 1 : 0;
-//         int sum = bit_a + bit_b + carry;
-
-//         if (sum == 0 || sum == 2) {
-//             result[i] = '0';
-//         } else {
-//             result[i] = '1';
-//         }
-
-//         carry = (sum >= 2) ? 1 : 0;
-//     }
-// ExprRef divide(ExprRef dividend, ExprRef divisor)
-// {
-//     // Get the two's complement of the number
-//     auto twos_complement = BvConst(0,32);
-//     twos_complement = twos_complement_conv(divisor,32);
-
-//     // Start off the quotient with the dividend
-//     auto quotient = dividend;
-//     auto remainder = BvConst(0,32);
-
-//     // Loop through the number of bits in the number (32)
-//     for (int i = 0; i < 32; i++)
-//     {
-//         auto carry = Lshr(quotient,BvConst(31,32));
-//         quotient = quotient << BvConst(1,32);
-//         remainder = remainder << BvConst(1,32);
-//         remainder = remainder | carry;
-
-//         auto test = (remainder) + twos_complement;
-
-//         remainder = Ite((test & BvConst(0x80000000,32)) == BvConst(0,32),test,remainder);
-//         quotient = Ite((test & BvConst(0x80000000,32)) == BvConst(0,32), quotient | BvConst(1,32),quotient);
-//     }
-//     return quotient;
-// }
-
-
-
-    // Return positive representation of int16
-    // ExprRef  twos_complement_conv(ExprRef num, int bit_width)
-    // {
-    //    auto bv = BvConst(0,1);
-    //     for (int i = bit_width - 1; i >= 0 ; i--) {    
-    //         auto new_bit = Ite(SelectBit(num,i) == 0,BvConst(1,1) ,BvConst(0,1));
-    //         bv = bv.Append(new_bit);
-    //     }
-
-    //     auto bv_16 = Extract(bv,31,0);
-    //     bv_16 = bv_16 + 1;
-    //     return bv_16;;
-    // }
-
-    // // Return negative representation of int16
-    //  ExprRef pos_to_neg(ExprRef num)
-    // {
-    //     auto bv = BvConst(0,1);
-    //     for (int i = 32 - 1; i >= 0 ; i--) {    
-    //         auto new_bit = Ite(SelectBit(num,i) == 0,BvConst(1,1) ,BvConst(0,1));
-    //         bv = bv.Append(new_bit);
-    //     }
-
-    //     auto bv_16 = Extract(bv,31,0);
-    //     bv_16 = bv_16 + 1;
-    //     return bv_16;
-    // }
-
-
-// ExprRef divide(ExprRef dividend, ExprRef divisor)
-// {
-//     // Get the two's complement of the number
-//     auto twos_complement = BvConst(0,32);
-//     twos_complement = twos_complement_conv(divisor,32);
-
-//     // Start off the quotient with the dividend
-//     auto quotient = dividend;
-//     auto remainder = BvConst(0,32);
-
-//     // Loop through the number of bits in the number (32)
-//     for (int i = 0; i < 32; i++)
-//     {
-//         auto carry = Lshr(quotient,BvConst(31,32));
-//         quotient = quotient << BvConst(1,32);
-//         remainder = remainder << BvConst(1,32);
-//         remainder = remainder | carry;
-
-//         auto test = (remainder) + twos_complement;
-
-//         remainder = Ite((test & BvConst(0x80000000,32)) == BvConst(0,32),test,remainder);
-//         quotient = Ite((test & BvConst(0x80000000,32)) == BvConst(0,32), quotient | BvConst(1,32),quotient);
-//     }
-//     return quotient;
-// }
-
+    // Return 32-bit representation of int16
+    ExprRef int16_to_int32(const ExprRef &num)
+    {
+        auto bv_zero = BvConst(0, 16);
+        auto bv15_unsigned = Concat(bv_zero, num);
+        auto bv = Ite(SelectBit(num, 15) == 0, bv15_unsigned, bv15_unsigned | BvConst(0xFFFF8000, 32));
+        return bv;
+    }
 
     // Define PDP instructions relevant to configuration registers
     void DefinePDPInstrs(Ila &m)
@@ -531,26 +403,29 @@ return result;
             auto kernel_height = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_HEIGHT));
             auto kernel_width = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_WIDTH));
             auto data_format = m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_FORMAT));
-            auto kernel_size = ZExt(kernel_height,PDP_INT_16_WIDTH) * ZExt(kernel_width,PDP_INT_16_WIDTH);
+            auto kernel_size = ZExt(kernel_height, PDP_INT_16_WIDTH) * ZExt(kernel_width, PDP_INT_16_WIDTH);
 
             auto max = BvConst(MIN_INT16, PDP_INT_16_WIDTH);
 
+            // loop through kernel to find the max element
             for (auto kernel_j = 0; kernel_j < PDP_INPUT_MAX; kernel_j++)
             {
                 auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(kernel_j))));
                 auto sign_ext_input = SExt(input_in, PDP_INT_16_WIDTH);
-                auto less_than =  Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < ZExt(kernel_size,PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
+                auto less_than = Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < ZExt(kernel_size, PDP_INT_16_WIDTH), BoolConst(true), BoolConst(false));
                 auto curr = Ite(less_than, sign_ext_input, BvConst(MIN_INT16, PDP_INT_16_WIDTH));
                 auto diff = max - curr;
                 auto max_pos = Ite(SelectBit(max, 15) == 0, BoolConst(true), BoolConst(false));
                 auto curr_pos = Ite(SelectBit(curr, 15) == 0, BoolConst(true), BoolConst(false));
 
-                max = Ite(less_than,Ite(max_pos & !curr_pos,max,Ite(curr_pos & !max_pos,curr, Ite(SelectBit(diff, 15) == 0,max,curr))),max);
+                max = Ite(less_than, Ite(max_pos & !curr_pos, max, Ite(curr_pos & !max_pos, curr, Ite(SelectBit(diff, 15) == 0, max, curr))), max);
             }
 
+            // output update
             instr.SetUpdate(m.state("pdp_output"), max);
             instr.SetUpdate(m.state("pdp2csb_data_vld"), SIG_TRUE);
 
+            // next state update
             instr.SetUpdate(m.state("pdp_state"), Ite(m.input("pdp_last_input_batch") == BoolConst(true), START, MAXPOOL));
             instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_OP_ENABLE)), Ite(m.input("pdp_last_input_batch") == BoolConst(true), SIG_FALSE, SIG_TRUE));
         }
@@ -563,28 +438,30 @@ return result;
             auto kernel_height = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_HEIGHT));
             auto kernel_width = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_WIDTH));
             auto data_format = m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_FORMAT));
-            auto kernel_size = ZExt(kernel_height,PDP_INT_16_WIDTH) * ZExt(kernel_width,PDP_INT_16_WIDTH);
+            auto kernel_size = ZExt(kernel_height, PDP_INT_16_WIDTH) * ZExt(kernel_width, PDP_INT_16_WIDTH);
 
             auto min = BvConst(MAX_INT16, PDP_INT_16_WIDTH);
 
+            // loop through kernel to find the max element
             for (auto kernel_j = 0; kernel_j < PDP_INPUT_MAX; kernel_j++)
             {
 
                 auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(kernel_j))));
                 auto sign_ext_input = SExt(input_in, PDP_INT_16_WIDTH);
-                auto less_than =  Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < ZExt(kernel_size,PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
+                auto less_than = Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < ZExt(kernel_size, PDP_INT_16_WIDTH), BoolConst(true), BoolConst(false));
                 auto curr = Ite(less_than, sign_ext_input, BvConst(MAX_INT16, PDP_INT_16_WIDTH));
                 auto diff = min - curr;
                 auto min_pos = Ite(SelectBit(min, 15) == 0, BoolConst(true), BoolConst(false));
                 auto curr_pos = Ite(SelectBit(curr, 15) == 0, BoolConst(true), BoolConst(false));
 
-                min = Ite(less_than,Ite(min_pos & !curr_pos,curr,Ite(curr_pos & !min_pos,min, Ite(SelectBit(diff, 15) == 0,curr,min))),min);
-
+                min = Ite(less_than, Ite(min_pos & !curr_pos, curr, Ite(curr_pos & !min_pos, min, Ite(SelectBit(diff, 15) == 0, curr, min))), min);
             }
 
+            // output update
             instr.SetUpdate(m.state("pdp_output"), min);
             instr.SetUpdate(m.state("pdp2csb_data_vld"), SIG_TRUE);
 
+            // next state update
             instr.SetUpdate(m.state("pdp_state"), Ite(m.input("pdp_last_input_batch") == BoolConst(true), START, MINPOOL));
             instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_OP_ENABLE)), Ite(m.input("pdp_last_input_batch") == BoolConst(true), SIG_FALSE, SIG_TRUE));
         }
@@ -597,67 +474,34 @@ return result;
             auto kernel_height = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_HEIGHT));
             auto kernel_width = m.state(GetVarName("group0_", NVDLA_PDP_D_KERNEL_WIDTH));
             auto data_format = m.state(GetVarName("group0_", NVDLA_PDP_D_DATA_FORMAT));
-            auto kernel_size = ZExt(kernel_height,PDP_INT_16_WIDTH) * ZExt(kernel_width,PDP_INT_16_WIDTH);
-            auto kernel_size_32 = ZExt(kernel_height,32) * ZExt(kernel_width,32);
+            auto kernel_size = ZExt(kernel_height, PDP_INT_16_WIDTH) * ZExt(kernel_width, PDP_INT_16_WIDTH);
 
-            auto sum = BvConst(0,32);// 32 bits to keep accuracy
-            auto curr = BvConst(0,32);
-            auto test = BvConst(0,32);
+            auto sum = BvConst(0, 32); // 32 bits to keep accuracy
+            // loop through kernel summing elements
             for (int kernel_j = 0; kernel_j < PDP_INPUT_MAX; kernel_j++)
             {
                 auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(kernel_j))));
-              //  auto sign_ext_input = SExt(input_in, 16);
-              // auto sign_ext_input_32 = ZExt(sign_ext_input,32);
-            // auto sign_ext_input_32 = SExt(input_in,32);
-              auto sign_ext_input_32 = int16_to_int32(input_in);
-                auto less_than =  Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < ZExt(kernel_size,PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
-            //    auto less_than =  Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < BvConst(8,PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
+                auto sign_ext_input_32 = int16_to_int32(input_in);
+                auto less_than = Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < ZExt(kernel_size, PDP_INT_16_WIDTH), BoolConst(true), BoolConst(false));
 
                 auto curr = Ite(less_than, sign_ext_input_32, BvConst(0, 32));
-                //curr = Ite(less_than, sign_ext_input_32, curr);
-                auto sum_pos = Ite(SelectBit(sum, 31) == 0, BoolConst(true), BoolConst(false));
-                auto curr_pos = Ite(SelectBit(curr, 31) == 0, BoolConst(true), BoolConst(false)); 
-                //auto sum_2comp =  two_comp_32(sum);
-               // auto curr_2comp = two_comp_32(curr);
-               // auto neg_status = Ite(sum_pos & !curr_pos & (curr_2comp > sum),BvConst(0,2),Ite(!sum_pos & curr_pos & (sum_2comp > curr),BvConst(1,2),Ite(!sum_pos & !curr_pos,BvConst(2,2),BvConst(3,2))));
-                  
-
-              // sum = Ite(!sum_pos & !curr_pos,two_comp_32(sum + curr),sum + curr); 
-              sum = sum + curr;
-              //test = Ite(BvConst(kernel_j,32) == 0,sign_ext_input_32, test);
-            // test = input_in
-              //sum = sign_ext_input_32;
+                sum = sum + curr;
             }
-            
-      auto neg_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), two_comp_32((two_comp_32(sum) / ZExt(kernel_size,32))), BvConst(0, 32));
-      auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (sum / ZExt(kernel_size,32)), BvConst(0, 32));
-      //  auto neg_mean = sum;
-     //   auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), pos_to_neg((neg_to_pos(sum) / ZExt(kernel_size,32))), BvConst(0, 32));
-      //  auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), pos_to_neg((neg_to_pos(sum) / BvConst(2,32))), BvConst(0, 32));
-       // auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (divide(sum,BvConst(2, 32))), BvConst(0, 32));
-       // auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (twos_complement(sum,32)/kernel_size_32), BvConst(0, 32));
-    // auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), divide(sum,kernel_size_32), BvConst(0, 32));
-    // auto sum_16 = Extract(sum,15,0);
-    // auto sum32 = ZExt(sum_16,32);
-    // auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), sum32/kernel_size_32, BvConst(0, 32));
-    // auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), sum_16/kernel_size, BvConst(0, PDP_INT_16_WIDTH));
 
-          //  pos_mean =  pos_mean << BvConst(16, 32);
-         //  auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,PDP_INT_16_WIDTH-1,0),Extract(pos_mean,PDP_INT_16_WIDTH-1,0));
-         //  auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,31,16),Extract(pos_mean,31,16));
-         auto mean = Ite(SelectBit(sum,31) == 1, Extract(neg_mean,PDP_INT_16_WIDTH-1,0),Extract(pos_mean,PDP_INT_16_WIDTH-1,0));
-         //auto mean = Extract(sum,31,16);
-       // auto  mean = pos_mean;
-       // auto mean = test;
-         //auto mean = pos_mean;
+            // find mean of elements in kernel
+            auto neg_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), two_comp_32((two_comp_32(sum) / ZExt(kernel_size, 32))), BvConst(0, 32));
+            auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (sum / ZExt(kernel_size, 32)), BvConst(0, 32));
 
-           instr.SetUpdate(m.state("pdp_output"), mean);
+            auto mean = Ite(SelectBit(sum, 31) == 1, Extract(neg_mean, PDP_INT_16_WIDTH - 1, 0), Extract(pos_mean, PDP_INT_16_WIDTH - 1, 0));
+
+            // output update
+            instr.SetUpdate(m.state("pdp_output"), mean);
             instr.SetUpdate(m.state("pdp2csb_data_vld"), SIG_TRUE);
 
-            
+            // next state update
             instr.SetUpdate(m.state("pdp_state"), Ite(m.input("pdp_last_input_batch") == BoolConst(true), START, MEANPOOL));
             instr.SetUpdate(m.state(GetVarName("group0_", NVDLA_PDP_D_OP_ENABLE)), Ite(m.input("pdp_last_input_batch") == BoolConst(true), SIG_FALSE, SIG_TRUE));
         }
     }
 
-} // namespace ilang 
+} // namespace ilang
