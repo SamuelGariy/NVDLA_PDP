@@ -629,7 +629,7 @@ return result;
               //sum = sign_ext_input_32;
             }
             
-           //auto neg_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), pos_to_neg((neg_to_pos(sum) / ZExt(kernel_size,32))), BvConst(0, 32));
+      auto neg_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), two_comp_32((two_comp_32(sum) / ZExt(kernel_size,32))), BvConst(0, 32));
       auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), (sum / ZExt(kernel_size,32)), BvConst(0, 32));
       //  auto neg_mean = sum;
      //   auto pos_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), pos_to_neg((neg_to_pos(sum) / ZExt(kernel_size,32))), BvConst(0, 32));
@@ -645,9 +645,9 @@ return result;
           //  pos_mean =  pos_mean << BvConst(16, 32);
          //  auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,PDP_INT_16_WIDTH-1,0),Extract(pos_mean,PDP_INT_16_WIDTH-1,0));
          //  auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,31,16),Extract(pos_mean,31,16));
-         //auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,PDP_INT_16_WIDTH-1,0),Extract(pos_mean,PDP_INT_16_WIDTH-1,0));
+         auto mean = Ite(SelectBit(sum,31) == 1, Extract(neg_mean,PDP_INT_16_WIDTH-1,0),Extract(pos_mean,PDP_INT_16_WIDTH-1,0));
          //auto mean = Extract(sum,31,16);
-        auto  mean = pos_mean;
+       // auto  mean = pos_mean;
        // auto mean = test;
          //auto mean = pos_mean;
 
