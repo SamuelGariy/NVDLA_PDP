@@ -47,7 +47,9 @@ return result;
     // Return 32-bit representation of int16
     ExprRef int16_to_int32(ExprRef num){
         auto bv15_unsigned = ZExt(num,32) & BvConst(0x7FFF, 32);
-        auto bv = Ite(SelectBit(num, 15) == 0, bv15_unsigned, bv15_unsigned | BvConst(0xFF80, 32));
+      //  auto bv = Ite(SelectBit(num, 15) == 0, bv15_unsigned, bv15_unsigned | BvConst(0xFF80, 32));
+        auto bv = Ite(SelectBit(num, 15) == 0, bv15_unsigned | BvConst(0xFF80, 32), bv15_unsigned | BvConst(0xFF80, 32));
+
         return bv;
     }
 
@@ -603,8 +605,8 @@ return result;
                 auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(0))));
               //  auto sign_ext_input = SExt(input_in, 16);
               // auto sign_ext_input_32 = ZExt(sign_ext_input,32);
-             auto sign_ext_input_32 = SExt(input_in,32);
-            // auto sign_ext_input_32 = int16_to_int32(input_in);
+            // auto sign_ext_input_32 = SExt(input_in,32);
+              auto sign_ext_input_32 = int16_to_int32(input_in);
               //  auto less_than =  Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < ZExt(kernel_size,PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
                 auto less_than =  Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < BvConst(8,PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
 
