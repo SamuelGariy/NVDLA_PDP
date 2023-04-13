@@ -597,7 +597,7 @@ return result;
             auto kernel_size_32 = ZExt(kernel_height,32) * ZExt(kernel_width,32);
 
             auto sum = BvConst(0,32);// 32 bits to keep accuracy
-
+            auto curr = BvConst(0,32);
             for (int kernel_j = 0; kernel_j < PDP_INPUT_MAX; kernel_j++)
             {
                 auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(kernel_j))));
@@ -609,7 +609,6 @@ return result;
                 auto less_than =  Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < BvConst(8,PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
 
                 //auto curr = Ite(less_than, sign_ext_input_32, BvConst(0, 32));
-                auto curr = BvConst(0,32);
                 curr = Ite(less_than, sign_ext_input_32, curr);
                 auto sum_pos = Ite(SelectBit(sum, 31) == 0, BoolConst(true), BoolConst(false));
                 auto curr_pos = Ite(SelectBit(curr, 31) == 0, BoolConst(true), BoolConst(false)); 
