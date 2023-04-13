@@ -611,7 +611,7 @@ return result;
                 auto less_than =  Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < ZExt(kernel_size,PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
             //    auto less_than =  Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < BvConst(8,PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
 
-                //auto curr = Ite(less_than, sign_ext_input_32, BvConst(0, 32));
+                auto curr = Ite(less_than, sign_ext_input_32, BvConst(0, 32));
                 //curr = Ite(less_than, sign_ext_input_32, curr);
                 auto sum_pos = Ite(SelectBit(sum, 31) == 0, BoolConst(true), BoolConst(false));
                 auto curr_pos = Ite(SelectBit(curr, 31) == 0, BoolConst(true), BoolConst(false)); 
@@ -621,7 +621,7 @@ return result;
                   
 
                sum = Ite(!sum_pos & !curr_pos,two_comp_32(sum + curr),sum + curr); 
-                test = Ite(BvConst(kernel_j,32) == 0,curr, test);
+               // test = Ite(BvConst(kernel_j,32) == 0,curr, test);
               //sum = sign_ext_input_32;
             }
             
@@ -642,7 +642,7 @@ return result;
          //  auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,PDP_INT_16_WIDTH-1,0),Extract(pos_mean,PDP_INT_16_WIDTH-1,0));
          //  auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,31,16),Extract(pos_mean,31,16));
          //auto mean = Ite(SelectBit(sum,31) == 1, Extract(pos_mean,PDP_INT_16_WIDTH-1,0),Extract(pos_mean,PDP_INT_16_WIDTH-1,0));
-          auto mean = Extract(test,31,16);
+          auto mean = Extract(sum,31,16);
          //auto mean = pos_mean;
 
            instr.SetUpdate(m.state("pdp_output"), mean);
