@@ -600,7 +600,7 @@ return result;
             auto curr = BvConst(0,32);
             for (int kernel_j = 0; kernel_j < PDP_INPUT_MAX; kernel_j++)
             {
-                auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(kernel_j))));
+                auto input_in = m.input(GetVarName("pdp_input_", (std::to_string(8))));
               //  auto sign_ext_input = SExt(input_in, 16);
               // auto sign_ext_input_32 = ZExt(sign_ext_input,32);
              //  auto sign_ext_input_32 = SExt(input_in,32);
@@ -609,7 +609,7 @@ return result;
                 auto less_than =  Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < BvConst(8,PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
 
                 //auto curr = Ite(less_than, sign_ext_input_32, BvConst(0, 32));
-                curr = Ite(less_than, sign_ext_input_32, curr);
+                //curr = Ite(less_than, sign_ext_input_32, curr);
                 auto sum_pos = Ite(SelectBit(sum, 31) == 0, BoolConst(true), BoolConst(false));
                 auto curr_pos = Ite(SelectBit(curr, 31) == 0, BoolConst(true), BoolConst(false)); 
                 //auto sum_2comp =  two_comp_32(sum);
@@ -618,7 +618,7 @@ return result;
                   
 
                // sum = Ite(!sum_pos & !curr_pos,two_comp_32(sum + curr),sum + curr); 
-               sum = curr;
+               sum = sign_ext_input_32;
             }
             
            //auto neg_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), pos_to_neg((neg_to_pos(sum) / ZExt(kernel_size,32))), BvConst(0, 32));
