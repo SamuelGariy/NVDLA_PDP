@@ -38,41 +38,41 @@ ExprRef two_comp_32(ExprRef a)
  auto result = ~(a) + BvConst(1,32)
 return result;
 }
-// Return 16-bit representation of int8
-    ExprRef int8_to_int16(ExprRef num){
-        auto bv7_unsigned = num & BvConst(0x7F, PDP_INT_16_WIDTH);
-        auto bv = Ite(SelectBit(num, 7) == 0, bv7_unsigned, bv7_unsigned | BvConst(0xFF80, PDP_INT_16_WIDTH));
-        return bv;
-    }
-    // Return 16-bit representation of int8
-    ExprRef int16_to_int32(ExprRef num){
-        auto bv15_unsigned = num & BvConst(7FFF, 32);
-        auto bv = Ite(SelectBit(num, 15) == 0, bv15_unsigned, bv15_unsigned | BvConst(0xFF80, 32));
-        return bv;
-    }
+// // Return 16-bit representation of int8
+//     ExprRef int8_to_int16(ExprRef num){
+//         auto bv7_unsigned = num & BvConst(0x7F, PDP_INT_16_WIDTH);
+//         auto bv = Ite(SelectBit(num, 7) == 0, bv7_unsigned, bv7_unsigned | BvConst(0xFF80, PDP_INT_16_WIDTH));
+//         return bv;
+//     }
+//     // Return 16-bit representation of int8
+//     ExprRef int16_to_int32(ExprRef num){
+//         auto bv15_unsigned = num & BvConst(7FFF, 32);
+//         auto bv = Ite(SelectBit(num, 15) == 0, bv15_unsigned, bv15_unsigned | BvConst(0xFF80, 32));
+//         return bv;
+//     }
 
 
-    // Sum of 2s complement
-ExprRef add(ExprRef a, ExprRef b)
- {
-    auto carry = BvConst(0,2);
-    auto result = BvConst(0,32);
-    //result[32] = '\0';
-        auto bv = BvConst(0,1);
-    for (int i = 0; i < 32 ; i++) {
-        auto bit_a = SelectBit(a,i); 
-        auto bit_b = SelectBit(b,i); 
-        auto bits_xor = ZExt(bit_a,2) ^ ZExt(bit_b,2);
-        auto bits_and = ZExt(bit_a,2) & ZExt(bit_b,2);
-        auto sum = bits_xor ^ carry;
+//     // Sum of 2s complement
+// ExprRef add(ExprRef a, ExprRef b)
+//  {
+//     auto carry = BvConst(0,2);
+//     auto result = BvConst(0,32);
+//     //result[32] = '\0';
+//         auto bv = BvConst(0,1);
+//     for (int i = 0; i < 32 ; i++) {
+//         auto bit_a = SelectBit(a,i); 
+//         auto bit_b = SelectBit(b,i); 
+//         auto bits_xor = ZExt(bit_a,2) ^ ZExt(bit_b,2);
+//         auto bits_and = ZExt(bit_a,2) & ZExt(bit_b,2);
+//         auto sum = bits_xor ^ carry;
 
-        auto new_bit = Ite(sum == BvConst(0,2) | sum == BvConst(2,2) ,BvConst(0,1),BvConst(1,1));
-        carry = bits_and | (bits_xor & carry);
-        bv = bv.Append(new_bit);
-        }
-        auto bv_32 = Extract(bv,31,0);
-        return bv_32;
- }
+//         auto new_bit = Ite(sum == BvConst(0,2) | sum == BvConst(2,2) ,BvConst(0,1),BvConst(1,1));
+//         carry = bits_and | (bits_xor & carry);
+//         bv = bv.Append(new_bit);
+//         }
+//         auto bv_32 = Extract(bv,31,0);
+//         return bv_32;
+//  }
 //     for (int i = 31; i >= 0; i--) {
 //         int bit_a = (a[i] == '1') ? 1 : 0;
 //         int bit_b = (b[i] == '1') ? 1 : 0;
@@ -607,7 +607,7 @@ ExprRef add(ExprRef a, ExprRef b)
                 auto less_than =  Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < ZExt(kernel_size,PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
 
                 auto curr = Ite(less_than, sign_ext_input_32, BvConst(0, 32));
-                auto sum_pos = Ite(SelectBit(max, 31) == 0, BoolConst(true), BoolConst(false));
+                auto sum_pos = Ite(SelectBit(sum, 31) == 0, BoolConst(true), BoolConst(false));
                 auto curr_pos = Ite(SelectBit(curr, 31) == 0, BoolConst(true), BoolConst(false)); 
                 //auto sum_2comp =  two_comp_32(sum);
                // auto curr_2comp = two_comp_32(curr);
