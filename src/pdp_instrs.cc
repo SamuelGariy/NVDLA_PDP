@@ -609,7 +609,8 @@ return result;
                 auto less_than =  Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < BvConst(8,PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
 
                 //auto curr = Ite(less_than, sign_ext_input_32, BvConst(0, 32));
-                auto curr = Ite(less_than, sign_ext_input_32, curr);
+                auto curr = BvConst(0,32);
+                curr = Ite(less_than, sign_ext_input_32, curr);
                 auto sum_pos = Ite(SelectBit(sum, 31) == 0, BoolConst(true), BoolConst(false));
                 auto curr_pos = Ite(SelectBit(curr, 31) == 0, BoolConst(true), BoolConst(false)); 
                 //auto sum_2comp =  two_comp_32(sum);
