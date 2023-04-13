@@ -622,7 +622,7 @@ return result;
 
               // sum = Ite(!sum_pos & !curr_pos,two_comp_32(sum + curr),sum + curr); 
               sum = sum + curr;
-                test = Ite(BvConst(kernel_j,32) == 0,curr, test);
+            test = Ite(BvConst(kernel_j,32) == 0,sum, test);
               //sum = sign_ext_input_32;
             }
             
