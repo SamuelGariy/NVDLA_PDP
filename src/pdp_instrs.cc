@@ -605,7 +605,8 @@ return result;
               // auto sign_ext_input_32 = ZExt(sign_ext_input,32);
              //  auto sign_ext_input_32 = SExt(input_in,32);
              auto sign_ext_input_32 = int16_to_int32(input_in);
-                auto less_than =  Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < ZExt(kernel_size,PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
+              //  auto less_than =  Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < ZExt(kernel_size,PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
+                auto less_than =  Ite(BvConst(kernel_j, PDP_INT_16_WIDTH) < BvConst(8,PDP_INT_16_WIDTH),BoolConst(true),BoolConst(false));
 
                 auto curr = Ite(less_than, sign_ext_input_32, BvConst(0, 32));
                 auto sum_pos = Ite(SelectBit(sum, 31) == 0, BoolConst(true), BoolConst(false));
@@ -615,7 +616,8 @@ return result;
                // auto neg_status = Ite(sum_pos & !curr_pos & (curr_2comp > sum),BvConst(0,2),Ite(!sum_pos & curr_pos & (sum_2comp > curr),BvConst(1,2),Ite(!sum_pos & !curr_pos,BvConst(2,2),BvConst(3,2))));
                   
 
-                sum = Ite(!sum_pos & !curr_pos,two_comp_32(sum + curr),sum + curr); 
+               // sum = Ite(!sum_pos & !curr_pos,two_comp_32(sum + curr),sum + curr); 
+               sum = sign_ext_input_32;
             }
             
            //auto neg_mean = Ite(kernel_size > BvConst(0, PDP_INT_16_WIDTH), pos_to_neg((neg_to_pos(sum) / ZExt(kernel_size,32))), BvConst(0, 32));
